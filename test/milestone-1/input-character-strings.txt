@@ -1,0 +1,12 @@
+program CharStringTest;
+
+var
+  ch: char;
+  str: string;
+
+begin
+  ch := 'A';
+  str := 'Hello';
+  writeln('Character: ', ch);
+  writeln('String: ', str);
+end.
