@@ -108,29 +108,29 @@ def simulate_dfa(dfa, start_state, input_string, final_states):
             i += 1
         else:
             if state in final_states and token:
-                if ch in set(string.ascii_lowercase) | set(string.ascii_uppercase) | {'_'} | set(string.digits):
+                if ch in (set(string.ascii_lowercase) | set(string.ascii_uppercase) | {'_'} | set(string.digits)) and input_string[i-1] in (set(string.ascii_lowercase) | set(string.ascii_uppercase) | {'_'}):
                     state = 'state_1'
                     token += ch
                     i += 1
                     continue
 
                 tokens.append((token.strip(), state))
-                print(f"Token found: '{token.strip()}' → {state}")
+                print(f"Token found: '{token.strip()}' → {state}, here")
                 token = ""
                 state = start_state
                 continue
 
-            if ch.isspace():
-                if token.strip():
-                    if state in final_states:
-                        tokens.append((token.strip(), state))
-                        print(f"Token found: '{token.strip()}' → {state}")
-                    else:
-                        print(f"Ignored unfinished token: '{token.strip()}' at whitespace")
-                token = ""
-                state = start_state
-                i += 1
-                continue
+            # if ch.isspace():
+            #     if token.strip():
+            #         if state in final_states:
+            #             tokens.append((token.strip(), state))
+            #             print(f"Token found: '{token.strip()}' → {state}")
+            #         else:
+            #             print(f"Ignored unfinished token: '{token.strip()}' at whitespace")
+            #     token = ""
+            #     state = start_state
+            #     i += 1
+            #     continue
 
             if not ch.isalnum() and ch not in ['_', '"', "'"]:
                 token = token.strip()
@@ -149,7 +149,7 @@ def simulate_dfa(dfa, start_state, input_string, final_states):
                         tokens.append((ch, "semicolon"))
                     case ':': 
                         if i+1 < len(input_string)-1 and input_string[i+1] == '=':
-                            print("  ':=' → assignment_operator")
+                            print("  ':=' → assignment_operator", "here")
                             tokens.append((":=", "assignment_operator"))
                             i += 1
                         else:
@@ -219,9 +219,9 @@ if __name__ == "__main__":
     # for s, edges in dfa.items():
     #     print(f"{s}: {edges}")
 
-    test_file = "../test/milestone-1/input-character-strings.txt"
+    test_file = "../test/milestone-1/input-procedure-functions.pas"
     with open(test_file, "r") as f:
-        input_str = f.read().replace('\r', '').replace('\n', ' ').replace('\t', ' ')
+        input_str = f.read().replace('\r', ' ').replace('\n', ' ').replace('\t', ' ')
 
     print(f"\nTesting input from {test_file}:")
     print(f"Input string: {repr(input_str)}")

@@ -1,13 +1,11 @@
-program Variables;
+program programHello;
 
 var
-  x, y, z: integer;
-  message: string;
+  a, b : integer;
 
 begin
-  x := 10;
-  y := 20;
-  z := x + y;
-  message := 'Sum is ';
-  writeln(message, z);
+  a := 5;
+  b := a + 10;
+  writeln('Result = ', b);
 end.
+

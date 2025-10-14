@@ -1,4 +1,4 @@
-program BooleanTest;
+program booleanTest;
 
 var
   flag : boolean;
