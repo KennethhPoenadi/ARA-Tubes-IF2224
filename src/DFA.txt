@@ -3,9 +3,6 @@ final_state = identifier, keyword, assign_operator, number, string_literal, rang
 
 # looping state_0
 state_0 whitespace state_0
-state_0 \n state_0
-state_0 \t state_0
-state_0 \r state_0
 
 # state_0 to preidentifier (g, h, j, k, l, m, n, q, s, u, x, y, z)
 state_0 g state_1
@@ -48,81 +45,26 @@ state_0 Y state_1
 state_0 Z state_1
 
 # state_1 looping
-state_1 a state_1
-state_1 b state_1
-state_1 c state_1
-state_1 d state_1
-state_1 e state_1
-state_1 f state_1
-state_1 g state_1
-state_1 h state_1
-state_1 i state_1
-state_1 j state_1
-state_1 k state_1
-state_1 l state_1
-state_1 m state_1
-state_1 n state_1
-state_1 o state_1
-state_1 p state_1
-state_1 q state_1
-state_1 r state_1
-state_1 s state_1
-state_1 t state_1
-state_1 u state_1
-state_1 v state_1
-state_1 w state_1
-state_1 x state_1
-state_1 y state_1
-state_1 z state_1
-state_1 A state_1
-state_1 B state_1
-state_1 C state_1
-state_1 D state_1
-state_1 E state_1
-state_1 F state_1
-state_1 G state_1
-state_1 H state_1
-state_1 I state_1
-state_1 J state_1
-state_1 K state_1
-state_1 L state_1
-state_1 M state_1
-state_1 N state_1
-state_1 O state_1
-state_1 P state_1
-state_1 Q state_1
-state_1 R state_1
-state_1 S state_1
-state_1 T state_1
-state_1 U state_1
-state_1 V state_1
-state_1 W state_1
-state_1 X state_1
-state_1 Y state_1
-state_1 Z state_1
+state_1 *state_1 state_1
 
 # state 1 to identifier
 state_1 whitespace identifier
 
-# state 0 to prekeyword
-# state_2 program
+# ---------- program ----------
 state_0 p state_2
 state_2 r state_3
 state_2 ~r state_1
 state_2 whitespace identifier
 
-# state_3
 state_3 o state_4
 state_3 ~o state_1
 state_3 whitespace identifier
 
-# state_4
 state_4 g state_5_1
 state_4 c state_183
 state_4 ~g,c state_1
 state_4 whitespace identifier
 
-# state_5_1 - keyword
 state_5_1 r state_6_1
 state_5_1 ~r state_1
 state_5_1 whitespace identifier

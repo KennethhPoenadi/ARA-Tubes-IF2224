@@ -70,6 +70,18 @@ def load_dfa(filename):
                         dfa[src][char] = dest
 
                 continue
+
+            if symbol == '*state_1':
+                char_set = set(string.ascii_letters) | set(string.digits) | {'_'}
+
+                if src not in dfa:
+                    dfa[src] = {}
+
+                for char in char_set:
+                    if char not in dfa[src]:
+                        dfa[src][char] = dest
+
+                continue
                 
             if src not in dfa:
                 dfa[src] = {}
@@ -96,9 +108,14 @@ def simulate_dfa(dfa, start_state, input_string, final_states):
             i += 1
         else:
             if state in final_states and token:
+                if ch in set(string.ascii_lowercase) | set(string.ascii_uppercase) | {'_'} | set(string.digits):
+                    state = 'state_1'
+                    token += ch
+                    i += 1
+                    continue
+
                 tokens.append((token.strip(), state))
                 print(f"Token found: '{token.strip()}' → {state}")
-
                 token = ""
                 state = start_state
                 continue
@@ -202,7 +219,7 @@ if __name__ == "__main__":
     # for s, edges in dfa.items():
     #     print(f"{s}: {edges}")
 
-    test_file = "../test/milestone-1/input-boolean-comments.txt"
+    test_file = "../test/milestone-1/input-character-strings.txt"
     with open(test_file, "r") as f:
         input_str = f.read().replace('\r', '').replace('\n', ' ').replace('\t', ' ')
 
