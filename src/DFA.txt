@@ -383,9 +383,8 @@ state_152 ~r state_1
 state_152 whitespace identifier
 
 # ---------- assign_operator ----------
-state_0 : state_230
-state_230 whitespace colon
-state_230 = assign_operator
+state_0 : colon
+colon = assign_operator
 
 # ---------- number ----------
 state_0 num state_240
