@@ -214,12 +214,12 @@ def simulate_dfa(dfa, start_state, input_string, final_states):
 
 
 if __name__ == "__main__":
-    dfa, start_state, final_state = load_dfa("DFA.txt")
+    dfa, start_state, final_state = load_dfa("src/DFA.txt")
     print("Loaded DFA transitions:")
     # for s, edges in dfa.items():
     #     print(f"{s}: {edges}")
 
-    test_file = "../test/milestone-1/input-procedure-functions.pas"
+    test_file = "test/milestone-1/input-halo.pas"
     with open(test_file, "r") as f:
         input_str = f.read().replace('\r', ' ').replace('\n', ' ').replace('\t', ' ')
 

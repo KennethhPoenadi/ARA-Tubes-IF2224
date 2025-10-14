@@ -263,7 +263,7 @@ def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators
 
 
 
-source = """<=<<>-64  -  45E-3 - 34 + 888.3 - (-4)
+source = """<=<<>-64.  -  45E-3 - 34 + 888.3 - (-4) 'asutenan rek''dfengsaks''nhhjhhh'
 
 """
 
