@@ -1,24 +1,5 @@
-from curses.ascii import isdigit
 import json
 import string
-
-# === JSON rules (dimasukkan langsung biar mudah) ===
-'''NUMBER -> NUMBER_DOT[label = "."]
-	NUMBER -> NUMBER[label="{0..9}"]
-	NUMBER_DOT -> RANGE_OPERATOR[label="."]
-	NUMBER_DOT -> NUMBER_FLOAT[label = "{0..9}"]
-	NUMBER_FLOAT -> NUMBER_FLOAT[label="{0..9}"]
-	DOT -> RANGE_OPERATOR[label = "."]
-	
-	
-	Open_Apostrophe -> CHAR_BUILD[label="{a..z,A..Z, ALL}"]
-	CHAR_BUILD -> STRING_BUILD[label="{a..z,A..Z, ALL}"]
-	CHAR_BUILD -> CHAR_LITERAL[label="\'"]
-	STRING_BUILD -> STRING_BUILD[label="{a..z,A..Z, ALL}"]
-	STRING_BUILD -> STRING_LITERAL[label="\'"]
-	STRING_LITERAL -> SUB_STRING[label="\'"]
-	SUB_STRING -> STRING_BUILD[label="\'"]
-	'''
 
 dfa_rules = {
     "Start_state": "START",
@@ -31,11 +12,12 @@ dfa_rules = {
         "NUMBER",
         "DOT",
         "COMMA",
-        "LT",
+        "LT/LEQ/NEQ",
         "GT",
         "EQ",
         "ARITHMETIC_OP",
-        "SUBTRACT",
+        "NEGATIVE",
+        "SUBSTRACT",
         "MULTIPLY",
         "LPAREN",
         "RPAREN",
@@ -64,11 +46,11 @@ dfa_rules = {
         ["START", ".", "DOT"],
         ["START", ",", "COMMA"],
         ["START", "'", "APOSTROPHE"],
-        ["START", "<", "LT"],
+        ["START", "<", "LT/LEQ/NEQ"],
         ["START", ">", "GT"],
         ["START", "=", "EQ"],
         ["START", "+,/", "ARITHMETIC_OP"],
-        ["START", "-", "SUBTRACT"],
+        ["START", "-", "NEGATIVE"],
         ["START", "*", "MULTIPLY"],
         ["START", "(", "LPAREN"],
         ["START", ")", "RPAREN"],
@@ -79,10 +61,9 @@ dfa_rules = {
 
         ["LPAREN", "*", "COMMENT_START"],
         ["MULTIPLY", ")", "COMMENT_END"],
-        ["SUBSTRACT", "{0..9}", "NUMBER"],
+        ["NEGATIVE", "0..9", "NUMBER"],
 
-        ["LT", "=", "LEQ"],
-        ["LT", ">", "NEQ"],
+        ["LT/LEQ/NEQ", "=,>", "LT/LEQ/NEQ"],
         ["GT", "=", "GEQ"],
 
         ["COLON", "=", "ASSIGNMENT_OP"],
@@ -100,17 +81,29 @@ dfa_rules = {
         ["NOTATION_OP", "0..9", "S_NUMBER"],
         ["S_NUMBER", "0..9", "S_NUMBER"],
 
+        ["NUMBER_DOT", "-", "SUBSTRACT"],
+        ["NUMBER", "-", "SUBSTRACT"],
+        ["NUMBER_FLOAT", "-", "SUBSTRACT"],
+        ["S_NUMBER", "-", "SUBSTRACT"],
+
+        ["NUMBER_DOT", " ", "SPACE_NUM"],
+        ["NUMBER", " ", "SPACE_NUM"],
+        ["NUMBER_FLOAT", " ", "SPACE_NUM"],
+        ["S_NUMBER", " ", "SPACE_NUM"],
+        ["SPACE_NUM", "-", "SUBSTRACT"],
+        ["SPACE_NUM", " ", "SPACE_NUM"],
+
         ["DOT", ".", "RANGE_OPERATOR"],
 
-        ["APOSTROPHE", "ALL_EXCEPT_APOSTROPHE", "CHAR_BUILD"],
-        ["CHAR_BUILD", "ALL_EXCEPT_APOSTROPHE", "CHAR_BUILD"],
+        ["APOSTROPHE", "ALL_EXCEPT \'", "CHAR_BUILD"],
+        ["CHAR_BUILD", "ALL_EXCEPT \'", "CHAR_BUILD"],
         ["CHAR_BUILD", "'", "CHAR_LITERAL"],
         ["CHAR_LITERAL", "'", "SUB_CHAR"],
-        ["SUB_CHAR", "ALL_EXCEPT_APOSTROPHE", "STRING_BUILD"],
-        ["STRING_BUILD", "ALL_EXCEPT_APOSTROPHE", "STRING_BUILD"],
+        ["SUB_CHAR", "ALL_EXCEPT \'", "STRING_BUILD"],
+        ["STRING_BUILD", "ALL_EXCEPT \'", "STRING_BUILD"],
         ["STRING_BUILD", "'", "STRING_LITERAL"],
         ["STRING_LITERAL", "'", "SUB_STRING"],
-        ["SUB_STRING", "ALL_EXCEPT_APOSTROPHE", "STRING_BUILD"]
+        ["SUB_STRING", "ALL_EXCEPT \'", "STRING_BUILD"]
 
     ],
 
@@ -118,12 +111,12 @@ dfa_rules = {
         "IDENTIFIER": "IDENTIFIER",
 
         "ARITHMETIC_OP": "ARITHMETIC_OPERATOR",
-        "SUBTRACT": "ARITHMETIC_OPERATOR",
+        "NEGATIVE": "ARITHMETIC_OPERATOR",
         "MULTIPLY": "ARITHMETIC_OPERATOR",
         "LEQ": "RELATIONAL_OPERATOR",
         "NEQ": "RELATIONAL_OPERATOR",
         "GEQ": "RELATIONAL_OPERATOR",
-        "LT": "RELATIONAL_OPERATOR",
+        "LT/LEQ/NEQ": "RELATIONAL_OPERATOR",
         "GT": "RELATIONAL_OPERATOR",
         "EQ": "RELATIONAL_OPERATOR",
         "ASSIGNMENT_OP": "ASSIGN_OPERATOR",
@@ -160,10 +153,15 @@ dfa_rules = {
     }
 }
 
-KEYWORDS = {"program", "var", "begin", "end", "integer", "real", "boolean"}
+KEYWORDS = {"program", "var", "begin", "end", "if", "then", "else", "while", "do", "for", "to", "downto", "integer", "real", "boolean", "char", "array", "of", "procedure", "function", "const", "type", "string"}
 LOGICAL_OPERATORS = {"and", "or", "not"}
+ARITHMETIC_OPERATORS = {"div", "mod"}
 
 def match(ch, pattern):
+    if "ALL_EXCEPT " in pattern:
+        exceptions = pattern[len("ALL_EXCEPT "):].split(", ")
+        return ch not in exceptions
+
     if len(pattern) == 1:
         return ch == pattern
     
@@ -177,9 +175,11 @@ def match(ch, pattern):
             return True
     return False
 
-def lexical_analyze(text, dfa, keywords, logical_operators):
+def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators):
     tokens = []
     pos = 0
+    last_num_pos = 0
+
     n = len(text)
 
     while pos < n:
@@ -198,6 +198,10 @@ def lexical_analyze(text, dfa, keywords, logical_operators):
 
             for s_from, pattern, s_to in dfa["Transitions"]:
                 if s_from == state and match(ch, pattern):
+                    # Buat nahan kalau tiba2 ada arithmetic
+                    if (state == "NUMBER" or state == "NUMBER_DOT" or state == "NUMBER_FLOAT" or state == "S_NUMBER") and (s_to == "SPACE_NUM" or s_to == "SUBSTRACT"):
+                        last_num_pos = pos   
+
                     state = s_to
                     current_lexeme += ch
                     pos += 1
@@ -219,7 +223,6 @@ def lexical_analyze(text, dfa, keywords, logical_operators):
             val = current_lexeme
             print(f"Error: invalid identifier '{val}' ({msg})")
             continue
-        # ======================
 
         if last_accept_state and state not in dfa.get("Error_states", {}):
             tok_type = dfa["Token_mapping"].get(last_accept_state, "UNKNOWN")
@@ -230,14 +233,21 @@ def lexical_analyze(text, dfa, keywords, logical_operators):
             
             if tok_type == "IDENTIFIER" and val.lower() in logical_operators:
                 tok_type = "LOGICAL_OPERATOR"
+            
+            if tok_type == "IDENTIFIER" and val.lower() in arithmetic_operators:
+                tok_type = "ARITHMETIC_OPERATOR"
+            
+            if (last_accept_state == "SUBSTRACT"):
+                tokens.append(("NUMBER",current_lexeme[0:-(pos-last_num_pos)]))
+                tok_type = "ARITHMETIC_OPERATOR"
+                val = current_lexeme[-1]
 
             if (state == "NUMBER_DOT"):
                 if (pos < n and text[pos] == '.'):
-                    state = "RANGE_OPERATOR";
-                    pos += 1
-                elif (pos < n and isdigit(text[pos])):
-                    state = "STATE_NUMBER_REAL";
-
+                    tok_type = "NUMBER"
+                    val = current_lexeme[0:-1]
+                    last_accept_pos -= 1
+        
             tokens.append((tok_type, val))
             pos = last_accept_pos
 
@@ -253,7 +263,10 @@ def lexical_analyze(text, dfa, keywords, logical_operators):
 
 
 
-source = "_asi data_  Bangka_COM _taek _dfw_ var x; hasu_; _pr;"
-result = lexical_analyze(source, dfa_rules, KEYWORDS, LOGICAL_OPERATORS)
+source = """<=<<>-64  -  45E-3 - 34 + 888.3 - (-4)
+
+"""
+
+result = lexical_analyze(source, dfa_rules, KEYWORDS, LOGICAL_OPERATORS, ARITHMETIC_OPERATORS)
 for t in result:
     print(f"{t[0]}({t[1]})")
