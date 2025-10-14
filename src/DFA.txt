@@ -1,0 +1,479 @@
+start_state = state_0
+final_state = identifier, keyword, assign_operator, number, string_literal, range_operator, dot, logical_operator, colon
+
+# looping state_0
+state_0 whitespace state_0
+state_0 \n state_0
+state_0 \t state_0
+state_0 \r state_0
+
+# state_0 to preidentifier (g, h, j, k, l, m, n, q, s, u, x, y, z)
+state_0 g state_1
+state_0 h state_1
+state_0 j state_1
+state_0 k state_1
+state_0 l state_1
+state_0 m state_1
+state_0 q state_1
+state_0 s state_1
+state_0 u state_1
+state_0 x state_1
+state_0 y state_1
+state_0 z state_1
+state_0 A state_1
+state_0 B state_1
+state_0 C state_1
+state_0 D state_1
+state_0 E state_1
+state_0 F state_1
+state_0 G state_1
+state_0 H state_1
+state_0 I state_1
+state_0 J state_1
+state_0 K state_1
+state_0 L state_1
+state_0 M state_1
+state_0 N state_1
+state_0 O state_1
+state_0 P state_1
+state_0 Q state_1
+state_0 R state_1
+state_0 S state_1
+state_0 T state_1
+state_0 U state_1
+state_0 V state_1
+state_0 W state_1
+state_0 X state_1
+state_0 Y state_1
+state_0 Z state_1
+
+# state_1 looping
+state_1 a state_1
+state_1 b state_1
+state_1 c state_1
+state_1 d state_1
+state_1 e state_1
+state_1 f state_1
+state_1 g state_1
+state_1 h state_1
+state_1 i state_1
+state_1 j state_1
+state_1 k state_1
+state_1 l state_1
+state_1 m state_1
+state_1 n state_1
+state_1 o state_1
+state_1 p state_1
+state_1 q state_1
+state_1 r state_1
+state_1 s state_1
+state_1 t state_1
+state_1 u state_1
+state_1 v state_1
+state_1 w state_1
+state_1 x state_1
+state_1 y state_1
+state_1 z state_1
+state_1 A state_1
+state_1 B state_1
+state_1 C state_1
+state_1 D state_1
+state_1 E state_1
+state_1 F state_1
+state_1 G state_1
+state_1 H state_1
+state_1 I state_1
+state_1 J state_1
+state_1 K state_1
+state_1 L state_1
+state_1 M state_1
+state_1 N state_1
+state_1 O state_1
+state_1 P state_1
+state_1 Q state_1
+state_1 R state_1
+state_1 S state_1
+state_1 T state_1
+state_1 U state_1
+state_1 V state_1
+state_1 W state_1
+state_1 X state_1
+state_1 Y state_1
+state_1 Z state_1
+
+# state 1 to identifier
+state_1 whitespace identifier
+
+# state 0 to prekeyword
+# state_2 program
+state_0 p state_2
+state_2 r state_3
+state_2 ~r state_1
+state_2 whitespace identifier
+
+# state_3
+state_3 o state_4
+state_3 ~o state_1
+state_3 whitespace identifier
+
+# state_4
+state_4 g state_5_1
+state_4 c state_183
+state_4 ~g,c state_1
+state_4 whitespace identifier
+
+# state_5_1 - keyword
+state_5_1 r state_6_1
+state_5_1 ~r state_1
+state_5_1 whitespace identifier
+
+state_6_1 a state_7_1
+state_6_1 ~a state_1
+state_6_1 whitespace identifier
+
+state_7_1 m keyword
+state_7_1 ~m state_1
+state_7_1 whitespace identifier
+
+# ---------- var ----------
+state_0 v state_10
+state_10 a state_11
+state_10 ~a state_1
+state_10 whitespace identifier
+
+state_11 r state_12
+state_11 ~r state_1
+state_11 whitespace identifier
+
+state_12 whitespace keyword
+state_12 ~ state_1
+
+# ---------- begin ----------
+state_0 b state_20
+state_20 o state_141
+state_20 e state_21
+state_20 ~e,o state_1
+state_20 whitespace identifier
+
+state_21 g state_22
+state_21 ~g state_1
+state_21 whitespace identifier
+
+state_22 i state_23
+state_22 ~i state_1
+state_22 whitespace identifier
+
+state_23 n keyword
+state_23 ~n state_1
+state_23 whitespace identifier
+
+# ---------- boolean ----------
+state_141 o state_142
+state_141 ~o state_1
+state_141 whitespace identifier
+
+state_142 l state_143
+state_142 ~l state_1
+state_142 whitespace identifier
+
+state_143 e state_144
+state_143 ~e state_1
+state_143 whitespace identifier
+
+state_144 a state_145
+state_144 ~a state_1
+state_144 whitespace identifier
+
+state_145 n keyword
+state_145 ~n state_1
+state_145 whitespace identifier
+
+# ---------- end or else ----------
+state_0 e state_30
+state_30 n state_31
+state_30 l state_61
+state_30 ~n,l state_1
+state_30 whitespace identifier
+
+state_31 d keyword
+state_31 ~d state_1
+state_31 whitespace identifier
+
+# ---------- else ----------
+state_61 s state_62
+state_61 ~s state_1
+state_61 whitespace identifier
+
+state_62 e keyword
+state_62 ~e state_1
+state_62 whitespace identifier
+
+# ---------- if ----------
+state_0 i state_40
+state_40 f keyword
+state_40 n state_121
+state_40 ~f,n state_1
+state_40 whitespace identifier
+
+# ---------- integer ----------
+state_121 t state_122
+state_121 ~t state_1
+state_121 whitespace identifier
+
+state_122 e state_123
+state_122 ~e state_1
+state_122 whitespace identifier
+
+state_123 g state_124
+state_123 ~g state_1
+state_123 whitespace identifier
+
+state_124 e state_125
+state_124 ~e state_1
+state_124 whitespace identifier
+
+state_125 r keyword
+state_125 ~r state_1
+state_125 whitespace identifier
+
+# ---------- then ----------
+state_51 e state_52
+state_51 ~e state_1
+state_51 whitespace identifier
+
+state_52 n keyword
+state_52 ~n state_1
+state_52 whitespace identifier
+
+
+# ---------- while ----------
+state_0 w state_70
+state_70 h state_71
+state_70 ~h state_1
+state_70 whitespace identifier
+
+state_71 i state_72
+state_71 ~i state_1
+state_71 whitespace identifier
+
+state_72 l state_73
+state_72 ~l state_1
+state_72 whitespace identifier
+
+state_73 e keyword
+state_73 ~e state_1
+state_73 whitespace identifier
+
+# ---------- do ----------
+state_0 d state_80
+state_80 o state_81
+state_81 w state_112
+state_80 ~o,w state_1
+state_81 whitespace keyword
+
+# ---------- downto ----------
+state_112 n state_113
+state_112 ~n state_1
+state_112 whitespace identifier
+
+state_113 t state_114
+state_113 ~t state_1
+state_113 whitespace identifier
+
+state_114 o keyword
+state_114 ~o state_1
+state_114 whitespace identifier
+
+# ---------- for ----------
+state_0 f state_90
+state_90 o state_91
+state_90 ~o state_1
+state_90 whitespace identifier
+
+state_91 r keyword
+state_91 ~r state_1
+state_91 whitespace identifier
+
+# ---------- to ----------
+state_0 t state_100
+state_100 o keyword
+state_100 y state_231
+state_100 h state_51
+state_100 ~o,y,h state_1
+state_100 whitespace identifier
+
+# ---------- type ----------
+state_231 p state_232
+state_231 ~p state_1
+state_231 whitespace identifier
+
+state_232 e state_keyword_type
+state_232 ~e state_1
+state_232 whitespace identifier
+
+# ---------- real ----------
+state_0 r state_130
+state_130 e state_131
+state_130 ~e state_1
+state_130 whitespace state
+
+state_131 a state_132
+state_131 ~a state_1
+state_131 whitespace identifier
+
+state_132 l keyword
+state_132 ~l state_1
+state_132 whitespace identifier
+
+# ---------- array ----------
+state_0 a state_160
+state_160 n state_270
+state_160 r state_161
+state_160 ~r,n state_1
+state_160 whitespace identifier
+
+state_161 r state_162
+state_161 ~r state_1
+state_161 whitespace identifier
+
+state_162 a state_163
+state_162 ~a state_1
+state_162 whitespace identifier
+
+state_163 y keyword
+state_163 ~y state_1
+state_163 whitespace identifier
+
+# ---------- and operator ----------
+state_270 d state_271
+state_271 whitespace logical_operator
+state_271 ~ state_1
+
+# ---------- of ----------
+state_0 o state_170
+state_170 r state_280
+state_170 f keyword
+state_170 ~f,r state_1
+state_170 whitespace identifier
+
+# ---------- or operator ----------
+state_280 whitespace logical_operator
+state_280 ~ state_1
+
+# ---------- procedure ----------
+
+state_183 e state_184
+state_183 ~e state_1
+state_183 whitespace identifier
+
+state_184 d state_185
+state_184 ~d state_1
+state_184 whitespace identifier
+
+state_185 u state_186
+state_185 ~u state_1
+state_185 whitespace identifier
+
+state_186 r state_187
+state_186 ~r state_1
+state_186 whitespace identifier
+
+state_187 e keyword
+state_187 ~e state_1
+state_187 whitespace identifier
+
+# ---------- function ----------
+state_0 f state_200
+state_200 u state_201
+state_200 ~u state_1
+state_200 whitespace identifier
+
+state_201 n state_202
+state_201 ~n state_1
+state_201 whitespace identifier
+
+state_202 c state_203
+state_202 ~c state_1
+state_202 whitespace identifier
+
+state_203 t state_204
+state_203 ~t state_1
+state_203 whitespace identifier
+
+state_204 i state_205
+state_204 ~i state_1
+state_204 whitespace identifier
+
+state_205 o state_206
+state_205 ~o state_1
+state_205 whitespace identifier
+
+state_206 n keyword
+state_206 ~n state_1
+state_206 whitespace identifier
+
+# ---------- const ----------
+state_0 c state_220
+state_220 h state_151
+state_220 o state_221
+state_220 ~o,h state_1
+state_220 whitespace identifier
+
+state_221 n state_222
+state_221 ~n state_1
+state_221 whitespace identifier
+
+state_222 s state_223
+state_222 ~s state_1
+state_222 whitespace identifier
+
+state_223 t keyword
+state_223 ~t state_1
+state_223 whitespace identifier
+
+# ---------- char ----------
+state_151 a state_152
+state_151 ~a state_1
+state_151 whitespace identifier
+
+state_152 r keyword
+state_152 ~r state_1
+state_152 whitespace identifier
+
+# ---------- assign_operator ----------
+state_0 : state_230
+state_230 whitespace colon
+state_230 = assign_operator
+
+# ---------- number ----------
+state_0 num state_240
+state_240 num state_240
+state_240 whitespace number
+
+# ---------- string ----------
+state_0 ' state_250
+state_250 * state_250
+state_250 ' string_literal
+
+# ---------- range operator ----------
+state_0 . state_260
+state_260 whitespace dot
+state_260 . range_operator
+
+# ---------- not operator ----------
+state_0 n state_290
+state_290 o state_291
+state_290 ~o state_1
+state_290 whitespace identifier
+
+state_291 t state_292
+state_291 ~t state_1
+state_291 whitespace identifier
+
+state_292 whitespace logical_operator
+state_292 ~ state_1
+
+
+
+
+
