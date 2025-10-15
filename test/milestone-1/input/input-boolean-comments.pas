@@ -5,10 +5,6 @@ var
   x : integer;
 
 begin
-  {initialize variables}
-  flag := true;
-  x := 10;
-
   if ( flag = true ) and ( x > 5 ) then
     writeln('Condition met')
   else

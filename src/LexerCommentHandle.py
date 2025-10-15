@@ -1,7 +1,7 @@
 import json
 import sys
 
-KEYWORDS = {"program", "var", "begin", "end", "if", "then", "else", "while", "do", "for", "to", "downto", "integer", "real", "boolean", "char", "array", "of", "procedure", "function", "const", "type", "string"}
+KEYWORDS = {"writeln","program", "var", "begin", "end", "if", "then", "else", "while", "do", "for", "to", "downto", "integer", "real", "boolean", "char", "array", "of", "procedure", "function", "const", "type", "string"}
 LOGICAL_OPERATORS = {"and", "or", "not"}
 ARITHMETIC_OPERATORS = {"div", "mod"}
 
@@ -94,6 +94,8 @@ def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators
                 val = ""
                 tok_type = "COMMENT_END_S"
                 last_accept_pos = pos
+            if state == "SPACE_NUM":
+                val = current_lexeme.rstrip()
             tokens.append((tok_type, val))
             pos = last_accept_pos
         elif state in dfa.get("Error_states", {}):

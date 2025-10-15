@@ -7,6 +7,6 @@ var
 begin
   char_1 := 'A';
   str := 'Hello';
-  writeln('Character: ', char_1);
+  writeln('Character: , char_1);
   writeln('String: ', str);
 end.

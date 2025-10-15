@@ -11,9 +11,9 @@ end;
 
 begin
   a := 4;
-  b := -64.4E2 <>>>>>>>>;
-  Digit = 5..9; 
-  (*iki opo 'woy lah su toh*)
+  b := -64.4E2 - 0.5E-3;
+  Digit = 5; 
+  (*iki opo 'woy lah, itu toh*)
   { bener }
   msg := 'bdfdf''';
   writeln(msg, Multiply(a, b));

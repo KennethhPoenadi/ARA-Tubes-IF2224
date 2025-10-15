@@ -1,5 +1,4 @@
 program Arrays;
-
 var
   nums: array[1..5] of integer;
   i: integer;
