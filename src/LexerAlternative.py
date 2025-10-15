@@ -44,12 +44,11 @@ def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators
             transitioned = False
             for s_from, pattern, s_to in dfa["Transitions"]:
                 if s_from == state and match(ch, pattern):
-                    if (state in ["NUMBER", "NUMBER_FLOAT", "S_NUMBER"]) and (s_to in ["SPACE_NUM", "SUBSTRACT"]):
+                    if (state in ["NUMBER", "NUMBER_DOT", "NUMBER_FLOAT", "S_NUMBER"]) and (s_to in ["SPACE_NUM", "SUBSTRACT"]):
                         last_num_pos = pos
                     state = s_to
                     current_lexeme += ch
                     pos += 1
-
                     transitioned = True
                     break
             if not transitioned:
@@ -76,6 +75,7 @@ def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators
             if state == "NUMBER_DOT" and pos < n and text[pos] == '.':
                 tok_type = "NUMBER"
                 val = current_lexeme[0:-1]
+                last_accept_pos -= 1
             tokens.append((tok_type, val))
             pos = last_accept_pos
         elif state in dfa.get("Error_states", {}):
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python LexerTokenizer.py <dfa_rules.json> <source_file.pas>")
         sys.exit(1)
-
+        
     dfa = load_rules(sys.argv[1])
     with open(sys.argv[2], "r") as f:
         source = f.read()

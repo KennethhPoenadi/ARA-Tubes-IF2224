@@ -12,6 +12,9 @@ end;
 begin
   a := 4;
   b := -64.4E+2 - 80;
-  msg := 'Product is ''halooooo'' ';
+  Digit = 5..9; 
+  (*iki opo 'woy lah su toh*)
+  { bener }
+  msg := 'Product is ''halooooo'' kiri gua sub string ';
   writeln(msg, Multiply(a, b));
 end.
