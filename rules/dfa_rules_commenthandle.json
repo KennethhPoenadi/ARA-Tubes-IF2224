@@ -1,9 +1,9 @@
 {
   "Start_state": "START",
-  "Final_states": ["START", "IDENTIFIER", "COLON", "SEMICOLON", "NUMBER", "DOT", "COMMA", "LT/LEQ/NEQ", "GT", "EQ", 
+  "Final_states": ["START", "IDENTIFIER", "COLON", "SEMICOLON", "NUMBER", "DOT", "COMMA", "LT", "LEQ", "NEQ", "GT", "EQ", 
                   "ARITHMETIC_OP", "NEGATIVE", "SUBSTRACT", "DIVIDE", "LPAREN", "RPAREN", "LBRACK", "RBRACK", "COMMENT_START", 
                   "COMMENT_END", "LEQ", "NEQ", "GEQ", "ASSIGNMENT_OP", "NUMBER_FLOAT", "S_NUMBER", "RANGE_OPERATOR", 
-                  "CHAR_LITERAL", "SUB_CHAR", "STRING_LITERAL", "COMMENT_START_P", "COMMENT_END_P", "COMMENT_START_B", "COMMENT_END_B"
+                  "CHAR_LITERAL", "STRING_LITERAL", "COMMENT_START_P", "COMMENT_END_P", "COMMENT_START_B", "COMMENT_END_B"
                   , "COMMENT_START_S", "COMMENT_END_S"],
   "Transitions": [
     ["START", "A..Z,a..z,_", "IDENTIFIER"],
@@ -13,7 +13,7 @@
     ["START", ".", "DOT"],
     ["START", ",", "COMMA"],
     ["START", "'", "APOSTROPHE"],
-    ["START", "<", "LT/LEQ/NEQ"],
+    ["START", "<", "LT"],
     ["START", ">", "GT"],
     ["START", "=", "EQ"],
     ["START", "+,*", "ARITHMETIC_OP"],
@@ -41,7 +41,8 @@
     ["COMMENT_B", "ALL_EXCEPT }", "COMMENT_B"],
     ["COMMENT_B", "}", "COMMENT_END_B"],
     ["NEGATIVE", "0..9", "NUMBER"],
-    ["LT/LEQ/NEQ", "=,>", "LT/LEQ/NEQ"],
+    ["LT", "=", "LEQ"],
+    ["LT", ">", "NEQ"],
     ["GT", "=", "GEQ"],
     ["COLON", "=", "ASSIGNMENT_OP"],
     ["IDENTIFIER", "A..Z,a..z,0..9,_", "IDENTIFIER"],
@@ -65,14 +66,14 @@
     ["SPACE_NUM", " ", "SPACE_NUM"],
     ["DOT", ".", "RANGE_OPERATOR"],
     ["APOSTROPHE", "ALL_EXCEPT '", "CHAR_BUILD"],
-    ["CHAR_BUILD", "ALL_EXCEPT '", "CHAR_BUILD"],
+    ["CHAR_BUILD", "ALL_EXCEPT '", "STRING_BUILD"],
     ["CHAR_BUILD", "'", "CHAR_LITERAL"],
-    ["CHAR_LITERAL", "'", "SUB_CHAR"],
-    ["SUB_CHAR", "ALL_EXCEPT '", "STRING_BUILD"],
+    ["CHAR_LITERAL", "'", "SUB_STRING"],
     ["STRING_BUILD", "ALL_EXCEPT '", "STRING_BUILD"],
     ["STRING_BUILD", "'", "STRING_LITERAL"],
     ["STRING_LITERAL", "'", "SUB_STRING"],
-    ["SUB_STRING", "ALL_EXCEPT '", "STRING_BUILD"]
+    ["SUB_STRING", "ALL_EXCEPT '", "STRING_BUILD"],
+    ["SUB_STRING", "'", "STRING_LITERAL"]
   ],
   "Token_mapping": {
     "IDENTIFIER": "IDENTIFIER",

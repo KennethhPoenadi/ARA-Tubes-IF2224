@@ -46,7 +46,6 @@ def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators
                 if s_from == state and match(ch, pattern):
                     if (state in ["NUMBER", "NUMBER_FLOAT", "S_NUMBER"]) and (s_to in ["SPACE_NUM", "SUBSTRACT"]):
                         last_num_pos = pos
-                    print(state, ch, current_lexeme, s_to)
                     state = s_to
                     current_lexeme += ch
                     pos += 1
