@@ -4,7 +4,7 @@ var
   a, b: integer;
 
 begin
-  abang$%ku := 15;
+  abanku := -15-8 5..9;
   b := 20;
 
   if abang$%ku < b then
