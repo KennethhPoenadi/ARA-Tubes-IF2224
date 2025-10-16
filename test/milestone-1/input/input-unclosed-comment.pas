@@ -5,9 +5,10 @@ var
   a, b, c: integer;
 
 begin
-  a := 5;
+  a%$#f := 5;
   b := a + 10;
   c := -a -b;
   writeln('Result = ', b);
+  { dfkdfdkfjdf
 end.
 

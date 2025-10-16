@@ -60,6 +60,10 @@ def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators
         if pos == n and state in dfa.get("Error_states", {}):
             print(f"Error: invalid '{current_lexeme}' ({dfa['Error_states'][state]})")
             continue
+        if (not last_accept_state):
+            print(f"Error: Unknown symbol'{text[pos]}'")
+            return tokens
+            pos += 1
         if last_accept_state and state not in dfa.get("Error_states", {}):
             tok_type = dfa["Token_mapping"].get(last_accept_state, "UNKNOWN")
             val = current_lexeme
@@ -76,6 +80,7 @@ def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators
             if state == "NUMBER_DOT" and pos < n and text[pos] == '.':
                 tok_type = "NUMBER"
                 val = current_lexeme[0:-1]
+
             if state == "COMMENT_END_P":
                 tokens.append(("COMMENT_START", current_lexeme[:2]))
                 tokens.append(("COMMENT", current_lexeme[2:-2]))
@@ -94,12 +99,15 @@ def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators
                 val = ""
                 tok_type = "COMMENT_END_S"
                 last_accept_pos = pos
+
             if state == "SPACE_NUM":
                 val = current_lexeme.rstrip()
+
             tokens.append((tok_type, val))
             pos = last_accept_pos
         elif state in dfa.get("Error_states", {}):
             print(f"Error: invalid '{current_lexeme}' ({dfa['Error_states'][state]})")
+            return tokens
         else:
             pos += 1
     return tokens
