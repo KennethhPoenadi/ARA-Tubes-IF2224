@@ -57,6 +57,8 @@ def lexical_analyze(text, dfa, keywords, logical_operators, arithmetic_operators
         if pos == n and state in dfa.get("Error_states", {}):
             print(f"Error: invalid '{current_lexeme}' ({dfa['Error_states'][state]})")
             continue
+
+        print(last_accept_state, state, ch)
         if (not last_accept_state):
             print(f"Error: Unknown symbol'{text[pos]}'")
         
