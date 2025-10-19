@@ -2,3 +2,4 @@ python src/LexerCommentHandle.py rules\dfa_rules_commenthandle.json test\milesto
 
 ex:
 python src/LexerCommentHandle.py rules\dfa_rules_commenthandle.json test\milestone-1\input\input-halo.pas > test\milestone-1\output\output-halo.txt
+python src/Lexer_final.py rules\dfa_rules_final.json test\milestone-1\input\input-identifier-error.pas > test\milestone-1\output\output-errIdentifier.txt
