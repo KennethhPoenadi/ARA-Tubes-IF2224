@@ -6,9 +6,15 @@ from src.tree_printer import print_tree
 
 def parse_token_file(token_file):
     tokens = []
-    with open(token_file, 'r') as f:
+    # Detect encoding: check for UTF-16 LE BOM (0xFF 0xFE)
+    with open(token_file, 'rb') as f:
+        first_bytes = f.read(2)
+
+    encoding = 'utf-16-le' if first_bytes == b'\xff\xfe' else 'utf-8'
+
+    with open(token_file, 'r', encoding=encoding) as f:
         for line in f:
-            line = line.strip()
+            line = line.strip().lstrip('\ufeff')  # Remove BOM if present
             if not line:
                 continue
             if '(' in line and ')' in line:

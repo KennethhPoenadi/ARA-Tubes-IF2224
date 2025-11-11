@@ -119,7 +119,7 @@ def merge_compound_keywords(tokens):
 
 def tokenize_from_file(dfa_path, source_path):
     dfa = load_rules(dfa_path)
-    with open(source_path, "r") as f:
+    with open(source_path, "r", encoding="utf-16-le") as f:
         source = f.read()
     return lexical_analyze(source, dfa, KEYWORDS, LOGICAL_OPERATORS, ARITHMETIC_OPERATORS)
 
@@ -133,7 +133,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     dfa = load_rules(sys.argv[1])
-    with open(sys.argv[2], "r") as f:
+    with open(sys.argv[2], "r", encoding="utf-16-le") as f:
         source = f.read()
 
     result = lexical_analyze(source, dfa, KEYWORDS, LOGICAL_OPERATORS, ARITHMETIC_OPERATORS)
