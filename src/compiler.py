@@ -1,8 +1,8 @@
 import sys
 import os
-from src.lexer import tokenize_from_file
-from src.parser import Parser
-from src.tree_printer import print_tree
+from lexer import tokenize_from_file
+from parser import Parser
+from tree_printer import print_tree
 
 def parse_token_file(token_file):
     tokens = []

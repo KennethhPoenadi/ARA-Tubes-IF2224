@@ -200,7 +200,14 @@ if __name__ == "__main__":
         sys.exit(1)
 
     dfa = load_rules(sys.argv[1])
-    with open(sys.argv[2], "r", encoding="utf-16-le") as f:
+
+    # auto detect encoding (utf-16-le atau utf-8)
+    with open(sys.argv[2], 'rb') as f:
+        first_bytes = f.read(2)
+
+    encoding = 'utf-16-le' if first_bytes == b'\xff\xfe' else 'utf-8'
+
+    with open(sys.argv[2], "r", encoding=encoding) as f:
         source = f.read()
 
     result = lexical_analyze(source, dfa, KEYWORDS, LOGICAL_OPERATORS, ARITHMETIC_OPERATORS)
