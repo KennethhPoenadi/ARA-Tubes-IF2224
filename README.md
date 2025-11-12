@@ -10,11 +10,28 @@
 
 ## Deskripsi Program
 
-Program ini adalah sebuah lexer untuk bahasa Pascal yang dirancang untuk memproses input file dan menghasilkan token sesuai dengan aturan DFA (Deterministic Finite Automaton) yang telah ditentukan. Program ini mendukung berbagai fitur seperti:
+Program ini adalah compiler untuk bahasa Pascal-S (subset dari Pascal) dengan kata kunci dalam Bahasa Indonesia. Compiler ini terdiri dari dua tahap utama:
+
+### Milestone 1: Lexical Analysis (Lexer)
+Lexer memproses source code dan menghasilkan token sesuai dengan aturan DFA (Deterministic Finite Automaton). Fitur:
 - Penanganan komentar
 - Identifikasi token primitif
-- Penanganan string yang tidak tertutup
-- Deteksi kesalahan pada identifier
+- Penanganan string dan karakter literal
+- Deteksi kesalahan leksikal
+- Support untuk keywords Bahasa Indonesia
+
+### Milestone 2: Syntax Analysis (Parser)
+Parser menganalisis token dan membangun Parse Tree menggunakan algoritma Recursive Descent. Fitur:
+- Parsing struktur program Pascal-S
+- Validasi sintaks
+- Error handling dengan pesan informatif
+- Generate Parse Tree visual
+- Support untuk:
+  - Variable declarations
+  - Function dan procedure declarations
+  - Array types
+  - Control structures (if, while, for, repeat)
+  - Expressions dan operators
 
 ## Requirements
 
@@ -31,15 +48,51 @@ Program ini adalah sebuah lexer untuk bahasa Pascal yang dirancang untuk mempros
    ```bash
    cd ARA-Tubes-IF2224/Tubes
    ```
-3. Jalankan lexer dengan perintah berikut:
-   ```bash
-   python src/Lexer_final.py <path_ke_file_input>
-   ```
-   Contoh:
-   ```bash
-   python src/Lexer_final.py test/milestone-1/input/input1.pas
-   ```
-4. Hasil akan disimpan di direktori output yang sesuai.
+
+### Menggunakan Compiler (Milestone 2)
+
+Compile program Pascal-S dan generate parse tree:
+```bash
+python3 compiler.py <source_file.pas>
+```
+
+Contoh:
+```bash
+python3 compiler.py test/milestone-2/test1.pas
+```
+
+Output akan berupa parse tree yang ditampilkan di terminal.
+
+### Menggunakan Lexer Saja (Milestone 1)
+
+Jika ingin menjalankan lexer saja:
+```bash
+python3 src/Lexer_final.py rules/dfa_rules_final.json <source_file.pas>
+```
+
+Contoh:
+```bash
+python3 src/Lexer_final.py rules/dfa_rules_final.json test/milestone-1/input/input1.pas
+```
+
+## Struktur File
+
+```
+Tubes/
+├── compiler.py              # Main compiler program (Milestone 2)
+├── src/
+│   ├── lexer.py            # Lexer module dengan Indonesian keywords
+│   ├── parser.py           # Parser dengan Recursive Descent
+│   ├── tree_printer.py     # Parse tree printer
+│   ├── Lexer_final.py      # Original lexer (Milestone 1)
+│   └── tokenizer.py        # Alternative tokenizer
+├── rules/
+│   └── dfa_rules_final.json # DFA rules untuk lexer
+├── test/
+│   ├── milestone-1/        # Test cases untuk lexer
+│   └── milestone-2/        # Test cases untuk parser
+└── doc/                    # Laporan dan dokumentasi
+```
 
 ## Pembagian Tugas
 

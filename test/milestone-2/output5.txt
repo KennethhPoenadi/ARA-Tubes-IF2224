@@ -1,0 +1,320 @@
+└── <program>
+    ├── <program-header>
+    │   ├── KEYWORD(program)
+    │   ├── IDENTIFIER(KompleksTest)
+    │   └── SEMICOLON(;)
+    ├── <declaration-part>
+    │   ├── <const-declaration>
+    │   │   ├── KEYWORD(konstanta)
+    │   │   ├── IDENTIFIER(MAX)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── NUMBER(100)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(MIN)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── NUMBER(0)
+    │   │   └── SEMICOLON(;)
+    │   ├── <type-declaration>
+    │   │   ├── KEYWORD(tipe)
+    │   │   ├── IDENTIFIER(Rentang)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <type>
+    │   │   │   └── <range>
+    │   │   │       ├── <expression>
+    │   │   │       │   └── <simple-expression>
+    │   │   │       │       └── <term>
+    │   │   │       │           └── <factor>
+    │   │   │       │               └── NUMBER(1)
+    │   │   │       ├── RANGE_OPERATOR(..)
+    │   │   │       └── <expression>
+    │   │   │           └── <simple-expression>
+    │   │   │               └── <term>
+    │   │   │                   └── <factor>
+    │   │   │                       └── NUMBER(10)
+    │   │   └── SEMICOLON(;)
+    │   ├── <var-declaration>
+    │   │   ├── KEYWORD(variabel)
+    │   │   ├── <identifier-list>
+    │   │   │   ├── IDENTIFIER(x)
+    │   │   │   ├── COMMA(,)
+    │   │   │   ├── IDENTIFIER(y)
+    │   │   │   ├── COMMA(,)
+    │   │   │   └── IDENTIFIER(z)
+    │   │   ├── COLON(:)
+    │   │   ├── <type>
+    │   │   │   └── KEYWORD(integer)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <identifier-list>
+    │   │   │   └── IDENTIFIER(arr)
+    │   │   ├── COLON(:)
+    │   │   ├── <type>
+    │   │   │   └── <array-type>
+    │   │   │       ├── KEYWORD(larik)
+    │   │   │       ├── LBRACKET([)
+    │   │   │       ├── <range>
+    │   │   │       │   ├── <expression>
+    │   │   │       │   │   └── <simple-expression>
+    │   │   │       │   │       └── <term>
+    │   │   │       │   │           └── <factor>
+    │   │   │       │   │               └── NUMBER(1)
+    │   │   │       │   ├── RANGE_OPERATOR(..)
+    │   │   │       │   └── <expression>
+    │   │   │       │       └── <simple-expression>
+    │   │   │       │           └── <term>
+    │   │   │       │               └── <factor>
+    │   │   │       │                   └── NUMBER(5)
+    │   │   │       ├── RBRACKET(])
+    │   │   │       ├── KEYWORD(dari)
+    │   │   │       └── <type>
+    │   │   │           └── KEYWORD(integer)
+    │   │   └── SEMICOLON(;)
+    │   ├── <procedure-declaration>
+    │   │   ├── KEYWORD(prosedur)
+    │   │   ├── IDENTIFIER(cetak)
+    │   │   ├── <formal-parameter-list>
+    │   │   │   ├── LPARENTHESIS(()
+    │   │   │   ├── <parameter-group>
+    │   │   │   │   ├── <identifier-list>
+    │   │   │   │   │   └── IDENTIFIER(msg)
+    │   │   │   │   ├── COLON(:)
+    │   │   │   │   └── <type>
+    │   │   │   │       └── KEYWORD(string)
+    │   │   │   └── RPARENTHESIS())
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <block>
+    │   │   │   ├── <declaration-part>
+    │   │   │   └── <compound-statement>
+    │   │   │       ├── KEYWORD(mulai)
+    │   │   │       ├── <statement-list>
+    │   │   │       │   ├── <procedure/function-call>
+    │   │   │       │   │   ├── KEYWORD(writeln)
+    │   │   │       │   │   ├── LPARENTHESIS(()
+    │   │   │       │   │   ├── <parameter-list>
+    │   │   │       │   │   │   └── <expression>
+    │   │   │       │   │   │       └── <simple-expression>
+    │   │   │       │   │   │           └── <term>
+    │   │   │       │   │   │               └── <factor>
+    │   │   │       │   │   │                   └── IDENTIFIER(msg)
+    │   │   │       │   │   └── RPARENTHESIS())
+    │   │   │       │   └── SEMICOLON(;)
+    │   │   │       └── KEYWORD(selesai)
+    │   │   └── SEMICOLON(;)
+    │   └── <function-declaration>
+    │       ├── KEYWORD(fungsi)
+    │       ├── IDENTIFIER(tambah)
+    │       ├── <formal-parameter-list>
+    │       │   ├── LPARENTHESIS(()
+    │       │   ├── <parameter-group>
+    │       │   │   ├── <identifier-list>
+    │       │   │   │   ├── IDENTIFIER(a)
+    │       │   │   │   ├── COMMA(,)
+    │       │   │   │   └── IDENTIFIER(b)
+    │       │   │   ├── COLON(:)
+    │       │   │   └── <type>
+    │       │   │       └── KEYWORD(integer)
+    │       │   └── RPARENTHESIS())
+    │       ├── COLON(:)
+    │       ├── <type>
+    │       │   └── KEYWORD(integer)
+    │       ├── SEMICOLON(;)
+    │       ├── <block>
+    │       │   ├── <declaration-part>
+    │       │   └── <compound-statement>
+    │       │       ├── KEYWORD(mulai)
+    │       │       ├── <statement-list>
+    │       │       │   ├── <assignment-statement>
+    │       │       │   │   ├── IDENTIFIER(tambah)
+    │       │       │   │   ├── ASSIGN_OPERATOR(:=)
+    │       │       │   │   └── <expression>
+    │       │       │   │       └── <simple-expression>
+    │       │       │   │           ├── <term>
+    │       │       │   │           │   └── <factor>
+    │       │       │   │           │       └── IDENTIFIER(a)
+    │       │       │   │           ├── ARITHMETIC_OPERATOR(+)
+    │       │       │   │           └── <term>
+    │       │       │   │               └── <factor>
+    │       │       │   │                   └── IDENTIFIER(b)
+    │       │       │   └── SEMICOLON(;)
+    │       │       └── KEYWORD(selesai)
+    │       └── SEMICOLON(;)
+    ├── <compound-statement>
+    │   ├── KEYWORD(mulai)
+    │   ├── <statement-list>
+    │   │   ├── <assignment-statement>
+    │   │   │   ├── IDENTIFIER(x)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   └── <expression>
+    │   │   │       └── <simple-expression>
+    │   │   │           └── <term>
+    │   │   │               └── <factor>
+    │   │   │                   └── NUMBER(5)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <assignment-statement>
+    │   │   │   ├── IDENTIFIER(y)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   └── <expression>
+    │   │   │       └── <simple-expression>
+    │   │   │           └── <term>
+    │   │   │               └── <factor>
+    │   │   │                   └── NUMBER(10)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <assignment-statement>
+    │   │   │   ├── IDENTIFIER(z)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   └── <expression>
+    │   │   │       └── <simple-expression>
+    │   │   │           └── <term>
+    │   │   │               └── <factor>
+    │   │   │                   └── <function-call>
+    │   │   │                       ├── IDENTIFIER(tambah)
+    │   │   │                       ├── LPARENTHESIS(()
+    │   │   │                       ├── <parameter-list>
+    │   │   │                       │   ├── <expression>
+    │   │   │                       │   │   └── <simple-expression>
+    │   │   │                       │   │       └── <term>
+    │   │   │                       │   │           └── <factor>
+    │   │   │                       │   │               └── IDENTIFIER(x)
+    │   │   │                       │   ├── COMMA(,)
+    │   │   │                       │   └── <expression>
+    │   │   │                       │       └── <simple-expression>
+    │   │   │                       │           └── <term>
+    │   │   │                       │               └── <factor>
+    │   │   │                       │                   └── IDENTIFIER(y)
+    │   │   │                       └── RPARENTHESIS())
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <procedure/function-call>
+    │   │   │   ├── IDENTIFIER(cetak)
+    │   │   │   ├── LPARENTHESIS(()
+    │   │   │   ├── <parameter-list>
+    │   │   │   │   └── <expression>
+    │   │   │   │       └── <simple-expression>
+    │   │   │   │           └── <term>
+    │   │   │   │               └── <factor>
+    │   │   │   │                   └── STRING_LITERAL('Hasil penjumlahan:')
+    │   │   │   └── RPARENTHESIS())
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <procedure/function-call>
+    │   │   │   ├── KEYWORD(writeln)
+    │   │   │   ├── LPARENTHESIS(()
+    │   │   │   ├── <parameter-list>
+    │   │   │   │   └── <expression>
+    │   │   │   │       └── <simple-expression>
+    │   │   │   │           └── <term>
+    │   │   │   │               └── <factor>
+    │   │   │   │                   └── IDENTIFIER(z)
+    │   │   │   └── RPARENTHESIS())
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <if-statement>
+    │   │   │   ├── KEYWORD(jika)
+    │   │   │   ├── <expression>
+    │   │   │   │   ├── <simple-expression>
+    │   │   │   │   │   └── <term>
+    │   │   │   │   │       └── <factor>
+    │   │   │   │   │           └── IDENTIFIER(z)
+    │   │   │   │   ├── RELATIONAL_OPERATOR(>)
+    │   │   │   │   └── <simple-expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(10)
+    │   │   │   ├── KEYWORD(maka)
+    │   │   │   ├── <procedure/function-call>
+    │   │   │   │   ├── IDENTIFIER(cetak)
+    │   │   │   │   ├── LPARENTHESIS(()
+    │   │   │   │   ├── <parameter-list>
+    │   │   │   │   │   └── <expression>
+    │   │   │   │   │       └── <simple-expression>
+    │   │   │   │   │           └── <term>
+    │   │   │   │   │               └── <factor>
+    │   │   │   │   │                   └── STRING_LITERAL('z lebih besar dari 10')
+    │   │   │   │   └── RPARENTHESIS())
+    │   │   │   ├── KEYWORD(selain-itu)
+    │   │   │   └── <procedure/function-call>
+    │   │   │       ├── IDENTIFIER(cetak)
+    │   │   │       ├── LPARENTHESIS(()
+    │   │   │       ├── <parameter-list>
+    │   │   │       │   └── <expression>
+    │   │   │       │       └── <simple-expression>
+    │   │   │       │           └── <term>
+    │   │   │       │               └── <factor>
+    │   │   │       │                   └── STRING_LITERAL('z tidak lebih besar dari 10')
+    │   │   │       └── RPARENTHESIS())
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <for-statement>
+    │   │   │   ├── KEYWORD(untuk)
+    │   │   │   ├── IDENTIFIER(x)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   ├── <expression>
+    │   │   │   │   └── <simple-expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(1)
+    │   │   │   ├── KEYWORD(ke)
+    │   │   │   ├── <expression>
+    │   │   │   │   └── <simple-expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(5)
+    │   │   │   ├── KEYWORD(lakukan)
+    │   │   │   └── <assignment-statement>
+    │   │   │       ├── IDENTIFIER(arr)
+    │   │   │       ├── LBRACKET([)
+    │   │   │       ├── <expression>
+    │   │   │       │   └── <simple-expression>
+    │   │   │       │       └── <term>
+    │   │   │       │           └── <factor>
+    │   │   │       │               └── IDENTIFIER(x)
+    │   │   │       ├── RBRACKET(])
+    │   │   │       ├── ASSIGN_OPERATOR(:=)
+    │   │   │       └── <expression>
+    │   │   │           └── <simple-expression>
+    │   │   │               └── <term>
+    │   │   │                   ├── <factor>
+    │   │   │                   │   └── IDENTIFIER(x)
+    │   │   │                   ├── ARITHMETIC_OPERATOR(*)
+    │   │   │                   └── <factor>
+    │   │   │                       └── IDENTIFIER(x)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <while-statement>
+    │   │   │   ├── KEYWORD(selama)
+    │   │   │   ├── <expression>
+    │   │   │   │   ├── <simple-expression>
+    │   │   │   │   │   └── <term>
+    │   │   │   │   │       └── <factor>
+    │   │   │   │   │           └── IDENTIFIER(y)
+    │   │   │   │   ├── RELATIONAL_OPERATOR(>)
+    │   │   │   │   └── <simple-expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(0)
+    │   │   │   ├── KEYWORD(lakukan)
+    │   │   │   └── <compound-statement>
+    │   │   │       ├── KEYWORD(mulai)
+    │   │   │       ├── <statement-list>
+    │   │   │       │   ├── <assignment-statement>
+    │   │   │       │   │   ├── IDENTIFIER(y)
+    │   │   │       │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │       │   │   └── <expression>
+    │   │   │       │   │       └── <simple-expression>
+    │   │   │       │   │           ├── <term>
+    │   │   │       │   │           │   └── <factor>
+    │   │   │       │   │           │       └── IDENTIFIER(y)
+    │   │   │       │   │           ├── ARITHMETIC_OPERATOR(-)
+    │   │   │       │   │           └── <term>
+    │   │   │       │   │               └── <factor>
+    │   │   │       │   │                   └── NUMBER(1)
+    │   │   │       │   ├── SEMICOLON(;)
+    │   │   │       │   ├── <procedure/function-call>
+    │   │   │       │   │   ├── KEYWORD(writeln)
+    │   │   │       │   │   ├── LPARENTHESIS(()
+    │   │   │       │   │   ├── <parameter-list>
+    │   │   │       │   │   │   └── <expression>
+    │   │   │       │   │   │       └── <simple-expression>
+    │   │   │       │   │   │           └── <term>
+    │   │   │       │   │   │               └── <factor>
+    │   │   │       │   │   │                   └── IDENTIFIER(y)
+    │   │   │       │   │   └── RPARENTHESIS())
+    │   │   │       │   └── SEMICOLON(;)
+    │   │   │       └── KEYWORD(selesai)
+    │   │   └── SEMICOLON(;)
+    │   └── KEYWORD(selesai)
+    └── DOT(.)
