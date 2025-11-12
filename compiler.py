@@ -6,7 +6,6 @@ from src.tree_printer import print_tree
 
 def parse_token_file(token_file):
     tokens = []
-    # Detect encoding: check for UTF-16 LE BOM (0xFF 0xFE)
     with open(token_file, 'rb') as f:
         first_bytes = f.read(2)
 
@@ -48,7 +47,7 @@ def main():
         parser = Parser(tokens)
         parse_tree = parser.parse()
 
-        print_tree(parse_tree)
+        print_tree(parse_tree, is_root=True)
 
     except FileNotFoundError as e:
         print(f"Error: File not found - {e}")

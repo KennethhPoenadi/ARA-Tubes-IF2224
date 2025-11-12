@@ -1,17 +1,17 @@
-def print_tree(node, indent="", is_last=True):
+def print_tree(node, indent="", is_last=True, is_root=False):
     if node is None:
         return
 
-    connector = "└── " if is_last else "├── "
+    connector = "" if is_root else ("└── " if is_last else "├── ")
 
     if isinstance(node, dict):
         if "type" in node:
             print(indent + connector + node["type"])
             children = node.get("children", [])
-            new_indent = indent + ("    " if is_last else "│   ")
+            new_indent = indent if is_root else (indent + ("    " if is_last else "│   "))
 
             for i, child in enumerate(children):
-                print_tree(child, new_indent, i == len(children) - 1)
+                print_tree(child, new_indent, i == len(children) - 1, is_root=False)
         else:
             print(indent + connector + str(node))
     else:

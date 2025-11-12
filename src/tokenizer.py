@@ -198,7 +198,6 @@ def simulate_dfa(dfa, start_state, input_string, final_states):
             token = ""
             state = start_state
 
-    # Handle final token at EOF
     if state in final_states and token:
         tokens.append((token.strip(), state))
         print(f"Token found: '{token.strip()}' → {state}")

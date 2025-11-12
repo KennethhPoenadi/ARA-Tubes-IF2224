@@ -275,6 +275,11 @@ class Parser:
             node["children"].append(self.expect("SEMICOLON"))
             if not self.match("KEYWORD", "selesai"):
                 node["children"].append(self.parse_statement())
+            else:
+                break
+
+        if not self.match("KEYWORD", "selesai") and not self.match("SEMICOLON"):
+            self.error(f"Expected SEMICOLON(;) or KEYWORD(selesai), but got {self.current_token}")
 
         return node
 
@@ -370,11 +375,10 @@ class Parser:
         else:
             node["children"].append(self.expect("IDENTIFIER"))
 
-        if self.match("LPARENTHESIS"):
-            node["children"].append(self.expect("LPARENTHESIS"))
-            if not self.match("RPARENTHESIS"):
-                node["children"].append(self.parse_parameter_list())
-            node["children"].append(self.expect("RPARENTHESIS"))
+        node["children"].append(self.expect("LPARENTHESIS"))
+        if not self.match("RPARENTHESIS"):
+            node["children"].append(self.parse_parameter_list())
+        node["children"].append(self.expect("RPARENTHESIS"))
 
         return node
 
