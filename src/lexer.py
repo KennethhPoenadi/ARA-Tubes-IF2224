@@ -46,23 +46,25 @@ def skip_comment(text, pos):
 
     # cek comment style { ... }
     if text[pos] == '{':
+        start_pos = pos
         pos += 1
         while pos < n:
             if text[pos] == '}':
                 return pos + 1
             pos += 1
-        # kalo gak ketemu closing berarti unclosed, skip sampe akhir
-        return n
+        # kalo gak ketemu closing berarti unclosed, error!
+        raise Exception(f"Unclosed comment '{{' starting at position {start_pos}")
 
     # cek comment style (* ... *)
     if pos + 1 < n and text[pos] == '(' and text[pos + 1] == '*':
+        start_pos = pos
         pos += 2
         while pos + 1 < n:
             if text[pos] == '*' and text[pos + 1] == ')':
                 return pos + 2
             pos += 1
         # unclosed comment
-        return n
+        raise Exception(f"Unclosed comment '(*' starting at position {start_pos}")
 
     # bukan comment
     return pos
