@@ -127,7 +127,7 @@
 │   │   │   │               └── IDENTIFIER(result)
 │   │   │   ├── KEYWORD(maka)
 │   │   │   ├── <procedure/function-call>
-│   │   │   │   ├── KEYWORD(writeln)
+│   │   │   │   ├── IDENTIFIER(writeln)
 │   │   │   │   ├── LPARENTHESIS()
 │   │   │   │   ├── <parameter-list>
 │   │   │   │   │   └── <expression>
@@ -138,7 +138,7 @@
 │   │   │   │   └── RPARENTHESIS()
 │   │   │   ├── KEYWORD(selain-itu)
 │   │   │   └── <procedure/function-call>
-│   │   │       ├── KEYWORD(writeln)
+│   │   │       ├── IDENTIFIER(writeln)
 │   │   │       ├── LPARENTHESIS()
 │   │   │       ├── <parameter-list>
 │   │   │       │   └── <expression>
@@ -212,7 +212,7 @@
 │   │   │                       └── STRING_LITERAL('Flag adalah true')
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -259,7 +259,7 @@
 │   │   │       ├── KEYWORD(mulai)
 │   │   │       ├── <statement-list>
 │   │   │       │   ├── <procedure/function-call>
-│   │   │       │   │   ├── KEYWORD(writeln)
+│   │   │       │   │   ├── IDENTIFIER(writeln)
 │   │   │       │   │   ├── LPARENTHESIS()
 │   │   │       │   │   ├── <parameter-list>
 │   │   │       │   │   │   └── <expression>
@@ -270,7 +270,7 @@
 │   │   │       │   │   └── RPARENTHESIS()
 │   │   │       │   ├── SEMICOLON(;)
 │   │   │       │   ├── <procedure/function-call>
-│   │   │       │   │   ├── KEYWORD(writeln)
+│   │   │       │   │   ├── IDENTIFIER(writeln)
 │   │   │       │   │   ├── LPARENTHESIS()
 │   │   │       │   │   ├── <parameter-list>
 │   │   │       │   │   │   └── <expression>
@@ -317,7 +317,7 @@
 │   │   │   │               └── RPARENTHESIS()
 │   │   │   ├── KEYWORD(maka)
 │   │   │   └── <procedure/function-call>
-│   │   │       ├── KEYWORD(writeln)
+│   │   │       ├── IDENTIFIER(writeln)
 │   │   │       ├── LPARENTHESIS()
 │   │   │       ├── <parameter-list>
 │   │   │       │   └── <expression>
