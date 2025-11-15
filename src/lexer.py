@@ -9,7 +9,7 @@ KEYWORDS = {
     "program", "variabel", "mulai", "selesai", "jika", "maka", "selain-itu",
     "selama", "lakukan", "untuk", "ke", "turun-ke", "integer", "real", "boolean",
     "char", "larik", "dari", "prosedur", "fungsi", "konstanta", "tipe", "string",
-    "kasus", "ulangi", "sampai", "rekaman", "writeln", "write", "read", "readln"
+    "kasus", "ulangi", "sampai", "rekaman"
 }
 # operator logika bahasa indonesia
 LOGICAL_OPERATORS = {"dan", "atau", "tidak"}

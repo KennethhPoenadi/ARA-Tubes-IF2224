@@ -1,0 +1,76 @@
+<program>
+├── <program-header>
+│   ├── KEYWORD(program)
+│   ├── IDENTIFIER(SimpleLoop)
+│   └── SEMICOLON(;)
+├── <declaration-part>
+│   └── <var-declaration>
+│       ├── KEYWORD(variabel)
+│       ├── <identifier-list>
+│       │   ├── IDENTIFIER(i)
+│       │   ├── COMMA(,)
+│       │   └── IDENTIFIER(total)
+│       ├── COLON(:)
+│       ├── <type>
+│       │   └── KEYWORD(integer)
+│       └── SEMICOLON(;)
+├── <compound-statement>
+│   ├── KEYWORD(mulai)
+│   ├── <statement-list>
+│   │   ├── <assignment-statement>
+│   │   │   ├── IDENTIFIER(total)
+│   │   │   ├── ASSIGN_OPERATOR(:=)
+│   │   │   └── <expression>
+│   │   │       └── <simple-expression>
+│   │   │           └── <term>
+│   │   │               └── <factor>
+│   │   │                   └── NUMBER(0)
+│   │   ├── SEMICOLON(;)
+│   │   ├── <for-statement>
+│   │   │   ├── KEYWORD(untuk)
+│   │   │   ├── IDENTIFIER(i)
+│   │   │   ├── ASSIGN_OPERATOR(:=)
+│   │   │   ├── <expression>
+│   │   │   │   └── <simple-expression>
+│   │   │   │       └── <term>
+│   │   │   │           └── <factor>
+│   │   │   │               └── NUMBER(1)
+│   │   │   ├── KEYWORD(ke)
+│   │   │   ├── <expression>
+│   │   │   │   └── <simple-expression>
+│   │   │   │       └── <term>
+│   │   │   │           └── <factor>
+│   │   │   │               └── NUMBER(5)
+│   │   │   ├── KEYWORD(lakukan)
+│   │   │   └── <assignment-statement>
+│   │   │       ├── IDENTIFIER(total)
+│   │   │       ├── ASSIGN_OPERATOR(:=)
+│   │   │       └── <expression>
+│   │   │           └── <simple-expression>
+│   │   │               ├── <term>
+│   │   │               │   └── <factor>
+│   │   │               │       └── IDENTIFIER(total)
+│   │   │               ├── ARITHMETIC_OPERATOR(+)
+│   │   │               └── <term>
+│   │   │                   └── <factor>
+│   │   │                       └── IDENTIFIER(i)
+│   │   ├── SEMICOLON(;)
+│   │   ├── <procedure/function-call>
+│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── LPARENTHESIS()
+│   │   │   ├── <parameter-list>
+│   │   │   │   ├── <expression>
+│   │   │   │   │   └── <simple-expression>
+│   │   │   │   │       └── <term>
+│   │   │   │   │           └── <factor>
+│   │   │   │   │               └── STRING_LITERAL('Total: ')
+│   │   │   │   ├── COMMA(,)
+│   │   │   │   └── <expression>
+│   │   │   │       └── <simple-expression>
+│   │   │   │           └── <term>
+│   │   │   │               └── <factor>
+│   │   │   │                   └── IDENTIFIER(total)
+│   │   │   └── RPARENTHESIS()
+│   │   └── SEMICOLON(;)
+│   └── KEYWORD(selesai)
+└── DOT(.)
