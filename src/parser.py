@@ -349,9 +349,6 @@ class Parser:
                 return self.parse_assignment_statement()
             else:
                 return self.parse_procedure_call()
-        elif self.match("KEYWORD") and self.current_token.value.lower() in ["writeln", "write", "readln", "read"]:
-            # built-in procedures
-            return self.parse_procedure_call()
         else:
             # empty statement
             return {"type": "<empty-statement>", "children": []}
@@ -429,12 +426,8 @@ class Parser:
     def parse_procedure_call(self):
         node = {"type": "<procedure/function-call>", "children": []}
 
-        # procedure name bisa keyword (writeln) atau identifier
-        if self.match("KEYWORD"):
-            node["children"].append(self.current_token)
-            self.advance()
-        else:
-            node["children"].append(self.expect("IDENTIFIER"))
+        # procedure name hanya identifier
+        node["children"].append(self.expect("IDENTIFIER"))
 
         node["children"].append(self.expect("LPARENTHESIS"))
         # parameter list opsional

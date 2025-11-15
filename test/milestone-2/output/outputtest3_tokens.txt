@@ -56,7 +56,7 @@
 │   │   │                       └── IDENTIFIER(i)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
