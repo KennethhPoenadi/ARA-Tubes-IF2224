@@ -26,22 +26,22 @@ def print_tree(node, indent="", is_last=True, is_root=False):
         token_str = f"{node.type}({node.value})"
         print(indent + connector + token_str)
 
-def tree_to_string(node, indent="", is_last=True):
+def tree_to_string(node, indent="", is_last=True, is_root=False):
     # sama kayak print_tree tapi return string instead of print
     if node is None:
         return ""
 
     result = []
-    connector = "└── " if is_last else "├── "
+    connector = "" if is_root else ("└── " if is_last else "├── ")
 
     if isinstance(node, dict):
         if "type" in node:
             result.append(indent + connector + node["type"])
             children = node.get("children", [])
-            new_indent = indent + ("    " if is_last else "│   ")
+            new_indent = indent if is_root else (indent + ("    " if is_last else "│   "))
 
             for i, child in enumerate(children):
-                result.append(tree_to_string(child, new_indent, i == len(children) - 1))
+                result.append(tree_to_string(child, new_indent, i == len(children) - 1, is_root=False))
         else:
             result.append(indent + connector + str(node))
     else:
