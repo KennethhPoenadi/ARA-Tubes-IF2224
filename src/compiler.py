@@ -13,7 +13,7 @@ def parse_token_file(token_file):
 
     with open(token_file, 'r', encoding=encoding) as f:
         for line in f:
-            line = line.strip().lstrip('\ufeff')  # Remove BOM if present
+            line = line.strip().lstrip('\ufeff')  # remove BOM kalau ad
             if not line:
                 continue
             if '(' in line and ')' in line:
