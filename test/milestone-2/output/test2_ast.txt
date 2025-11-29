@@ -1,0 +1,43 @@
+============================================================
+ABSTRACT SYNTAX TREE
+============================================================
+
+ProgramNode(name: 'FaktorialProgram')
+  +-- Declarations
+  |     +-- VarDecl(name: 'n', type: 'integer')
+  |     |     \-- Type('integer')
+  |
+  |     +-- VarDecl(name: 'hasil', type: 'integer')
+  |     |     \-- Type('integer')
+  |
+  |     \-- FunctionDecl(name: 'faktorial', return_type: 'integer')
+  |           +-- Param(name: 'x', type: 'integer')
+  |           |     \-- Type('integer')
+  |      
+  |           +-- Type('integer')
+  |      
+  |           +-- Declarations
+  |           |     +-- VarDecl(name: 'i', type: 'integer')
+  |           |     |     \-- Type('integer')
+  |           |
+  |           |     \-- VarDecl(name: 'temp', type: 'integer')
+  |           |           \-- Type('integer')
+  |      
+  |           \-- Block
+  |                 +-- Assign(target: Var('temp'), value: Num(1))
+  |            
+  |                 +-- For(var: 'i', direction: 'to')
+  |                 |     +-- Num(1)
+  |                 |
+  |                 |     +-- Var('x')
+  |                 |
+  |                 |     \-- Assign(target: Var('temp'), value: BinOp('*', Var('temp'), Var('i')))
+  |            
+  |                 \-- Assign(target: Var('faktorial'), value: Var('temp'))
+ 
+  \-- Block
+        +-- Assign(target: Var('n'), value: Num(5))
+   
+        +-- Assign(target: Var('hasil'), value: FunctionCall('faktorial', [Var('n')]))
+   
+        \-- ProcedureCall(name: 'writeln', args: [String('Faktorial dari '), Var('n'), String(' adalah '), Var('hasil')])

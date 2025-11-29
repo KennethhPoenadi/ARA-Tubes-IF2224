@@ -26,77 +26,6 @@
 │   │   ├── RELATIONAL_OPERATOR(=)
 │   │   ├── STRING_LITERAL('\n')
 │   │   └── SEMICOLON(;)
-│   ├── <type-declaration>
-│   │   ├── KEYWORD(tipe)
-│   │   ├── IDENTIFIER(Larik1D)
-│   │   ├── RELATIONAL_OPERATOR(=)
-│   │   ├── <type>
-│   │   │   └── <array-type>
-│   │   │       ├── KEYWORD(larik)
-│   │   │       ├── LBRACKET([)
-│   │   │       ├── <range>
-│   │   │       │   ├── <expression>
-│   │   │       │   │   └── <simple-expression>
-│   │   │       │   │       └── <term>
-│   │   │       │   │           └── <factor>
-│   │   │       │   │               └── NUMBER(1)
-│   │   │       │   ├── RANGE_OPERATOR(..)
-│   │   │       │   └── <expression>
-│   │   │       │       └── <simple-expression>
-│   │   │       │           └── <term>
-│   │   │       │               └── <factor>
-│   │   │       │                   └── NUMBER(10)
-│   │   │       ├── RBRACKET(])
-│   │   │       ├── KEYWORD(dari)
-│   │   │       └── <type>
-│   │   │           └── KEYWORD(integer)
-│   │   ├── SEMICOLON(;)
-│   │   ├── IDENTIFIER(LarikReal)
-│   │   ├── RELATIONAL_OPERATOR(=)
-│   │   ├── <type>
-│   │   │   └── <array-type>
-│   │   │       ├── KEYWORD(larik)
-│   │   │       ├── LBRACKET([)
-│   │   │       ├── <range>
-│   │   │       │   ├── <expression>
-│   │   │       │   │   └── <simple-expression>
-│   │   │       │   │       └── <term>
-│   │   │       │   │           └── <factor>
-│   │   │       │   │               └── NUMBER(0)
-│   │   │       │   ├── RANGE_OPERATOR(..)
-│   │   │       │   └── <expression>
-│   │   │       │       └── <simple-expression>
-│   │   │       │           └── <term>
-│   │   │       │               └── <factor>
-│   │   │       │                   └── NUMBER(20)
-│   │   │       ├── RBRACKET(])
-│   │   │       ├── KEYWORD(dari)
-│   │   │       └── <type>
-│   │   │           └── KEYWORD(real)
-│   │   ├── SEMICOLON(;)
-│   │   ├── IDENTIFIER(LarikChar)
-│   │   ├── RELATIONAL_OPERATOR(=)
-│   │   ├── <type>
-│   │   │   └── <array-type>
-│   │   │       ├── KEYWORD(larik)
-│   │   │       ├── LBRACKET([)
-│   │   │       ├── <range>
-│   │   │       │   ├── <expression>
-│   │   │       │   │   └── <simple-expression>
-│   │   │       │   │       └── <term>
-│   │   │       │   │           └── <factor>
-│   │   │       │   │               └── NUMBER(1)
-│   │   │       │   ├── RANGE_OPERATOR(..)
-│   │   │       │   └── <expression>
-│   │   │       │       └── <simple-expression>
-│   │   │       │           └── <term>
-│   │   │       │               └── <factor>
-│   │   │       │                   └── NUMBER(26)
-│   │   │       ├── RBRACKET(])
-│   │   │       ├── KEYWORD(dari)
-│   │   │       └── <type>
-│   │   │           └── KEYWORD(char)
-│   │   └── SEMICOLON(;)
 │   ├── <var-declaration>
 │   │   ├── KEYWORD(variabel)
 │   │   ├── <identifier-list>
@@ -131,19 +60,73 @@
 │   │   │   └── IDENTIFIER(sorted)
 │   │   ├── COLON(:)
 │   │   ├── <type>
-│   │   │   └── IDENTIFIER(Larik1D)
+│   │   │   └── <array-type>
+│   │   │       ├── KEYWORD(larik)
+│   │   │       ├── LBRACKET([)
+│   │   │       ├── <range>
+│   │   │       │   ├── <expression>
+│   │   │       │   │   └── <simple-expression>
+│   │   │       │   │       └── <term>
+│   │   │       │   │           └── <factor>
+│   │   │       │   │               └── NUMBER(1)
+│   │   │       │   ├── RANGE_OPERATOR(..)
+│   │   │       │   └── <expression>
+│   │   │       │       └── <simple-expression>
+│   │   │       │           └── <term>
+│   │   │       │               └── <factor>
+│   │   │       │                   └── NUMBER(10)
+│   │   │       ├── RBRACKET(])
+│   │   │       ├── KEYWORD(dari)
+│   │   │       └── <type>
+│   │   │           └── KEYWORD(integer)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <identifier-list>
 │   │   │   └── IDENTIFIER(scores)
 │   │   ├── COLON(:)
 │   │   ├── <type>
-│   │   │   └── IDENTIFIER(LarikReal)
+│   │   │   └── <array-type>
+│   │   │       ├── KEYWORD(larik)
+│   │   │       ├── LBRACKET([)
+│   │   │       ├── <range>
+│   │   │       │   ├── <expression>
+│   │   │       │   │   └── <simple-expression>
+│   │   │       │   │       └── <term>
+│   │   │       │   │           └── <factor>
+│   │   │       │   │               └── NUMBER(0)
+│   │   │       │   ├── RANGE_OPERATOR(..)
+│   │   │       │   └── <expression>
+│   │   │       │       └── <simple-expression>
+│   │   │       │           └── <term>
+│   │   │       │               └── <factor>
+│   │   │       │                   └── NUMBER(20)
+│   │   │       ├── RBRACKET(])
+│   │   │       ├── KEYWORD(dari)
+│   │   │       └── <type>
+│   │   │           └── KEYWORD(real)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <identifier-list>
 │   │   │   └── IDENTIFIER(huruf)
 │   │   ├── COLON(:)
 │   │   ├── <type>
-│   │   │   └── IDENTIFIER(LarikChar)
+│   │   │   └── <array-type>
+│   │   │       ├── KEYWORD(larik)
+│   │   │       ├── LBRACKET([)
+│   │   │       ├── <range>
+│   │   │       │   ├── <expression>
+│   │   │       │   │   └── <simple-expression>
+│   │   │       │   │       └── <term>
+│   │   │       │   │           └── <factor>
+│   │   │       │   │               └── NUMBER(1)
+│   │   │       │   ├── RANGE_OPERATOR(..)
+│   │   │       │   └── <expression>
+│   │   │       │       └── <simple-expression>
+│   │   │       │           └── <term>
+│   │   │       │               └── <factor>
+│   │   │       │                   └── NUMBER(26)
+│   │   │       ├── RBRACKET(])
+│   │   │       ├── KEYWORD(dari)
+│   │   │       └── <type>
+│   │   │           └── KEYWORD(char)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <identifier-list>
 │   │   │   ├── IDENTIFIER(found)

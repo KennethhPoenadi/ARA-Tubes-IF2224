@@ -1,0 +1,118 @@
+======================================================================
+Pascal-S Compiler - AST Output
+Source: test/milestone-3/input/test5.pas
+======================================================================
+
+----------------------------------------------------------------------
+SYMBOL TABLE:
+----------------------------------------------------------------------
+tab (identifier table):
+idx  id                  obj         typ   ref   nrm  lev  adr  link 
+---------------------------------------------------------------------
+0    program             (reserved word)
+1    variabel            (reserved word)
+2    mulai               (reserved word)
+3    selesai             (reserved word)
+4    jika                (reserved word)
+5    maka                (reserved word)
+6    selain-itu          (reserved word)
+7    selama              (reserved word)
+8    lakukan             (reserved word)
+9    untuk               (reserved word)
+10   ke                  (reserved word)
+11   turun-ke            (reserved word)
+12   integer             (reserved word)
+13   real                (reserved word)
+14   boolean             (reserved word)
+15   char                (reserved word)
+16   larik               (reserved word)
+17   dari                (reserved word)
+18   prosedur            (reserved word)
+19   fungsi              (reserved word)
+20   konstanta           (reserved word)
+21   tipe                (reserved word)
+22   string              (reserved word)
+23   kasus               (reserved word)
+24   ulangi              (reserved word)
+25   sampai              (reserved word)
+26   rekaman             (reserved word)
+27   dan                 (reserved word)
+28   atau                (reserved word)
+29   tidak               (reserved word)
+30   bagi                (reserved word)
+31   mod                 (reserved word)
+32   KompleksTest        program     0     -1    1    0    0    -1   
+33   MAX                 constant    1     0     1    0    0    32   
+34   MIN                 constant    1     0     1    0    0    33   
+35   Rentang             type        1     -1    1    0    0    34   
+36   x                   variable    1     -1    1    0    0    35   
+37   y                   variable    1     -1    1    0    1    36   
+38   z                   variable    1     -1    1    0    2    37   
+39   arr                 variable    5     0     1    0    3    38   
+40   cetak               procedure   0     1     1    0    0    -1   
+41   msg                 parameter   6     -1    1    1    8    -1   
+42   tambah              function    1     2     1    0    0    41   
+43   a                   parameter   1     -1    1    1    12   41   
+44   b                   parameter   1     -1    1    1    13   43   
+
+btab (block table):
+idx  last   lpar   psze   vsze   
+---------------------------------
+0    39     -1     0      8      
+1    41     41     4      0      
+2    44     44     2      0      
+
+atab (array table):
+idx  xtyp  etyp  eref   low   high  elsz   size  
+-------------------------------------------------
+0    1     1     -1     1     5     1      5     
+
+----------------------------------------------------------------------
+DECORATED AST:
+Legend: → tab_index:<idx>, type:<type>, lev:<scope_level>
+----------------------------------------------------------------------
+
+ProgramNode(name: 'KompleksTest')
+ ├─ Declarations
+ │  ├─ ConstDecl('MAX') → tab_index:33, type:integer, lev:0
+ │  ├─ ConstDecl('MIN') → tab_index:34, type:integer, lev:0
+ │  ├─ TypeDecl('Rentang') → tab_index:35, type:integer, lev:0
+ │  │  └─ RangeType
+ │  │     └─ Range
+ │  │        ├─ 1
+ │  │        └─ 10
+ │  ├─ VarDecl('x', type: 'integer') → tab_index:36, type:integer, lev:0
+ │  ├─ VarDecl('y', type: 'integer') → tab_index:37, type:integer, lev:0
+ │  ├─ VarDecl('z', type: 'integer') → tab_index:38, type:integer, lev:0
+ │  ├─ VarDecl('arr', type: 'array of integer') → tab_index:39, type:array, lev:0
+ │  ├─ ProcedureDecl('cetak') → tab_index:40, type:void, lev:0
+ │  │  ├─ Param('msg') → tab_index:41, type:string, lev:1
+ │  │  └─ Block
+ │  │     └─ writeln(...) → predefined
+ │  └─ FunctionDecl('tambah') → tab_index:42, type:integer, lev:0
+ │     ├─ Param(['a', 'b']) → tab_index:43, type:integer, lev:1
+ │     └─ Block
+ │        └─ Assign('tambah' := a+b) → type:integer
+ └─ Block
+    ├─ Assign('x' := 5) → type:integer
+    ├─ Assign('y' := 10) → type:integer
+    ├─ Assign('z' := tambah(...)) → type:integer
+    ├─ cetak(...) → tab_index:40, type:void, lev:0
+    ├─ writeln(...) → predefined
+    ├─ If
+    │  ├─ BinOp '>' → type:boolean, lev:0
+    │  │  ├─ 'z' → tab_index:38, type:integer, lev:0
+    │  │  └─ 10 → type:integer, lev:0
+    │  ├─ cetak(...) → tab_index:40, type:void, lev:0
+    │  └─ cetak(...) → tab_index:40, type:void, lev:0
+    ├─ For('x' to)
+    │  ├─ 1 → type:integer, lev:0
+    │  ├─ 5 → type:integer, lev:0
+    │  └─ Assign('arr[x]' := x*x) → type:integer
+    └─ While
+       ├─ BinOp '>' → type:boolean, lev:0
+       │  ├─ 'y' → tab_index:37, type:integer, lev:0
+       │  └─ 0 → type:integer, lev:0
+       └─ Block
+          ├─ Assign('y' := y-1) → type:integer
+          └─ writeln(...) → predefined

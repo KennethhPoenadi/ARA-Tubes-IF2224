@@ -1,0 +1,68 @@
+======================================================================
+Pascal-S Compiler - AST Output
+Source: test/milestone-3/input/test1.pas
+======================================================================
+
+----------------------------------------------------------------------
+SYMBOL TABLE:
+----------------------------------------------------------------------
+tab (identifier table):
+idx  id                  obj         typ   ref   nrm  lev  adr  link 
+---------------------------------------------------------------------
+0    program             (reserved word)
+1    variabel            (reserved word)
+2    mulai               (reserved word)
+3    selesai             (reserved word)
+4    jika                (reserved word)
+5    maka                (reserved word)
+6    selain-itu          (reserved word)
+7    selama              (reserved word)
+8    lakukan             (reserved word)
+9    untuk               (reserved word)
+10   ke                  (reserved word)
+11   turun-ke            (reserved word)
+12   integer             (reserved word)
+13   real                (reserved word)
+14   boolean             (reserved word)
+15   char                (reserved word)
+16   larik               (reserved word)
+17   dari                (reserved word)
+18   prosedur            (reserved word)
+19   fungsi              (reserved word)
+20   konstanta           (reserved word)
+21   tipe                (reserved word)
+22   string              (reserved word)
+23   kasus               (reserved word)
+24   ulangi              (reserved word)
+25   sampai              (reserved word)
+26   rekaman             (reserved word)
+27   dan                 (reserved word)
+28   atau                (reserved word)
+29   tidak               (reserved word)
+30   bagi                (reserved word)
+31   mod                 (reserved word)
+32   Hello               program     0     -1    1    0    0    -1   
+33   a                   variable    1     -1    1    0    0    32   
+34   b                   variable    1     -1    1    0    1    33   
+
+btab (block table):
+idx  last   lpar   psze   vsze   
+---------------------------------
+0    34     -1     0      2      
+
+atab (array table):
+atab: (kosong karena tidak ada array)
+
+----------------------------------------------------------------------
+DECORATED AST:
+Legend: → tab_index:<idx>, type:<type>, lev:<scope_level>
+----------------------------------------------------------------------
+
+ProgramNode(name: 'Hello')
+ ├─ Declarations
+ │  ├─ VarDecl('a', type: 'integer') → tab_index:33, type:integer, lev:0
+ │  └─ VarDecl('b', type: 'integer') → tab_index:34, type:integer, lev:0
+ └─ Block
+    ├─ Assign('a' := 5) → type:integer
+    ├─ Assign('b' := a+10) → type:integer
+    └─ writeln(...) → predefined

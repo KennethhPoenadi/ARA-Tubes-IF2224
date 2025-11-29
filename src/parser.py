@@ -128,7 +128,26 @@ class Parser:
             node["children"].append(self.expect("RELATIONAL_OPERATOR", "="))
 
             # value bisa number, char, string, atau identifier lain
-            if self.match("NUMBER") or self.match("CHAR_LITERAL") or self.match("STRING_LITERAL"):
+            # handle negative numbers (bisa ADDITIVE_OPERATOR atau ARITHMETIC_OPERATOR)
+            if self.match("ARITHMETIC_OPERATOR", "-") or self.match("ADDITIVE_OPERATOR", "-"):
+                self.advance()
+                if self.match("NUMBER"):
+                    # combine minus with number
+                    num_token = self.current_token
+                    combined_token = Token("NUMBER", "-" + num_token.value)
+                    node["children"].append(combined_token)
+                    self.advance()
+                else:
+                    self.error("Expected number after minus sign")
+            elif self.match("ARITHMETIC_OPERATOR", "+") or self.match("ADDITIVE_OPERATOR", "+"):
+                # handle unary plus (just skip it)
+                self.advance()
+                if self.match("NUMBER"):
+                    node["children"].append(self.current_token)
+                    self.advance()
+                else:
+                    self.error("Expected number after plus sign")
+            elif self.match("NUMBER") or self.match("CHAR_LITERAL") or self.match("STRING_LITERAL"):
                 node["children"].append(self.current_token)
                 self.advance()
             elif self.match("IDENTIFIER"):
