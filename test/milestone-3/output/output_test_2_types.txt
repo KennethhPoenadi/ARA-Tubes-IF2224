@@ -1,0 +1,115 @@
+======================================================================
+Pascal-S Compiler - AST Output
+Source: test/milestone-3/input/test_2_types.pas
+======================================================================
+
+----------------------------------------------------------------------
+SYMBOL TABLE:
+----------------------------------------------------------------------
+tab (identifier table):
+idx  id                  obj         typ   ref   nrm  lev  adr  link 
+---------------------------------------------------------------------
+0    program             (reserved word)
+1    variabel            (reserved word)
+2    mulai               (reserved word)
+3    selesai             (reserved word)
+4    jika                (reserved word)
+5    maka                (reserved word)
+6    selain-itu          (reserved word)
+7    selama              (reserved word)
+8    lakukan             (reserved word)
+9    untuk               (reserved word)
+10   ke                  (reserved word)
+11   turun-ke            (reserved word)
+12   integer             (reserved word)
+13   real                (reserved word)
+14   boolean             (reserved word)
+15   char                (reserved word)
+16   larik               (reserved word)
+17   dari                (reserved word)
+18   prosedur            (reserved word)
+19   fungsi              (reserved word)
+20   konstanta           (reserved word)
+21   tipe                (reserved word)
+22   string              (reserved word)
+23   kasus               (reserved word)
+24   ulangi              (reserved word)
+25   sampai              (reserved word)
+26   rekaman             (reserved word)
+27   dan                 (reserved word)
+28   atau                (reserved word)
+29   tidak               (reserved word)
+30   bagi                (reserved word)
+31   mod                 (reserved word)
+32   TestTypeMismatch    program     0     -1    1    0    0    -1   
+33   angka               variable    1     -1    1    0    0    32   
+34   desimal             variable    2     -1    1    0    1    33   
+35   bendera             variable    3     -1    1    0    3    34   
+36   huruf               variable    4     -1    1    0    4    35   
+37   teks                variable    6     -1    1    0    5    36   
+38   hitungJumlah        function    1     1     1    0    0    -1   
+39   a                   parameter   1     -1    1    1    9    -1   
+40   b                   parameter   1     -1    1    1    10   39   
+41   prosesData          procedure   0     2     1    0    0    40   
+42   x                   parameter   1     -1    1    1    11   40   
+43   flag                parameter   3     -1    1    1    12   42   
+
+btab (block table):
+idx  last   lpar   psze   vsze   
+---------------------------------
+0    -1     -1     0      0      
+1    40     40     2      0      
+2    43     43     2      0      
+
+atab (array table):
+atab: (kosong karena tidak ada array)
+
+----------------------------------------------------------------------
+DECORATED AST:
+Legend: → tab_index:<idx>, type:<type>, lev:<scope_level>
+----------------------------------------------------------------------
+
+ProgramNode(name: 'TestTypeMismatch')
+ ├─ Declarations
+ │  ├─ VarDecl('angka')
+ │  ├─ VarDecl('desimal')
+ │  ├─ VarDecl('bendera')
+ │  ├─ VarDecl('huruf')
+ │  ├─ VarDecl('teks')
+ │  ├─ FunctionDecl('hitungJumlah') → tab_index:38, type:integer, lev:0
+ │  │  ├─ Param('a') → tab_index:39, type:integer, lev:1
+ │  │  ├─ Param('b') → tab_index:40, type:integer, lev:1
+ │  │  └─ Block
+ │  │     └─ Assign('angka' := a+b) → type:integer
+ │  └─ ProcedureDecl('prosesData') → tab_index:41, type:void, lev:0
+ │     ├─ Param('x') → tab_index:42, type:integer, lev:1
+ │     ├─ Param('flag') → tab_index:43, type:boolean, lev:1
+ │     └─ Block
+ │        └─ Assign('angka' := x) → type:integer
+ └─ Block
+    ├─ Assign('angka' := 10) → type:integer
+    ├─ Assign('desimal' := 3) → type:real
+    ├─ Assign('bendera' := angka>0) → type:boolean
+    ├─ Assign('huruf' := ''X'') → type:char
+    ├─ Assign('angka' := angka>5) → type:integer
+    ├─ Assign('bendera' := 42) → type:boolean
+    ├─ Assign('angka' := 'hello') → type:integer
+    ├─ Assign('bendera' := huruf) → type:boolean
+    ├─ Assign('angka' := angka+bendera)
+    ├─ Assign('angka' := angka*teks)
+    ├─ Assign('bendera' := benderadanangka)
+    ├─ Assign('bendera' := angka<bendera)
+    ├─ Assign('angka' := hitungJumlah(...)) → type:integer
+    └─ prosesData(...) → tab_index:41, type:void, lev:0
+
+----------------------------------------------------------------------
+SEMANTIC ERRORS:
+----------------------------------------------------------------------
+  - Semantic Error: Type mismatch in assignment: cannot assign 3 to 1
+  - Semantic Error: Type mismatch in assignment: cannot assign 1 to 3
+  - Semantic Error: Type mismatch in assignment: cannot assign 6 to 1
+  - Semantic Error: Type mismatch in assignment: cannot assign 4 to 3
+  - Semantic Error: Invalid operand types for '+'
+  - Semantic Error: Invalid operand types for '*'
+  - Semantic Error: 'dan' requires boolean operands
+  - Semantic Error: Cannot compare 1 with 3

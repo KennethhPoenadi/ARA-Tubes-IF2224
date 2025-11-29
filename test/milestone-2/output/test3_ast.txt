@@ -1,0 +1,38 @@
+============================================================
+ABSTRACT SYNTAX TREE
+============================================================
+
+ProgramNode(name: 'ArrayTest')
+  +-- Declarations
+  |     +-- VarDecl(name: 'arr', type: 'array of integer')
+  |     |     \-- ArrayType
+  |     |           +-- Range
+  |     |           |     +-- Num(1)
+  |     |           |
+  |     |           |     \-- Num(5)
+  |     |      
+  |     |           \-- Type('integer')
+  |
+  |     \-- VarDecl(name: 'i', type: 'integer')
+  |           \-- Type('integer')
+ 
+  \-- Block
+        +-- For(var: 'i', direction: 'to')
+        |     +-- Num(1)
+        |
+        |     +-- Num(5)
+        |
+        |     \-- Assign(target: ArrayAccess('arr', index=Var('i')), value: BinOp('*', Var('i'), Num(2)))
+   
+        +-- Assign(target: Var('i'), value: Num(1))
+   
+        \-- While
+              +-- BinOp(op: '<=')
+              |     +-- Var('i')
+              |
+              |     \-- Num(5)
+         
+              \-- Block
+                    +-- ProcedureCall(name: 'writeln', args: [String('arr['), Var('i'), String('] = '), ArrayAccess('arr', index=Var('i'))])
+               
+                    \-- Assign(target: Var('i'), value: BinOp('+', Var('i'), Num(1)))

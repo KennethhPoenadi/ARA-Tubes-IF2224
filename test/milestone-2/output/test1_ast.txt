@@ -1,0 +1,18 @@
+============================================================
+ABSTRACT SYNTAX TREE
+============================================================
+
+ProgramNode(name: 'Hello')
+  +-- Declarations
+  |     +-- VarDecl(name: 'a', type: 'integer')
+  |     |     \-- 
+  |
+  |     \-- VarDecl(name: 'b', type: 'integer')
+  |           \-- 
+ 
+  \-- Block
+        +-- Assign(target: Var('a'), value: Num(5))
+   
+        +-- Assign(target: Var('b'), value: BinOp('+', Var('a'), Num(10)))
+   
+        \-- ProcedureCall(name: 'writeln', args: [String('Result = '), Var('b')])

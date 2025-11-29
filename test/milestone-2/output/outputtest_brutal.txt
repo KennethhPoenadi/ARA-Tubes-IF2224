@@ -833,7 +833,7 @@
 │   │   │       │   │       ├── KEYWORD(mulai)
 │   │   │       │   │       ├── <statement-list>
 │   │   │       │   │       │   ├── <procedure/function-call>
-│   │   │       │   │       │   │   ├── KEYWORD(write)
+│   │   │       │   │       │   │   ├── IDENTIFIER(write)
 │   │   │       │   │       │   │   ├── LPARENTHESIS(()
 │   │   │       │   │       │   │   ├── <parameter-list>
 │   │   │       │   │       │   │   │   └── <expression>
@@ -864,7 +864,7 @@
 │   │   │       │   │       │       │               └── IDENTIFIER(n)
 │   │   │       │   │       │       ├── KEYWORD(maka)
 │   │   │       │   │       │       └── <procedure/function-call>
-│   │   │       │   │       │           ├── KEYWORD(write)
+│   │   │       │   │       │           ├── IDENTIFIER(write)
 │   │   │       │   │       │           ├── LPARENTHESIS(()
 │   │   │       │   │       │           ├── <parameter-list>
 │   │   │       │   │       │           │   └── <expression>
@@ -876,7 +876,7 @@
 │   │   │       │   │       └── KEYWORD(selesai)
 │   │   │       │   ├── SEMICOLON(;)
 │   │   │       │   └── <procedure/function-call>
-│   │   │       │       ├── KEYWORD(writeln)
+│   │   │       │       ├── IDENTIFIER(writeln)
 │   │   │       │       ├── LPARENTHESIS(()
 │   │   │       │       └── RPARENTHESIS())
 │   │   │       └── KEYWORD(selesai)
@@ -961,7 +961,7 @@
 │   ├── KEYWORD(mulai)
 │   ├── <statement-list>
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -983,7 +983,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1005,7 +1005,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1080,7 +1080,7 @@
 │   │   │       │       │   ├── KEYWORD(mulai)
 │   │   │       │       │   ├── <statement-list>
 │   │   │       │       │   │   ├── <procedure/function-call>
-│   │   │       │       │   │   │   ├── KEYWORD(writeln)
+│   │   │       │       │   │   │   ├── IDENTIFIER(writeln)
 │   │   │       │       │   │   │   ├── LPARENTHESIS(()
 │   │   │       │       │   │   │   ├── <parameter-list>
 │   │   │       │       │   │   │   │   ├── <expression>
@@ -1164,7 +1164,7 @@
 │   │   │       │           │       │               └── NUMBER(0)
 │   │   │       │           │       ├── KEYWORD(maka)
 │   │   │       │           │       ├── <procedure/function-call>
-│   │   │       │           │       │   ├── KEYWORD(writeln)
+│   │   │       │           │       │   ├── IDENTIFIER(writeln)
 │   │   │       │           │       │   ├── LPARENTHESIS(()
 │   │   │       │           │       │   ├── <parameter-list>
 │   │   │       │           │       │   │   ├── <expression>
@@ -1188,7 +1188,7 @@
 │   │   │       │           │       │   └── RPARENTHESIS())
 │   │   │       │           │       ├── KEYWORD(selain-itu)
 │   │   │       │           │       └── <procedure/function-call>
-│   │   │       │           │           ├── KEYWORD(writeln)
+│   │   │       │           │           ├── IDENTIFIER(writeln)
 │   │   │       │           │           ├── LPARENTHESIS(()
 │   │   │       │           │           ├── <parameter-list>
 │   │   │       │           │           │   ├── <expression>
@@ -1214,7 +1214,7 @@
 │   │   │       └── KEYWORD(selesai)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1301,7 +1301,7 @@
 │   │   │       │   │                   └── RPARENTHESIS())
 │   │   │       │   ├── SEMICOLON(;)
 │   │   │       │   ├── <procedure/function-call>
-│   │   │       │   │   ├── KEYWORD(writeln)
+│   │   │       │   │   ├── IDENTIFIER(writeln)
 │   │   │       │   │   ├── LPARENTHESIS(()
 │   │   │       │   │   ├── <parameter-list>
 │   │   │       │   │   │   ├── <expression>
@@ -1344,7 +1344,7 @@
 │   │   │       └── KEYWORD(selesai)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1390,7 +1390,7 @@
 │   │   │       │       │               └── NUMBER(0)
 │   │   │       │       ├── KEYWORD(maka)
 │   │   │       │       ├── <procedure/function-call>
-│   │   │       │       │   ├── KEYWORD(writeln)
+│   │   │       │       │   ├── IDENTIFIER(writeln)
 │   │   │       │       │   ├── LPARENTHESIS(()
 │   │   │       │       │   ├── <parameter-list>
 │   │   │       │       │   │   └── <expression>
@@ -1417,7 +1417,7 @@
 │   │   │       │           │               └── NUMBER(0)
 │   │   │       │           ├── KEYWORD(maka)
 │   │   │       │           ├── <procedure/function-call>
-│   │   │       │           │   ├── KEYWORD(writeln)
+│   │   │       │           │   ├── IDENTIFIER(writeln)
 │   │   │       │           │   ├── LPARENTHESIS(()
 │   │   │       │           │   ├── <parameter-list>
 │   │   │       │           │   │   └── <expression>
@@ -1428,7 +1428,7 @@
 │   │   │       │           │   └── RPARENTHESIS())
 │   │   │       │           ├── KEYWORD(selain-itu)
 │   │   │       │           └── <procedure/function-call>
-│   │   │       │               ├── KEYWORD(writeln)
+│   │   │       │               ├── IDENTIFIER(writeln)
 │   │   │       │               ├── LPARENTHESIS(()
 │   │   │       │               ├── <parameter-list>
 │   │   │       │               │   └── <expression>
@@ -1440,7 +1440,7 @@
 │   │   │       └── KEYWORD(selesai)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1476,7 +1476,7 @@
 │   │   │   │   │                   └── NUMBER(1)
 │   │   │   │   ├── SEMICOLON(;)
 │   │   │   │   └── <procedure/function-call>
-│   │   │   │       ├── KEYWORD(writeln)
+│   │   │   │       ├── IDENTIFIER(writeln)
 │   │   │   │       ├── LPARENTHESIS(()
 │   │   │   │       ├── <parameter-list>
 │   │   │   │       │   ├── <expression>
@@ -1525,7 +1525,7 @@
 │   │   │                   └── NUMBER(10)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1571,7 +1571,7 @@
 │   │   │                   └── NUMBER(2.5)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -1606,7 +1606,7 @@
 │   │   │                   └── NUMBER(5)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -1644,7 +1644,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -1682,7 +1682,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -1720,7 +1720,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1789,7 +1789,7 @@
 │   │   │   │               └── IDENTIFIER(valid)
 │   │   │   ├── KEYWORD(maka)
 │   │   │   ├── <procedure/function-call>
-│   │   │   │   ├── KEYWORD(writeln)
+│   │   │   │   ├── IDENTIFIER(writeln)
 │   │   │   │   ├── LPARENTHESIS(()
 │   │   │   │   ├── <parameter-list>
 │   │   │   │   │   └── <expression>
@@ -1800,7 +1800,7 @@
 │   │   │   │   └── RPARENTHESIS())
 │   │   │   ├── KEYWORD(selain-itu)
 │   │   │   └── <procedure/function-call>
-│   │   │       ├── KEYWORD(writeln)
+│   │   │       ├── IDENTIFIER(writeln)
 │   │   │       ├── LPARENTHESIS(()
 │   │   │       ├── <parameter-list>
 │   │   │       │   └── <expression>
@@ -1893,7 +1893,7 @@
 │   │   │   │               └── RPARENTHESIS())
 │   │   │   ├── KEYWORD(maka)
 │   │   │   ├── <procedure/function-call>
-│   │   │   │   ├── KEYWORD(writeln)
+│   │   │   │   ├── IDENTIFIER(writeln)
 │   │   │   │   ├── LPARENTHESIS(()
 │   │   │   │   ├── <parameter-list>
 │   │   │   │   │   └── <expression>
@@ -1917,7 +1917,7 @@
 │   │   │       │               └── IDENTIFIER(j)
 │   │   │       ├── KEYWORD(maka)
 │   │   │       └── <procedure/function-call>
-│   │   │           ├── KEYWORD(writeln)
+│   │   │           ├── IDENTIFIER(writeln)
 │   │   │           ├── LPARENTHESIS(()
 │   │   │           ├── <parameter-list>
 │   │   │           │   └── <expression>
@@ -1928,7 +1928,7 @@
 │   │   │           └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1939,7 +1939,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1950,7 +1950,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1961,7 +1961,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -1972,7 +1972,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -2005,7 +2005,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -2027,7 +2027,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -2086,7 +2086,7 @@
 │   │   │                       └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -2103,7 +2103,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -2162,7 +2162,7 @@
 │   │   │                       └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -2179,7 +2179,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -2282,7 +2282,7 @@
 │   │   │                   └── NUMBER(11.0)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -2299,7 +2299,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -2338,7 +2338,7 @@
 │   │   │   │   │   │                   └── IDENTIFIER(count)
 │   │   │   │   │   ├── SEMICOLON(;)
 │   │   │   │   │   ├── <procedure/function-call>
-│   │   │   │   │   │   ├── KEYWORD(writeln)
+│   │   │   │   │   │   ├── IDENTIFIER(writeln)
 │   │   │   │   │   │   ├── LPARENTHESIS(()
 │   │   │   │   │   │   ├── <parameter-list>
 │   │   │   │   │   │   │   ├── <expression>
@@ -2367,7 +2367,7 @@
 │   │   │   │   │   │                   └── IDENTIFIER(count)
 │   │   │   │   │   ├── SEMICOLON(;)
 │   │   │   │   │   └── <procedure/function-call>
-│   │   │   │   │       ├── KEYWORD(writeln)
+│   │   │   │   │       ├── IDENTIFIER(writeln)
 │   │   │   │   │       ├── LPARENTHESIS(()
 │   │   │   │   │       ├── <parameter-list>
 │   │   │   │   │       │   ├── <expression>
@@ -2385,7 +2385,7 @@
 │   │   │   │   └── KEYWORD(selesai)
 │   │   │   ├── KEYWORD(selain-itu)
 │   │   │   └── <procedure/function-call>
-│   │   │       ├── KEYWORD(writeln)
+│   │   │       ├── IDENTIFIER(writeln)
 │   │   │       ├── LPARENTHESIS(()
 │   │   │       ├── <parameter-list>
 │   │   │       │   └── <expression>
@@ -2396,7 +2396,7 @@
 │   │   │       └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -2470,7 +2470,7 @@
 │   │   │                           └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -2487,7 +2487,7 @@
 │   │   │   └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -2568,7 +2568,7 @@
 │   │   │       │       │   │           │       │               └── NUMBER(1)
 │   │   │       │       │   │           │       ├── KEYWORD(maka)
 │   │   │       │       │   │           │       ├── <procedure/function-call>
-│   │   │       │       │   │           │       │   ├── KEYWORD(writeln)
+│   │   │       │       │   │           │       │   ├── IDENTIFIER(writeln)
 │   │   │       │       │   │           │       │   ├── LPARENTHESIS(()
 │   │   │       │       │   │           │       │   ├── <parameter-list>
 │   │   │       │       │   │           │       │   │   ├── <expression>
@@ -2597,7 +2597,7 @@
 │   │   │       │       │   │           │       │   └── RPARENTHESIS())
 │   │   │       │       │   │           │       ├── KEYWORD(selain-itu)
 │   │   │       │       │   │           │       └── <procedure/function-call>
-│   │   │       │       │   │           │           ├── KEYWORD(writeln)
+│   │   │       │       │   │           │           ├── IDENTIFIER(writeln)
 │   │   │       │       │   │           │           ├── LPARENTHESIS(()
 │   │   │       │       │   │           │           ├── <parameter-list>
 │   │   │       │       │   │           │           │   └── <expression>
@@ -2610,7 +2610,7 @@
 │   │   │       │       │   └── KEYWORD(selesai)
 │   │   │       │       ├── KEYWORD(selain-itu)
 │   │   │       │       └── <procedure/function-call>
-│   │   │       │           ├── KEYWORD(writeln)
+│   │   │       │           ├── IDENTIFIER(writeln)
 │   │   │       │           ├── LPARENTHESIS(()
 │   │   │       │           ├── <parameter-list>
 │   │   │       │           │   ├── <expression>
@@ -2628,7 +2628,7 @@
 │   │   │       └── KEYWORD(selesai)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   └── <expression>
@@ -2659,7 +2659,7 @@
 │   │   │                   └── NUMBER(5)
 │   │   ├── SEMICOLON(;)
 │   │   ├── <procedure/function-call>
-│   │   │   ├── KEYWORD(writeln)
+│   │   │   ├── IDENTIFIER(writeln)
 │   │   │   ├── LPARENTHESIS(()
 │   │   │   ├── <parameter-list>
 │   │   │   │   ├── <expression>
@@ -2733,7 +2733,7 @@
 │   │   │   │               └── IDENTIFIER(valid)
 │   │   │   ├── KEYWORD(maka)
 │   │   │   └── <procedure/function-call>
-│   │   │       ├── KEYWORD(writeln)
+│   │   │       ├── IDENTIFIER(writeln)
 │   │   │       ├── LPARENTHESIS(()
 │   │   │       ├── <parameter-list>
 │   │   │       │   └── <expression>
@@ -2744,7 +2744,7 @@
 │   │   │       └── RPARENTHESIS())
 │   │   ├── SEMICOLON(;)
 │   │   └── <procedure/function-call>
-│   │       ├── KEYWORD(writeln)
+│   │       ├── IDENTIFIER(writeln)
 │   │       ├── LPARENTHESIS(()
 │   │       ├── <parameter-list>
 │   │       │   └── <expression>

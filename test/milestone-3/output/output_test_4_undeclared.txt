@@ -1,0 +1,126 @@
+======================================================================
+Pascal-S Compiler - AST Output
+Source: test/milestone-3/input/test_4_undeclared.pas
+======================================================================
+
+----------------------------------------------------------------------
+SYMBOL TABLE:
+----------------------------------------------------------------------
+tab (identifier table):
+idx  id                  obj         typ   ref   nrm  lev  adr  link 
+---------------------------------------------------------------------
+0    program             (reserved word)
+1    variabel            (reserved word)
+2    mulai               (reserved word)
+3    selesai             (reserved word)
+4    jika                (reserved word)
+5    maka                (reserved word)
+6    selain-itu          (reserved word)
+7    selama              (reserved word)
+8    lakukan             (reserved word)
+9    untuk               (reserved word)
+10   ke                  (reserved word)
+11   turun-ke            (reserved word)
+12   integer             (reserved word)
+13   real                (reserved word)
+14   boolean             (reserved word)
+15   char                (reserved word)
+16   larik               (reserved word)
+17   dari                (reserved word)
+18   prosedur            (reserved word)
+19   fungsi              (reserved word)
+20   konstanta           (reserved word)
+21   tipe                (reserved word)
+22   string              (reserved word)
+23   kasus               (reserved word)
+24   ulangi              (reserved word)
+25   sampai              (reserved word)
+26   rekaman             (reserved word)
+27   dan                 (reserved word)
+28   atau                (reserved word)
+29   tidak               (reserved word)
+30   bagi                (reserved word)
+31   mod                 (reserved word)
+32   TestUndeclared      program     0     -1    1    0    0    -1   
+33   x                   variable    1     -1    1    0    0    32   
+34   y                   variable    1     -1    1    0    1    33   
+35   flag                variable    3     -1    1    0    2    34   
+36   prosesNilai         procedure   0     1     1    0    0    -1   
+37   a                   parameter   1     -1    1    1    3    -1   
+38   temp                variable    1     -1    1    1    4    37   
+39   kuadrat             function    1     2     1    0    0    38   
+40   n                   parameter   1     -1    1    1    5    38   
+
+btab (block table):
+idx  last   lpar   psze   vsze   
+---------------------------------
+0    -1     -1     0      0      
+1    38     37     1      0      
+2    40     40     1      0      
+
+atab (array table):
+atab: (kosong karena tidak ada array)
+
+----------------------------------------------------------------------
+DECORATED AST:
+Legend: → tab_index:<idx>, type:<type>, lev:<scope_level>
+----------------------------------------------------------------------
+
+ProgramNode(name: 'TestUndeclared')
+ ├─ Declarations
+ │  ├─ VarDecl('x')
+ │  ├─ VarDecl('y')
+ │  ├─ VarDecl('flag')
+ │  ├─ ProcedureDecl('prosesNilai') → tab_index:36, type:void, lev:0
+ │  │  ├─ Param('a') → tab_index:37, type:integer, lev:1
+ │  │  ├─ Declarations
+ │  │  │  └─ VarDecl('temp')
+ │  │  └─ Block
+ │  │     ├─ Assign('temp' := a) → type:integer
+ │  │     └─ Assign('x' := temp) → type:integer
+ │  └─ FunctionDecl('kuadrat') → tab_index:39, type:integer, lev:0
+ │     ├─ Param('n') → tab_index:40, type:integer, lev:1
+ │     └─ Block
+ │        └─ Assign('x' := n*n) → type:integer
+ └─ Block
+    ├─ Assign('x' := 10) → type:integer
+    ├─ Assign('y' := 20) → type:integer
+    ├─ Assign('flag' := x>0) → type:boolean
+    ├─ Assign('z' := 100)
+    ├─ Assign('x' := tidakAda+5)
+    ├─ Assign('y' := x+belumDeklarasi*2)
+    ├─ If
+    │  ├─ 'kondisiTidakAda'
+    │  └─ Assign('x' := 1) → type:integer
+    ├─ While
+    │  ├─ BinOp '>'
+    │  │  ├─ 'counterTidakAda'
+    │  │  └─ 0 → type:integer, lev:0
+    │  └─ Assign('x' := x+1) → type:integer
+    ├─ For('iTidakAda' to)
+    │  ├─ 1 → type:integer, lev:0
+    │  ├─ 10 → type:integer, lev:0
+    │  └─ Assign('y' := y+1) → type:integer
+    ├─ prosedurTidakAda(...)
+    ├─ Assign('x' := fungsiTidakAda(...))
+    ├─ Assign('x' := KONSTANTA_TIDAK_ADA)
+    ├─ Assign('x' := arrayTidakAda[...])
+    └─ Assign('hasil' := nilaiA+nilaiB*nilaiC)
+
+----------------------------------------------------------------------
+SEMANTIC ERRORS:
+----------------------------------------------------------------------
+  - Semantic Error: Undeclared variable 'z'
+  - Semantic Error: Undeclared variable 'tidakAda'
+  - Semantic Error: Undeclared variable 'belumDeklarasi'
+  - Semantic Error: Undeclared variable 'kondisiTidakAda'
+  - Semantic Error: Undeclared variable 'counterTidakAda'
+  - Semantic Error: Undeclared loop variable 'iTidakAda'
+  - Semantic Error: Undeclared procedure 'prosedurTidakAda'
+  - Semantic Error: Undeclared function 'fungsiTidakAda'
+  - Semantic Error: Undeclared variable 'KONSTANTA_TIDAK_ADA'
+  - Semantic Error: Undeclared array 'arrayTidakAda'
+  - Semantic Error: Undeclared variable 'hasil'
+  - Semantic Error: Undeclared variable 'nilaiA'
+  - Semantic Error: Undeclared variable 'nilaiB'
+  - Semantic Error: Undeclared variable 'nilaiC'
