@@ -663,11 +663,14 @@ def get_decorated_node_info(node: ASTNode) -> str:
         return f"TypeDecl('{node.name}'){annotation}"
     
     elif isinstance(node, VarDeclNode):
+        # Always show annotation for VarDecl nodes
         if len(node.names) == 1:
-            return f"VarDecl('{node.names[0]}'){annotation}"
+            type_str = get_type_string(node.type_spec) if hasattr(node, 'type_spec') else 'unknown'
+            return f"VarDecl('{node.names[0]}', type: '{type_str}'){annotation}"
         else:
             vars_str = "', '".join(node.names)
-            return f"VarDecl(['{vars_str}']){annotation}"
+            type_str = get_type_string(node.type_spec) if hasattr(node, 'type_spec') else 'unknown'
+            return f"VarDecl(['{vars_str}'], type: '{type_str}'){annotation}"
     
     elif isinstance(node, ProcedureDeclNode):
         return f"ProcedureDecl('{node.name}'){annotation}"
@@ -701,7 +704,15 @@ def get_decorated_node_info(node: ASTNode) -> str:
         return f"Block{_get_block_annotation(node)}"
     
     elif isinstance(node, AssignmentNode):
-        target_name = node.target.name if isinstance(node.target, VarNode) else str(node.target)
+        # Handle different target types properly
+        if isinstance(node.target, VarNode):
+            target_name = node.target.name
+        elif isinstance(node.target, ArrayAccessNode):
+            # Format as arr[index]
+            index_str = _get_value_summary(node.target.index)
+            target_name = f"{node.target.array_name}[{index_str}]"
+        else:
+            target_name = str(node.target)
         value_str = _get_value_summary(node.value)
         return f"Assign('{target_name}' := {value_str}){annotation}"
     
@@ -770,9 +781,19 @@ def get_node_children(node: ASTNode) -> list:
         children.extend(node.type_decls)
         # Expand VarDecl to show each variable separately
         for var_decl in node.var_decls:
-            for name in var_decl.names:
+            for i, name in enumerate(var_decl.names):
                 # Create individual VarDeclNode for each variable
-                children.append(VarDeclNode(names=[name], type_spec=var_decl.type_spec))
+                new_node = VarDeclNode(names=[name], type_spec=var_decl.type_spec)
+                # Copy semantic decorations - use individual tab_index from tab_indices list
+                if hasattr(var_decl, 'tab_indices') and i < len(var_decl.tab_indices):
+                    new_node.tab_index = var_decl.tab_indices[i]
+                elif hasattr(var_decl, 'tab_index'):
+                    new_node.tab_index = var_decl.tab_index
+                if hasattr(var_decl, 'computed_type'):
+                    new_node.computed_type = var_decl.computed_type
+                if hasattr(var_decl, 'scope_level'):
+                    new_node.scope_level = var_decl.scope_level
+                children.append(new_node)
         children.extend(node.subprogram_decls)
     
     elif isinstance(node, TypeDeclNode):
@@ -1087,22 +1108,49 @@ if __name__ == "__main__":
         ("test/milestone-3/input/test_3_scope.pas", "test/milestone-3/output/output_test_3_scope.txt"),
         ("test/milestone-3/input/test_4_undeclared.pas", "test/milestone-3/output/output_test_4_undeclared.txt"),
         ("test/milestone-3/input/test_5_complex.pas", "test/milestone-3/output/output_test_5_complex.txt"),
+        ("test/milestone-3/input/test_brutal_1.pas", "test/milestone-3/output/output_test_brutal_1.txt"),
+        ("test/milestone-3/input/test_brutal_2.pas", "test/milestone-3/output/output_test_brutal_2.txt"),
+        ("test/milestone-3/input/test_brutal_3.pas", "test/milestone-3/output/output_test_brutal_3.txt"),
     ]
     
     # Check for command line argument to run specific test
     if len(sys.argv) > 1:
-        test_num = sys.argv[1]
-        if test_num.isdigit() and 1 <= int(test_num) <= len(test_files):
-            idx = int(test_num) - 1
+        arg = sys.argv[1]
+
+        # Check if argument is a file path
+        if arg.endswith('.pas'):
+            input_file = arg
+            # Generate output filename: replace .pas with _output.txt
+            if len(sys.argv) > 2:
+                output_file = sys.argv[2]
+            else:
+                # Auto-generate output path
+                base_name = os.path.splitext(os.path.basename(input_file))[0]
+                output_file = f"test/milestone-3/output/output_{base_name}.txt"
+
+            run_test(input_file, output_file)
+
+        # Check if argument is a test number
+        elif arg.isdigit() and 1 <= int(arg) <= len(test_files):
+            idx = int(arg) - 1
             run_test(test_files[idx][0], test_files[idx][1])
+
         else:
-            print(f"Usage: python ast_printer.py [1-{len(test_files)}]")
-            print("  No argument = run all tests")
+            print(f"Usage: python ast_printer.py [test_number | input_file.pas [output_file.txt]]")
+            print(f"  No argument = run all {len(test_files)} tests")
+            print(f"  test_number = run specific test (1-{len(test_files)})")
+            print(f"  input_file.pas = run on custom file")
+            print(f"  input_file.pas output_file.txt = run with custom output path")
+            print("")
+            print("Predefined tests:")
             print("  1 = test_1_valid.pas")
             print("  2 = test_2_types.pas")
             print("  3 = test_3_scope.pas")
             print("  4 = test_4_undeclared.pas")
             print("  5 = test_5_complex.pas")
+            print("  6 = test_brutal_1.pas (deeply nested scopes, shadowing)")
+            print("  7 = test_brutal_2.pas (type mixing, operator precedence)")
+            print("  8 = test_brutal_3.pas (extreme stress test)")
     else:
         # Run all tests
         print("\n" + "=" * 70)

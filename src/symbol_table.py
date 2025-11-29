@@ -327,10 +327,17 @@ class SymbolTable:
             adr=self.next_address,
             link=self._get_current_scope_link()
         )
-        
+
         self.tab.append(entry)
+        tab_index = len(self.tab) - 1
+
+        # Update btab.last to point to this identifier
+        if self.current_block >= 0:
+            self.btab[self.current_block].last = tab_index
+            self.btab[self.current_block].vsize += self._get_type_size(data_type, array_ref)
+
         self.next_address += self._get_type_size(data_type, array_ref)
-        return len(self.tab) - 1
+        return tab_index
     
     def enter_program(self, name: str) -> int:
         """Enter a program name into symbol table"""
@@ -343,9 +350,15 @@ class SymbolTable:
             adr=0,
             link=self._get_current_scope_link()
         )
-        
+
         self.tab.append(entry)
-        return len(self.tab) - 1
+        tab_index = len(self.tab) - 1
+
+        # Update btab.last
+        if self.current_block >= 0:
+            self.btab[self.current_block].last = tab_index
+
+        return tab_index
     
     def enter_constant(self, name: str, data_type: DataType, value: Any) -> int:
         """Enter a constant into symbol table"""
@@ -358,9 +371,15 @@ class SymbolTable:
             adr=0,  # Constants don't need address
             link=self._get_current_scope_link()
         )
-        
+
         self.tab.append(entry)
-        return len(self.tab) - 1
+        tab_index = len(self.tab) - 1
+
+        # Update btab.last
+        if self.current_block >= 0:
+            self.btab[self.current_block].last = tab_index
+
+        return tab_index
     
     def enter_type(self, name: str, type_def: DataType, ref: int = -1) -> int:
         """Enter a type definition into symbol table"""
@@ -373,9 +392,15 @@ class SymbolTable:
             adr=0,
             link=self._get_current_scope_link()
         )
-        
+
         self.tab.append(entry)
-        return len(self.tab) - 1
+        tab_index = len(self.tab) - 1
+
+        # Update btab.last
+        if self.current_block >= 0:
+            self.btab[self.current_block].last = tab_index
+
+        return tab_index
     
     def enter_parameter(self, name: str, data_type: DataType, by_reference: bool = False) -> int:
         """Enter a parameter into symbol table"""
@@ -388,16 +413,18 @@ class SymbolTable:
             adr=self.next_address,
             link=self._get_current_scope_link()
         )
-        
+
         self.tab.append(entry)
+        tab_index = len(self.tab) - 1
         self.next_address += self._get_type_size(data_type)
-        
+
         # Update block table with parameter info
         if self.current_block >= 0:
-            self.btab[self.current_block].lastpar = len(self.tab) - 1
+            self.btab[self.current_block].lastpar = tab_index
+            self.btab[self.current_block].last = tab_index
             self.btab[self.current_block].psize += self._get_type_size(data_type)
-        
-        return len(self.tab) - 1
+
+        return tab_index
     
     def enter_array(self, index_type: DataType, element_type: DataType, 
                    low: int, high: int, element_ref: int = -1) -> int:
@@ -492,18 +519,28 @@ class SymbolTable:
         return None
     
     def _get_current_scope_link(self) -> int:
-        """Get the link to the previous symbol in the current scope"""
+        """
+        Get the link to the previous symbol in the current scope.
+
+        The link field creates a linked list of identifiers within the same scope,
+        allowing scope-based traversal. It points to the index of the previous
+        identifier declared in the same lexical level.
+
+        Returns:
+            Index of the previous identifier in current scope, or -1 if none exists
+        """
         if len(self.tab) <= self.RESERVED_COUNT:
             return -1
-        
+
         # Find the most recent symbol in the current scope (skip None entries)
+        # This creates a linked list: newest -> previous -> ... -> first -> -1
         for i in range(len(self.tab) - 1, self.RESERVED_COUNT - 1, -1):
             entry = self.tab[i]
             if entry is None:
                 continue
             if entry.lev == self.current_level:
                 return i
-        
+
         return -1
     
     def _get_type_size(self, data_type: DataType, array_ref: int = -1) -> int:

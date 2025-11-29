@@ -182,6 +182,7 @@ Syntax error at position 7: unexpected token KEYWORD(mulai), expected SEMICOLON(
 
 ## Testing
 
+### Milestone 2 - Parser Tests
 Program telah diuji dengan berbagai test case:
 - **test1.pas** - Program sederhana dengan assignment
 - **test2.pas** - Fungsi faktorial dengan loop
@@ -190,6 +191,14 @@ Program telah diuji dengan berbagai test case:
 - **test5.pas** - Kombinasi konstanta, prosedur, fungsi, dan control structures
 - **test_brutal.pas** - Comprehensive test case
 - **test_error.pas** - Syntax error detection
+
+### Milestone 3 - Semantic Analyzer Tests
+Program telah diuji dengan berbagai test case semantic:
+- **test_1_valid.pas** - Valid program dengan berbagai deklarasi dan statement
+- **test_2_types.pas** - Type checking untuk berbagai tipe data
+- **test_3_scope.pas** - Scope checking untuk nested procedures/functions
+- **test_4_undeclared.pas** - Error detection untuk undeclared variables (14 errors)
+- **test_5_complex.pas** - Complex program dengan kombinasi semua fitur
 
 ## Pembagian Tugas
 
@@ -208,6 +217,14 @@ Program telah diuji dengan berbagai test case:
 | Kenneth Poenadi         | 13523040 | Parser Implementation, Tree Printer, Laporan |
 | M. Zahran Ramadhan      | 13523104 | Lexer Modification, Error Handling, Test Case |
 | Bob Kunanda             | 13523086 | Grammar Design, Integration, Laporan |
+
+### Milestone 3
+| Nama                     | NIM      | Tugas                          |
+|--------------------------|----------|--------------------------------|
+| Muhammad Syarafi Akmal  | 13522076 | AST Builder, Semantic Visitor, Test Case |
+| Kenneth Poenadi         | 13523040 | Symbol Table, AST Nodes, Laporan |
+| M. Zahran Ramadhan      | 13523104 | Type Checking, Error Handling, Test Case |
+| Bob Kunanda             | 13523086 | Scope Checking, AST Printer, Laporan |
 
 ## Referensi
 

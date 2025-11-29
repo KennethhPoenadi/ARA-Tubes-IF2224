@@ -217,16 +217,26 @@ class SemanticVisitor:
         """Visit variable declaration - add variables to symbol table"""
         # Get the data type
         data_type = data_type_from_ast(node.type_spec)
-        
+
         # Handle array types
         array_ref = -1
         if isinstance(node.type_spec, ArrayTypeNode):
             array_ref = self._process_array_type(node.type_spec)
             data_type = DataType.ARRAY
-        
+        # Handle custom type references (e.g., arr: Larik1D where Larik1D is array type)
+        elif isinstance(node.type_spec, CustomTypeNode):
+            # Look up the custom type in symbol table
+            type_entry = self.symbol_table.lookup(node.type_spec.type_name)
+            if type_entry and type_entry.obj == ObjectType.TYPE:
+                data_type = type_entry.type
+                array_ref = type_entry.ref  # Get array reference if it's an array type
+            else:
+                self.add_error(f"Unknown type '{node.type_spec.type_name}'", node)
+                data_type = DataType.INTEGER  # Fallback
+
         # Track indices for all variables in this declaration
         tab_indices = []
-        
+
         # Enter each variable name
         for var_name in node.names:
             # Check for duplicate declaration in current scope
@@ -235,13 +245,14 @@ class SemanticVisitor:
                 self.add_error(f"Duplicate declaration of variable '{var_name}'", node)
                 tab_indices.append(-1)
                 continue
-            
+
             tab_index = self.symbol_table.enter_variable(var_name, data_type, array_ref)
             tab_indices.append(tab_index)
-        
+
         # Decorate the AST node
-        # For VarDeclNode, we store the first variable's index (or -1 if all failed)
-        node.tab_index = tab_indices[0] if tab_indices else -1
+        # Store ALL tab indices for each variable
+        node.tab_indices = tab_indices  # List of all indices
+        node.tab_index = tab_indices[0] if tab_indices else -1  # First index for compatibility
         node.computed_type = data_type
         node.scope_level = self.symbol_table.current_level
     
@@ -323,7 +334,7 @@ class SemanticVisitor:
     def visit_ParamNode(self, node: ParamNode) -> None:
         """Visit parameter node - add parameters to symbol table"""
         param_type = data_type_from_ast(node.type_spec)
-        
+
         tab_indices = []
         for param_name in node.names:
             # Check for duplicate parameter
@@ -332,11 +343,12 @@ class SemanticVisitor:
                 self.add_error(f"Duplicate parameter '{param_name}'", node)
                 tab_indices.append(-1)
                 continue
-            
+
             tab_index = self.symbol_table.enter_parameter(param_name, param_type)
             tab_indices.append(tab_index)
-        
+
         # Decorate the AST node
+        node.tab_indices = tab_indices  # List of all indices
         node.tab_index = tab_indices[0] if tab_indices else -1
         node.computed_type = param_type
         node.scope_level = self.symbol_table.current_level
@@ -568,21 +580,30 @@ class SemanticVisitor:
     
     def visit_VarNode(self, node: VarNode) -> DataType:
         """Visit variable reference - look up in symbol table"""
+        # Handle boolean literals (true, false) as special built-in constants
+        if node.name.lower() in ['true', 'false']:
+            node.tab_index = -1  # No symbol table entry (built-in)
+            node.computed_type = DataType.BOOLEAN
+            node.scope_level = 0  # Global level
+            return DataType.BOOLEAN
+
         entry, tab_index = self.symbol_table.lookup_with_index(node.name)
-        
+
         if not entry:
             self.add_error(f"Undeclared variable '{node.name}'", node)
             return None
-        
-        if entry.obj not in [ObjectType.VARIABLE, ObjectType.PARAMETER, ObjectType.CONSTANT]:
+
+        # Allow FUNCTION in addition to VARIABLE, PARAMETER, CONSTANT
+        # This is needed for function return value assignment (e.g., functionName := result)
+        if entry.obj not in [ObjectType.VARIABLE, ObjectType.PARAMETER, ObjectType.CONSTANT, ObjectType.FUNCTION]:
             self.add_error(f"'{node.name}' is not a variable", node)
             return None
-        
+
         # Decorate the AST node
         node.tab_index = tab_index
         node.computed_type = entry.type
         node.scope_level = entry.lev
-        
+
         return entry.type
     
     def visit_ArrayAccessNode(self, node: ArrayAccessNode) -> DataType:
@@ -714,8 +735,9 @@ class SemanticVisitor:
             self.add_error(f"Invalid operand types for '/'", node)
             return None
         
-        if op in ['div', 'mod']:
-            # Integer division
+        if op in ['bagi', 'mod']:
+            # Integer division (bagi) or modulo (mod)
+            # 'bagi' is Indonesian keyword for integer division
             if left_type == DataType.INTEGER and right_type == DataType.INTEGER:
                 return DataType.INTEGER
             self.add_error(f"'{op}' requires integer operands", node)
