@@ -1,461 +1,1149 @@
-======================================================================
-Pascal-S Compiler - AST Output
-Source: test/milestone-3/input/test_brutal.pas
-======================================================================
+================================================================================
+SEMANTIC ANALYSIS RESULTS - Pascal-S Compiler
+================================================================================
 
-----------------------------------------------------------------------
-SYMBOL TABLE:
-----------------------------------------------------------------------
-tab (identifier table):
-idx  id                  obj         typ   ref   nrm  lev  adr  link 
----------------------------------------------------------------------
-0    program             (reserved word)
-1    variabel            (reserved word)
-2    mulai               (reserved word)
-3    selesai             (reserved word)
-4    jika                (reserved word)
-5    maka                (reserved word)
-6    selain-itu          (reserved word)
-7    selama              (reserved word)
-8    lakukan             (reserved word)
-9    untuk               (reserved word)
-10   ke                  (reserved word)
-11   turun-ke            (reserved word)
-12   integer             (reserved word)
-13   real                (reserved word)
-14   boolean             (reserved word)
-15   char                (reserved word)
-16   larik               (reserved word)
-17   dari                (reserved word)
-18   prosedur            (reserved word)
-19   fungsi              (reserved word)
-20   konstanta           (reserved word)
-21   tipe                (reserved word)
-22   string              (reserved word)
-23   kasus               (reserved word)
-24   ulangi              (reserved word)
-25   sampai              (reserved word)
-26   rekaman             (reserved word)
-27   dan                 (reserved word)
-28   atau                (reserved word)
-29   tidak               (reserved word)
-30   bagi                (reserved word)
-31   mod                 (reserved word)
-32   TestBrutal          program     0     -1    1    0    0    -1   
-33   MAX                 constant    1     0     1    0    0    32   
-34   MIN                 constant    1     0     1    0    0    33   
-35   PI                  constant    2     0     1    0    0    34   
-36   PESAN               constant    6     0     1    0    0    35   
-37   NEWLINE             constant    6     0     1    0    0    36   
-38   i                   variable    1     -1    1    0    0    37   
-39   j                   variable    1     -1    1    0    1    38   
-40   k                   variable    1     -1    1    0    2    39   
-41   count               variable    1     -1    1    0    3    40   
-42   total               variable    1     -1    1    0    4    41   
-43   avg                 variable    2     -1    1    0    5    42   
-44   sum                 variable    2     -1    1    0    7    43   
-45   result              variable    2     -1    1    0    9    44   
-46   arr                 variable    5     0     1    0    11   45   
-47   data                variable    5     0     1    0    21   46   
-48   sorted              variable    5     0     1    0    31   47   
-49   scores              variable    5     1     1    0    41   48   
-50   huruf               variable    5     2     1    0    83   49   
-51   found               variable    3     -1    1    0    109  50   
-52   valid               variable    3     -1    1    0    110  51   
-53   isDone              variable    3     -1    1    0    111  52   
-54   ch                  variable    4     -1    1    0    112  53   
-55   Fibonacci           function    1     1     1    0    0    -1   
-56   n                   parameter   1     -1    1    1    113  -1   
-57   a                   variable    1     -1    1    1    114  56   
-58   b                   variable    1     -1    1    1    115  57   
-59   temp                variable    1     -1    1    1    116  58   
-60   idx                 variable    1     -1    1    1    117  59   
-61   IsPrime             function    3     2     1    0    0    60   
-62   num                 parameter   1     -1    1    1    118  60   
-63   idx                 variable    1     -1    1    1    119  62   
-64   isPrime             variable    3     -1    1    1    120  63   
-65   Max                 function    1     3     1    0    0    64   
-66   a                   parameter   1     -1    1    1    121  64   
-67   b                   parameter   1     -1    1    1    122  66   
-68   Min                 function    1     4     1    0    0    67   
-69   a                   parameter   1     -1    1    1    123  67   
-70   b                   parameter   1     -1    1    1    124  69   
-71   BubbleSort          procedure   0     5     1    0    0    70   
-72   n                   parameter   1     -1    1    1    125  70   
-73   idx                 variable    1     -1    1    1    126  72   
-74   jdx                 variable    1     -1    1    1    127  73   
-75   temp                variable    1     -1    1    1    128  74   
-76   swapped             variable    3     -1    1    1    129  75   
-77   PrintArray          procedure   0     6     1    0    0    76   
-78   n                   parameter   1     -1    1    1    130  76   
-79   idx                 variable    1     -1    1    1    131  78   
-80   InitArray           procedure   0     7     1    0    0    79   
-81   n                   parameter   1     -1    1    1    132  79   
-82   idx                 variable    1     -1    1    1    133  81   
+Source File: test/milestone-3/input/test_brutal.pas
+Total Tokens: 1247
+Analysis Date: November 29, 2025
 
-btab (block table):
-idx  last   lpar   psze   vsze   
----------------------------------
-0    54     -1     0      113    
-1    60     56     1      4      
-2    64     62     1      2      
-3    67     67     2      0      
-4    70     70     2      0      
-5    76     72     1      4      
-6    79     78     1      1      
-7    82     81     1      1      
+================================================================================
+STATUS
+================================================================================
+✅ NO SEMANTIC ERRORS FOUND!
 
-atab (array table):
-idx  xtyp  etyp  eref   low   high  elsz   size  
--------------------------------------------------
-0    1     1     -1     1     10    1      10    
-1    1     2     -1     0     20    2      42    
-2    1     4     -1     1     26    1      26    
+================================================================================
+SYMBOL TABLE
+================================================================================
 
-----------------------------------------------------------------------
-DECORATED AST:
-Legend: → tab_index:<idx>, type:<type>, lev:<scope_level>
-----------------------------------------------------------------------
 
-ProgramNode(name: 'TestBrutal')
- ├─ Declarations
- │  ├─ ConstDecl('MAX') → tab_index:33, type:integer, lev:0
- │  ├─ ConstDecl('MIN') → tab_index:34, type:integer, lev:0
- │  ├─ ConstDecl('PI') → tab_index:35, type:real, lev:0
- │  ├─ ConstDecl('PESAN') → tab_index:36, type:string, lev:0
- │  ├─ ConstDecl('NEWLINE') → tab_index:37, type:string, lev:0
- │  ├─ VarDecl('i', type: 'integer') → tab_index:38, type:integer, lev:0
- │  ├─ VarDecl('j', type: 'integer') → tab_index:39, type:integer, lev:0
- │  ├─ VarDecl('k', type: 'integer') → tab_index:40, type:integer, lev:0
- │  ├─ VarDecl('count', type: 'integer') → tab_index:41, type:integer, lev:0
- │  ├─ VarDecl('total', type: 'integer') → tab_index:42, type:integer, lev:0
- │  ├─ VarDecl('avg', type: 'real') → tab_index:43, type:real, lev:0
- │  ├─ VarDecl('sum', type: 'real') → tab_index:44, type:real, lev:0
- │  ├─ VarDecl('result', type: 'real') → tab_index:45, type:real, lev:0
- │  ├─ VarDecl('arr', type: 'array of integer') → tab_index:46, type:array, lev:0
- │  ├─ VarDecl('data', type: 'array of integer') → tab_index:47, type:array, lev:0
- │  ├─ VarDecl('sorted', type: 'array of integer') → tab_index:48, type:array, lev:0
- │  ├─ VarDecl('scores', type: 'array of real') → tab_index:49, type:array, lev:0
- │  ├─ VarDecl('huruf', type: 'array of char') → tab_index:50, type:array, lev:0
- │  ├─ VarDecl('found', type: 'boolean') → tab_index:51, type:boolean, lev:0
- │  ├─ VarDecl('valid', type: 'boolean') → tab_index:52, type:boolean, lev:0
- │  ├─ VarDecl('isDone', type: 'boolean') → tab_index:53, type:boolean, lev:0
- │  ├─ VarDecl('ch', type: 'char') → tab_index:54, type:char, lev:0
- │  ├─ FunctionDecl('Fibonacci') → tab_index:55, type:integer, lev:0
- │  │  ├─ Param('n') → tab_index:56, type:integer, lev:1
- │  │  ├─ Declarations
- │  │  │  ├─ VarDecl('a', type: 'integer') → tab_index:57, type:integer, lev:1
- │  │  │  ├─ VarDecl('b', type: 'integer') → tab_index:58, type:integer, lev:1
- │  │  │  ├─ VarDecl('temp', type: 'integer') → tab_index:59, type:integer, lev:1
- │  │  │  └─ VarDecl('idx', type: 'integer') → tab_index:60, type:integer, lev:1
- │  │  └─ Block
- │  │     └─ If
- │  │        ├─ BinOp '<=' → type:boolean, lev:1
- │  │        │  ├─ 'n' → tab_index:56, type:integer, lev:1
- │  │        │  └─ 1 → type:integer, lev:1
- │  │        ├─ Assign('Fibonacci' := n) → type:integer
- │  │        └─ Block
- │  │           ├─ Assign('a' := 0) → type:integer
- │  │           ├─ Assign('b' := 1) → type:integer
- │  │           ├─ For('idx' to)
- │  │           │  ├─ 2 → type:integer, lev:1
- │  │           │  ├─ 'n' → tab_index:56, type:integer, lev:1
- │  │           │  └─ Block
- │  │           │     ├─ Assign('temp' := a+b) → type:integer
- │  │           │     ├─ Assign('a' := b) → type:integer
- │  │           │     └─ Assign('b' := temp) → type:integer
- │  │           └─ Assign('Fibonacci' := b) → type:integer
- │  ├─ FunctionDecl('IsPrime') → tab_index:61, type:boolean, lev:0
- │  │  ├─ Param('num') → tab_index:62, type:integer, lev:1
- │  │  ├─ Declarations
- │  │  │  ├─ VarDecl('idx', type: 'integer') → tab_index:63, type:integer, lev:1
- │  │  │  └─ VarDecl('isPrime', type: 'boolean') → tab_index:64, type:boolean, lev:1
- │  │  └─ Block
- │  │     ├─ Assign('isPrime' := true) → type:boolean
- │  │     ├─ If
- │  │     │  ├─ BinOp '<=' → type:boolean, lev:1
- │  │     │  │  ├─ 'num' → tab_index:62, type:integer, lev:1
- │  │     │  │  └─ 1 → type:integer, lev:1
- │  │     │  ├─ Assign('isPrime' := false) → type:boolean
- │  │     │  └─ Block
- │  │     │     ├─ Assign('idx' := 2) → type:integer
- │  │     │     └─ While
- │  │     │        ├─ BinOp 'dan' → type:boolean, lev:1
- │  │     │        │  ├─ BinOp '<=' → type:boolean, lev:1
- │  │     │        │  │  ├─ BinOp '*' → type:integer, lev:1
- │  │     │        │  │  │  ├─ 'idx' → tab_index:63, type:integer, lev:1
- │  │     │        │  │  │  └─ 'idx' → tab_index:63, type:integer, lev:1
- │  │     │        │  │  └─ 'num' → tab_index:62, type:integer, lev:1
- │  │     │        │  └─ 'isPrime' → tab_index:64, type:boolean, lev:1
- │  │     │        └─ Block
- │  │     │           ├─ If
- │  │     │           │  ├─ BinOp '=' → type:boolean, lev:1
- │  │     │           │  │  ├─ BinOp 'mod' → type:integer, lev:1
- │  │     │           │  │  │  ├─ 'num' → tab_index:62, type:integer, lev:1
- │  │     │           │  │  │  └─ 'idx' → tab_index:63, type:integer, lev:1
- │  │     │           │  │  └─ 0 → type:integer, lev:1
- │  │     │           │  └─ Assign('isPrime' := false) → type:boolean
- │  │     │           └─ Assign('idx' := idx+1) → type:integer
- │  │     └─ Assign('IsPrime' := isPrime) → type:boolean
- │  ├─ FunctionDecl('Max') → tab_index:65, type:integer, lev:0
- │  │  ├─ Param(['a', 'b']) → tab_index:66, type:integer, lev:1
- │  │  └─ Block
- │  │     └─ If
- │  │        ├─ BinOp '>' → type:boolean, lev:1
- │  │        │  ├─ 'a' → tab_index:66, type:integer, lev:1
- │  │        │  └─ 'b' → tab_index:67, type:integer, lev:1
- │  │        ├─ Assign('Max' := a) → type:integer
- │  │        └─ Assign('Max' := b) → type:integer
- │  ├─ FunctionDecl('Min') → tab_index:68, type:integer, lev:0
- │  │  ├─ Param(['a', 'b']) → tab_index:69, type:integer, lev:1
- │  │  └─ Block
- │  │     └─ If
- │  │        ├─ BinOp '<' → type:boolean, lev:1
- │  │        │  ├─ 'a' → tab_index:69, type:integer, lev:1
- │  │        │  └─ 'b' → tab_index:70, type:integer, lev:1
- │  │        ├─ Assign('Min' := a) → type:integer
- │  │        └─ Assign('Min' := b) → type:integer
- │  ├─ ProcedureDecl('BubbleSort') → tab_index:71, type:void, lev:0
- │  │  ├─ Param('n') → tab_index:72, type:integer, lev:1
- │  │  ├─ Declarations
- │  │  │  ├─ VarDecl('idx', type: 'integer') → tab_index:73, type:integer, lev:1
- │  │  │  ├─ VarDecl('jdx', type: 'integer') → tab_index:74, type:integer, lev:1
- │  │  │  ├─ VarDecl('temp', type: 'integer') → tab_index:75, type:integer, lev:1
- │  │  │  └─ VarDecl('swapped', type: 'boolean') → tab_index:76, type:boolean, lev:1
- │  │  └─ Block
- │  │     └─ For('idx' to)
- │  │        ├─ 1 → type:integer, lev:1
- │  │        ├─ BinOp '-' → type:integer, lev:1
- │  │        │  ├─ 'n' → tab_index:72, type:integer, lev:1
- │  │        │  └─ 1 → type:integer, lev:1
- │  │        └─ Block
- │  │           ├─ Assign('swapped' := false) → type:boolean
- │  │           ├─ For('jdx' to)
- │  │           │  ├─ 1 → type:integer, lev:1
- │  │           │  ├─ BinOp '-' → type:integer, lev:1
- │  │           │  │  ├─ 'n' → tab_index:72, type:integer, lev:1
- │  │           │  │  └─ 'idx' → tab_index:73, type:integer, lev:1
- │  │           │  └─ Block
- │  │           │     └─ If
- │  │           │        ├─ BinOp '>' → type:boolean, lev:1
- │  │           │        │  ├─ 'arr[...]' → tab_index:46, type:integer, lev:0
- │  │           │        │  │  └─ 'jdx' → tab_index:74, type:integer, lev:1
- │  │           │        │  └─ 'arr[...]' → tab_index:46, type:integer, lev:0
- │  │           │        │     └─ BinOp '+' → type:integer, lev:1
- │  │           │        │        ├─ 'jdx' → tab_index:74, type:integer, lev:1
- │  │           │        │        └─ 1 → type:integer, lev:1
- │  │           │        └─ Block
- │  │           │           ├─ Assign('temp' := arr[...]) → type:integer
- │  │           │           ├─ Assign('arr[jdx]' := arr[...]) → type:integer
- │  │           │           ├─ Assign('arr[jdx+1]' := temp) → type:integer
- │  │           │           └─ Assign('swapped' := true) → type:boolean
- │  │           └─ If
- │  │              ├─ UnaryOp 'tidak' → type:boolean, lev:1
- │  │              │  └─ 'swapped' → tab_index:76, type:boolean, lev:1
- │  │              └─ Assign('idx' := n) → type:integer
- │  ├─ ProcedureDecl('PrintArray') → tab_index:77, type:void, lev:0
- │  │  ├─ Param('n') → tab_index:78, type:integer, lev:1
- │  │  ├─ Declarations
- │  │  │  └─ VarDecl('idx', type: 'integer') → tab_index:79, type:integer, lev:1
- │  │  └─ Block
- │  │     ├─ For('idx' to)
- │  │     │  ├─ 1 → type:integer, lev:1
- │  │     │  ├─ 'n' → tab_index:78, type:integer, lev:1
- │  │     │  └─ Block
- │  │     │     ├─ write(...) → predefined
- │  │     │     └─ If
- │  │     │        ├─ BinOp '<' → type:boolean, lev:1
- │  │     │        │  ├─ 'idx' → tab_index:79, type:integer, lev:1
- │  │     │        │  └─ 'n' → tab_index:78, type:integer, lev:1
- │  │     │        └─ write(...) → predefined
- │  │     └─ writeln(...) → predefined
- │  └─ ProcedureDecl('InitArray') → tab_index:80, type:void, lev:0
- │     ├─ Param('n') → tab_index:81, type:integer, lev:1
- │     ├─ Declarations
- │     │  └─ VarDecl('idx', type: 'integer') → tab_index:82, type:integer, lev:1
- │     └─ Block
- │        └─ For('idx' to)
- │           ├─ 1 → type:integer, lev:1
- │           ├─ 'n' → tab_index:81, type:integer, lev:1
- │           └─ Assign('arr[idx]' := n-idx+1*2) → type:integer
- └─ Block
-    ├─ writeln(...) → predefined
-    ├─ InitArray(...) → tab_index:80, type:void, lev:0
-    ├─ writeln(...) → predefined
-    ├─ PrintArray(...) → tab_index:77, type:void, lev:0
-    ├─ writeln(...) → predefined
-    ├─ Assign('count' := 0) → type:integer
-    ├─ Assign('total' := 0) → type:integer
-    ├─ For('i' to)
-    │  ├─ 1 → type:integer, lev:0
-    │  ├─ 10 → type:integer, lev:0
-    │  └─ Block
-    │     └─ If
-    │        ├─ IsPrime(...) → tab_index:61, type:boolean, lev:0
-    │        ├─ Block
-    │        │  ├─ writeln(...) → predefined
-    │        │  ├─ Assign('count' := count+1) → type:integer
-    │        │  └─ Assign('total' := total+arr[...]) → type:integer
-    │        └─ Block
-    │           └─ If
-    │              ├─ BinOp '=' → type:boolean, lev:0
-    │              │  ├─ BinOp 'mod' → type:integer, lev:0
-    │              │  │  ├─ 'arr[...]' → tab_index:46, type:integer, lev:0
-    │              │  │  │  └─ 'i' → tab_index:38, type:integer, lev:0
-    │              │  │  └─ 2 → type:integer, lev:0
-    │              │  └─ 0 → type:integer, lev:0
-    │              ├─ writeln(...) → predefined
-    │              └─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ Assign('i' := 1) → type:integer
-    ├─ Assign('sum' := 0.0) → type:real
-    ├─ While
-    │  ├─ BinOp 'dan' → type:boolean, lev:0
-    │  │  ├─ BinOp '<=' → type:boolean, lev:0
-    │  │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
-    │  │  │  └─ 10 → type:integer, lev:0
-    │  │  └─ BinOp '<' → type:boolean, lev:0
-    │  │     ├─ 'sum' → tab_index:44, type:real, lev:0
-    │  │     └─ 100.0 → type:real, lev:0
-    │  └─ Block
-    │     ├─ Assign('sum' := sum+i*1.5) → type:real
-    │     ├─ writeln(...) → predefined
-    │     └─ Assign('i' := i+1) → type:integer
-    ├─ writeln(...) → predefined
-    ├─ For('i' downto)
-    │  ├─ 10 → type:integer, lev:0
-    │  ├─ 1 → type:integer, lev:0
-    │  └─ Block
-    │     └─ If
-    │        ├─ BinOp '=' → type:boolean, lev:0
-    │        │  ├─ BinOp 'mod' → type:integer, lev:0
-    │        │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
-    │        │  │  └─ 3 → type:integer, lev:0
-    │        │  └─ 0 → type:integer, lev:0
-    │        ├─ writeln(...) → predefined
-    │        └─ If
-    │           ├─ BinOp '=' → type:boolean, lev:0
-    │           │  ├─ BinOp 'mod' → type:integer, lev:0
-    │           │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
-    │           │  │  └─ 5 → type:integer, lev:0
-    │           │  └─ 0 → type:integer, lev:0
-    │           ├─ writeln(...) → predefined
-    │           └─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ Assign('k' := 0) → type:integer
-    ├─ Repeat
-    │  ├─ Assign('k' := k+1) → type:integer
-    │  ├─ writeln(...) → predefined
-    │  └─ BinOp '>=' → type:boolean, lev:0
-    │     ├─ 'k' → tab_index:40, type:integer, lev:0
-    │     └─ 10 → type:integer, lev:0
-    ├─ writeln(...) → predefined
-    ├─ Assign('result' := 10.5+20.3*3.0-15.0/2.5) → type:real
-    ├─ writeln(...) → predefined
-    ├─ Assign('i' := 17) → type:integer
-    ├─ Assign('j' := 5) → type:integer
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ Assign('valid' := MAX>MINdanPI>3.0dantidak(...)) → type:boolean
-    ├─ If
-    │  ├─ 'valid' → tab_index:52, type:boolean, lev:0
-    │  ├─ writeln(...) → predefined
-    │  └─ writeln(...) → predefined
-    ├─ Assign('found' := i>jatauj<0) → type:boolean
-    ├─ Assign('isDone' := tidak(...)danvalid) → type:boolean
-    ├─ If
-    │  ├─ BinOp 'dan' → type:boolean, lev:0
-    │  │  ├─ BinOp '>=' → type:boolean, lev:0
-    │  │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
-    │  │  │  └─ 10 → type:integer, lev:0
-    │  │  └─ BinOp '<=' → type:boolean, lev:0
-    │  │     ├─ 'j' → tab_index:39, type:integer, lev:0
-    │  │     └─ 10 → type:integer, lev:0
-    │  ├─ writeln(...) → predefined
-    │  └─ If
-    │     ├─ BinOp '<>' → type:boolean, lev:0
-    │     │  ├─ 'i' → tab_index:38, type:integer, lev:0
-    │     │  └─ 'j' → tab_index:39, type:integer, lev:0
-    │     └─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ PrintArray(...) → tab_index:77, type:void, lev:0
-    ├─ BubbleSort(...) → tab_index:71, type:void, lev:0
-    ├─ writeln(...) → predefined
-    ├─ PrintArray(...) → tab_index:77, type:void, lev:0
-    ├─ writeln(...) → predefined
-    ├─ Assign('i' := Max(...)) → type:integer
-    ├─ Assign('j' := Min(...)) → type:integer
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ Assign('k' := Max(...)) → type:integer
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ For('i' to)
-    │  ├─ 0 → type:integer, lev:0
-    │  ├─ 10 → type:integer, lev:0
-    │  └─ Assign('scores[i]' := i*1.5) → type:real
-    ├─ Assign('sum' := 0.0) → type:real
-    ├─ For('i' to)
-    │  ├─ 0 → type:integer, lev:0
-    │  ├─ 10 → type:integer, lev:0
-    │  └─ Assign('sum' := sum+scores[...]) → type:real
-    ├─ Assign('avg' := sum/11.0) → type:real
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ If
-    │  ├─ BinOp '>' → type:boolean, lev:0
-    │  │  ├─ 'count' → tab_index:41, type:integer, lev:0
-    │  │  └─ 0 → type:integer, lev:0
-    │  ├─ Block
-    │  │  ├─ Assign('avg' := totalbagicount) → type:real
-    │  │  ├─ writeln(...) → predefined
-    │  │  ├─ Assign('result' := total/count) → type:real
-    │  │  └─ writeln(...) → predefined
-    │  └─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ Assign('total' := 0) → type:integer
-    ├─ For('i' to)
-    │  ├─ 1 → type:integer, lev:0
-    │  ├─ 5 → type:integer, lev:0
-    │  └─ For('j' to)
-    │     ├─ 1 → type:integer, lev:0
-    │     ├─ 5 → type:integer, lev:0
-    │     └─ Assign('total' := total+i*j) → type:integer
-    ├─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ For('i' to)
-    │  ├─ 1 → type:integer, lev:0
-    │  ├─ 3 → type:integer, lev:0
-    │  └─ Block
-    │     └─ If
-    │        ├─ BinOp '=' → type:boolean, lev:0
-    │        │  ├─ BinOp 'mod' → type:integer, lev:0
-    │        │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
-    │        │  │  └─ 2 → type:integer, lev:0
-    │        │  └─ 0 → type:integer, lev:0
-    │        ├─ Block
-    │        │  └─ For('j' to)
-    │        │     ├─ 1 → type:integer, lev:0
-    │        │     ├─ 3 → type:integer, lev:0
-    │        │     └─ Block
-    │        │        └─ If
-    │        │           ├─ BinOp '>' → type:boolean, lev:0
-    │        │           │  ├─ 'j' → tab_index:39, type:integer, lev:0
-    │        │           │  └─ 1 → type:integer, lev:0
-    │        │           ├─ writeln(...) → predefined
-    │        │           └─ writeln(...) → predefined
-    │        └─ writeln(...) → predefined
-    ├─ writeln(...) → predefined
-    ├─ Assign('i' := 10+20*3-5) → type:integer
-    ├─ writeln(...) → predefined
-    ├─ Assign('valid' := 5>3dan10<20atau15=15) → type:boolean
-    ├─ If
-    │  ├─ 'valid' → tab_index:52, type:boolean, lev:0
-    │  └─ writeln(...) → predefined
-    └─ writeln(...) → predefined
+=== IDENTIFIER TABLE (tab) ===
+Note: Indices 0-31 are reserved for Indonesian reserved words
+  0: SymbolTableEntry(id='program', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+  1: SymbolTableEntry(id='variabel', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+  2: SymbolTableEntry(id='mulai', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+  3: SymbolTableEntry(id='selesai', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+  4: SymbolTableEntry(id='jika', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+  5: SymbolTableEntry(id='maka', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+  6: SymbolTableEntry(id='selain-itu', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+  7: SymbolTableEntry(id='selama', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+  8: SymbolTableEntry(id='lakukan', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+  9: SymbolTableEntry(id='untuk', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 10: SymbolTableEntry(id='ke', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 11: SymbolTableEntry(id='turun-ke', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 12: SymbolTableEntry(id='integer', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 13: SymbolTableEntry(id='real', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 14: SymbolTableEntry(id='boolean', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 15: SymbolTableEntry(id='char', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 16: SymbolTableEntry(id='larik', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 17: SymbolTableEntry(id='dari', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 18: SymbolTableEntry(id='prosedur', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 19: SymbolTableEntry(id='fungsi', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 20: SymbolTableEntry(id='konstanta', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 21: SymbolTableEntry(id='tipe', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 22: SymbolTableEntry(id='string', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 23: SymbolTableEntry(id='kasus', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 24: SymbolTableEntry(id='ulangi', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 25: SymbolTableEntry(id='sampai', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 26: SymbolTableEntry(id='rekaman', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 27: SymbolTableEntry(id='dan', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 28: SymbolTableEntry(id='atau', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 29: SymbolTableEntry(id='tidak', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 30: SymbolTableEntry(id='bagi', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 31: SymbolTableEntry(id='mod', obj=type, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 32: SymbolTableEntry(id='TestBrutal', obj=program, type=0, ref=-1, nrm=True, lev=0, adr=0, link=-1)
+ 33: SymbolTableEntry(id='MAX', obj=constant, type=1, ref=0, nrm=True, lev=0, adr=0, link=32)
+ 34: SymbolTableEntry(id='MIN', obj=constant, type=1, ref=0, nrm=True, lev=0, adr=0, link=33)
+ 35: SymbolTableEntry(id='PI', obj=constant, type=2, ref=0, nrm=True, lev=0, adr=0, link=34)
+ 36: SymbolTableEntry(id='PESAN', obj=constant, type=6, ref=0, nrm=True, lev=0, adr=0, link=35)
+ 37: SymbolTableEntry(id='NEWLINE', obj=constant, type=6, ref=0, nrm=True, lev=0, adr=0, link=36)
+ 38: SymbolTableEntry(id='i', obj=variable, type=1, ref=-1, nrm=True, lev=0, adr=0, link=37)
+ 39: SymbolTableEntry(id='j', obj=variable, type=1, ref=-1, nrm=True, lev=0, adr=1, link=38)
+ 40: SymbolTableEntry(id='k', obj=variable, type=1, ref=-1, nrm=True, lev=0, adr=2, link=39)
+ 41: SymbolTableEntry(id='count', obj=variable, type=1, ref=-1, nrm=True, lev=0, adr=3, link=40)
+ 42: SymbolTableEntry(id='total', obj=variable, type=1, ref=-1, nrm=True, lev=0, adr=4, link=41)
+ 43: SymbolTableEntry(id='avg', obj=variable, type=2, ref=-1, nrm=True, lev=0, adr=5, link=42)
+ 44: SymbolTableEntry(id='sum', obj=variable, type=2, ref=-1, nrm=True, lev=0, adr=7, link=43)
+ 45: SymbolTableEntry(id='result', obj=variable, type=2, ref=-1, nrm=True, lev=0, adr=9, link=44)
+ 46: SymbolTableEntry(id='arr', obj=variable, type=5, ref=0, nrm=True, lev=0, adr=11, link=45)
+ 47: SymbolTableEntry(id='data', obj=variable, type=5, ref=0, nrm=True, lev=0, adr=21, link=46)
+ 48: SymbolTableEntry(id='sorted', obj=variable, type=5, ref=0, nrm=True, lev=0, adr=31, link=47)
+ 49: SymbolTableEntry(id='scores', obj=variable, type=5, ref=1, nrm=True, lev=0, adr=41, link=48)
+ 50: SymbolTableEntry(id='huruf', obj=variable, type=5, ref=2, nrm=True, lev=0, adr=83, link=49)
+ 51: SymbolTableEntry(id='found', obj=variable, type=3, ref=-1, nrm=True, lev=0, adr=109, link=50)
+ 52: SymbolTableEntry(id='valid', obj=variable, type=3, ref=-1, nrm=True, lev=0, adr=110, link=51)
+ 53: SymbolTableEntry(id='isDone', obj=variable, type=3, ref=-1, nrm=True, lev=0, adr=111, link=52)
+ 54: SymbolTableEntry(id='ch', obj=variable, type=4, ref=-1, nrm=True, lev=0, adr=112, link=53)
+ 55: SymbolTableEntry(id='Fibonacci', obj=function, type=1, ref=1, nrm=True, lev=0, adr=0, link=-1)
+ 56: SymbolTableEntry(id='n', obj=parameter, type=1, ref=-1, nrm=True, lev=1, adr=113, link=-1)
+ 57: SymbolTableEntry(id='a', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=114, link=56)
+ 58: SymbolTableEntry(id='b', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=115, link=57)
+ 59: SymbolTableEntry(id='temp', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=116, link=58)
+ 60: SymbolTableEntry(id='idx', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=117, link=59)
+ 61: SymbolTableEntry(id='IsPrime', obj=function, type=3, ref=2, nrm=True, lev=0, adr=0, link=60)
+ 62: SymbolTableEntry(id='num', obj=parameter, type=1, ref=-1, nrm=True, lev=1, adr=118, link=60)
+ 63: SymbolTableEntry(id='idx', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=119, link=62)
+ 64: SymbolTableEntry(id='isPrime', obj=variable, type=3, ref=-1, nrm=True, lev=1, adr=120, link=63)
+ 65: SymbolTableEntry(id='Max', obj=function, type=1, ref=3, nrm=True, lev=0, adr=0, link=64)
+ 66: SymbolTableEntry(id='a', obj=parameter, type=1, ref=-1, nrm=True, lev=1, adr=121, link=64)
+ 67: SymbolTableEntry(id='b', obj=parameter, type=1, ref=-1, nrm=True, lev=1, adr=122, link=66)
+ 68: SymbolTableEntry(id='Min', obj=function, type=1, ref=4, nrm=True, lev=0, adr=0, link=67)
+ 69: SymbolTableEntry(id='a', obj=parameter, type=1, ref=-1, nrm=True, lev=1, adr=123, link=67)
+ 70: SymbolTableEntry(id='b', obj=parameter, type=1, ref=-1, nrm=True, lev=1, adr=124, link=69)
+ 71: SymbolTableEntry(id='BubbleSort', obj=procedure, type=0, ref=5, nrm=True, lev=0, adr=0, link=70)
+ 72: SymbolTableEntry(id='n', obj=parameter, type=1, ref=-1, nrm=True, lev=1, adr=125, link=70)
+ 73: SymbolTableEntry(id='idx', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=126, link=72)
+ 74: SymbolTableEntry(id='jdx', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=127, link=73)
+ 75: SymbolTableEntry(id='temp', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=128, link=74)
+ 76: SymbolTableEntry(id='swapped', obj=variable, type=3, ref=-1, nrm=True, lev=1, adr=129, link=75)
+ 77: SymbolTableEntry(id='PrintArray', obj=procedure, type=0, ref=6, nrm=True, lev=0, adr=0, link=76)
+ 78: SymbolTableEntry(id='n', obj=parameter, type=1, ref=-1, nrm=True, lev=1, adr=130, link=76)
+ 79: SymbolTableEntry(id='idx', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=131, link=78)
+ 80: SymbolTableEntry(id='InitArray', obj=procedure, type=0, ref=7, nrm=True, lev=0, adr=0, link=79)
+ 81: SymbolTableEntry(id='n', obj=parameter, type=1, ref=-1, nrm=True, lev=1, adr=132, link=79)
+ 82: SymbolTableEntry(id='idx', obj=variable, type=1, ref=-1, nrm=True, lev=1, adr=133, link=81)
+
+Current Level: 0
+Current Block: 6
+Next Address: 134
+Display Stack: [32, 80]
+First user identifier index: 32
+
+================================================================================
+ABSTRACT SYNTAX TREE (AST)
+================================================================================
+
+|
+\-- ProgramNode(name: 'TestBrutal')
+      |
+      +-- Declarations
+      |     |
+      |     +-- ConstDecl(name: 'MAX', value: 100)
+      |     |
+      |     +-- ConstDecl(name: 'MIN', value: 1)
+      |     |
+      |     +-- ConstDecl(name: 'PI', value: 3.14159)
+      |     |
+      |     +-- ConstDecl(name: 'PESAN', value: Halo Dunia)
+      |     |
+      |     +-- ConstDecl(name: 'NEWLINE', value: \n)
+      |     |
+      |     +-- VarDecl(name: 'i', type: 'integer')
+      |     |
+      |     +-- VarDecl(name: 'j', type: 'integer')
+      |     |
+      |     +-- VarDecl(name: 'k', type: 'integer')
+      |     |
+      |     +-- VarDecl(name: 'count', type: 'integer')
+      |     |
+      |     +-- VarDecl(name: 'total', type: 'integer')
+      |     |
+      |     +-- VarDecl(name: 'avg', type: 'real')
+      |     |
+      |     +-- VarDecl(name: 'sum', type: 'real')
+      |     |
+      |     +-- VarDecl(name: 'result', type: 'real')
+      |     |
+      |     +-- VarDecl(name: 'arr', type: 'array of integer')
+      |     |
+      |     +-- VarDecl(name: 'data', type: 'array of integer')
+      |     |
+      |     +-- VarDecl(name: 'sorted', type: 'array of integer')
+      |     |
+      |     +-- VarDecl(name: 'scores', type: 'array of real')
+      |     |
+      |     +-- VarDecl(name: 'huruf', type: 'array of char')
+      |     |
+      |     +-- VarDecl(name: 'found', type: 'boolean')
+      |     |
+      |     +-- VarDecl(name: 'valid', type: 'boolean')
+      |     |
+      |     +-- VarDecl(name: 'isDone', type: 'boolean')
+      |     |
+      |     +-- VarDecl(name: 'ch', type: 'char')
+      |     |
+      |     +-- FunctionDecl(name: 'Fibonacci', return_type: 'integer')
+      |     |     |
+      |     |     +-- Param(name: 'n', type: 'integer')
+      |     |     |
+      |     |     +-- Declarations
+      |     |     |     |
+      |     |     |     +-- VarDecl(name: 'a', type: 'integer')
+      |     |     |     |
+      |     |     |     +-- VarDecl(name: 'b', type: 'integer')
+      |     |     |     |
+      |     |     |     +-- VarDecl(name: 'temp', type: 'integer')
+      |     |     |     |
+      |     |     |     \-- VarDecl(name: 'idx', type: 'integer')
+      |     |     |
+      |     |     \-- Block
+      |     |           |
+      |     |           \-- If
+      |     |                 |
+      |     |                 +-- BinOp(op: '<=')
+      |     |                 |     |
+      |     |                 |     +-- Var('n')
+      |     |                 |     |
+      |     |                 |     \-- Num(1)
+      |     |                 |
+      |     |                 +-- Assign(target: Var('Fibonacci'), value: Var('n'))
+      |     |                 |
+      |     |                 \-- Block
+      |     |                       |
+      |     |                       +-- Assign(target: Var('a'), value: Num(0))
+      |     |                       |
+      |     |                       +-- Assign(target: Var('b'), value: Num(1))
+      |     |                       |
+      |     |                       +-- For(var: 'idx', direction: 'to')
+      |     |                       |     |
+      |     |                       |     +-- Num(2)
+      |     |                       |     |
+      |     |                       |     +-- Var('n')
+      |     |                       |     |
+      |     |                       |     \-- Block
+      |     |                       |           |
+      |     |                       |           +-- Assign(target: Var('temp'), value: BinOp('+', Var('a'), Var('b')))
+      |     |                       |           |
+      |     |                       |           +-- Assign(target: Var('a'), value: Var('b'))
+      |     |                       |           |
+      |     |                       |           \-- Assign(target: Var('b'), value: Var('temp'))
+      |     |                       |
+      |     |                       \-- Assign(target: Var('Fibonacci'), value: Var('b'))
+      |     |
+      |     +-- FunctionDecl(name: 'IsPrime', return_type: 'boolean')
+      |     |     |
+      |     |     +-- Param(name: 'num', type: 'integer')
+      |     |     |
+      |     |     +-- Declarations
+      |     |     |     |
+      |     |     |     +-- VarDecl(name: 'idx', type: 'integer')
+      |     |     |     |
+      |     |     |     \-- VarDecl(name: 'isPrime', type: 'boolean')
+      |     |     |
+      |     |     \-- Block
+      |     |           |
+      |     |           +-- Assign(target: Var('isPrime'), value: Var('true'))
+      |     |           |
+      |     |           +-- If
+      |     |           |     |
+      |     |           |     +-- BinOp(op: '<=')
+      |     |           |     |     |
+      |     |           |     |     +-- Var('num')
+      |     |           |     |     |
+      |     |           |     |     \-- Num(1)
+      |     |           |     |
+      |     |           |     +-- Assign(target: Var('isPrime'), value: Var('false'))
+      |     |           |     |
+      |     |           |     \-- Block
+      |     |           |           |
+      |     |           |           +-- Assign(target: Var('idx'), value: Num(2))
+      |     |           |           |
+      |     |           |           \-- While
+      |     |           |                 |
+      |     |           |                 +-- BinOp(op: 'dan')
+      |     |           |                 |     |
+      |     |           |                 |     +-- BinOp(op: '<=')
+      |     |           |                 |     |     |
+      |     |           |                 |     |     +-- BinOp(op: '*')
+      |     |           |                 |     |     |     |
+      |     |           |                 |     |     |     +-- Var('idx')
+      |     |           |                 |     |     |     |
+      |     |           |                 |     |     |     \-- Var('idx')
+      |     |           |                 |     |     |
+      |     |           |                 |     |     \-- Var('num')
+      |     |           |                 |     |
+      |     |           |                 |     \-- Var('isPrime')
+      |     |           |                 |
+      |     |           |                 \-- Block
+      |     |           |                       |
+      |     |           |                       +-- If
+      |     |           |                       |     |
+      |     |           |                       |     +-- BinOp(op: '=')
+      |     |           |                       |     |     |
+      |     |           |                       |     |     +-- BinOp(op: 'mod')
+      |     |           |                       |     |     |     |
+      |     |           |                       |     |     |     +-- Var('num')
+      |     |           |                       |     |     |     |
+      |     |           |                       |     |     |     \-- Var('idx')
+      |     |           |                       |     |     |
+      |     |           |                       |     |     \-- Num(0)
+      |     |           |                       |     |
+      |     |           |                       |     \-- Assign(target: Var('isPrime'), value: Var('false'))
+      |     |           |                       |
+      |     |           |                       \-- Assign(target: Var('idx'), value: BinOp('+', Var('idx'), Num(1)))
+      |     |           |
+      |     |           \-- Assign(target: Var('IsPrime'), value: Var('isPrime'))
+      |     |
+      |     +-- FunctionDecl(name: 'Max', return_type: 'integer')
+      |     |     |
+      |     |     +-- Param(names: ['a', 'b'], type: 'integer')
+      |     |     |
+      |     |     \-- Block
+      |     |           |
+      |     |           \-- If
+      |     |                 |
+      |     |                 +-- BinOp(op: '>')
+      |     |                 |     |
+      |     |                 |     +-- Var('a')
+      |     |                 |     |
+      |     |                 |     \-- Var('b')
+      |     |                 |
+      |     |                 +-- Assign(target: Var('Max'), value: Var('a'))
+      |     |                 |
+      |     |                 \-- Assign(target: Var('Max'), value: Var('b'))
+      |     |
+      |     +-- FunctionDecl(name: 'Min', return_type: 'integer')
+      |     |     |
+      |     |     +-- Param(names: ['a', 'b'], type: 'integer')
+      |     |     |
+      |     |     \-- Block
+      |     |           |
+      |     |           \-- If
+      |     |                 |
+      |     |                 +-- BinOp(op: '<')
+      |     |                 |     |
+      |     |                 |     +-- Var('a')
+      |     |                 |     |
+      |     |                 |     \-- Var('b')
+      |     |                 |
+      |     |                 +-- Assign(target: Var('Min'), value: Var('a'))
+      |     |                 |
+      |     |                 \-- Assign(target: Var('Min'), value: Var('b'))
+      |     |
+      |     +-- ProcedureDecl(name: 'BubbleSort')
+      |     |     |
+      |     |     +-- Param(name: 'n', type: 'integer')
+      |     |     |
+      |     |     +-- Declarations
+      |     |     |     |
+      |     |     |     +-- VarDecl(name: 'idx', type: 'integer')
+      |     |     |     |
+      |     |     |     +-- VarDecl(name: 'jdx', type: 'integer')
+      |     |     |     |
+      |     |     |     +-- VarDecl(name: 'temp', type: 'integer')
+      |     |     |     |
+      |     |     |     \-- VarDecl(name: 'swapped', type: 'boolean')
+      |     |     |
+      |     |     \-- Block
+      |     |           |
+      |     |           \-- For(var: 'idx', direction: 'to')
+      |     |                 |
+      |     |                 +-- Num(1)
+      |     |                 |
+      |     |                 +-- BinOp(op: '-')
+      |     |                 |     |
+      |     |                 |     +-- Var('n')
+      |     |                 |     |
+      |     |                 |     \-- Num(1)
+      |     |                 |
+      |     |                 \-- Block
+      |     |                       |
+      |     |                       +-- Assign(target: Var('swapped'), value: Var('false'))
+      |     |                       |
+      |     |                       +-- For(var: 'jdx', direction: 'to')
+      |     |                       |     |
+      |     |                       |     +-- Num(1)
+      |     |                       |     |
+      |     |                       |     +-- BinOp(op: '-')
+      |     |                       |     |     |
+      |     |                       |     |     +-- Var('n')
+      |     |                       |     |     |
+      |     |                       |     |     \-- Var('idx')
+      |     |                       |     |
+      |     |                       |     \-- Block
+      |     |                       |           |
+      |     |                       |           \-- If
+      |     |                       |                 |
+      |     |                       |                 +-- BinOp(op: '>')
+      |     |                       |                 |     |
+      |     |                       |                 |     +-- ArrayAccess(name: 'arr')
+      |     |                       |                 |     |     |
+      |     |                       |                 |     |     \-- Var('jdx')
+      |     |                       |                 |     |
+      |     |                       |                 |     \-- ArrayAccess(name: 'arr')
+      |     |                       |                 |           |
+      |     |                       |                 |           \-- BinOp(op: '+')
+      |     |                       |                 |                 |
+      |     |                       |                 |                 +-- Var('jdx')
+      |     |                       |                 |                 |
+      |     |                       |                 |                 \-- Num(1)
+      |     |                       |                 |
+      |     |                       |                 \-- Block
+      |     |                       |                       |
+      |     |                       |                       +-- Assign(target: Var('temp'), value: ArrayAccess('arr', index=Var('jdx')))
+      |     |                       |                       |
+      |     |                       |                       +-- Assign(target: ArrayAccess('arr', index=Var('jdx')), value: ArrayAccess('arr', index=BinOp('+', Var('jdx'), Num(1))))
+      |     |                       |                       |
+      |     |                       |                       +-- Assign(target: ArrayAccess('arr', index=BinOp('+', Var('jdx'), Num(1))), value: Var('temp'))
+      |     |                       |                       |
+      |     |                       |                       \-- Assign(target: Var('swapped'), value: Var('true'))
+      |     |                       |
+      |     |                       \-- If
+      |     |                             |
+      |     |                             +-- UnaryOp(op: 'tidak')
+      |     |                             |     |
+      |     |                             |     \-- Var('swapped')
+      |     |                             |
+      |     |                             \-- Assign(target: Var('idx'), value: Var('n'))
+      |     |
+      |     +-- ProcedureDecl(name: 'PrintArray')
+      |     |     |
+      |     |     +-- Param(name: 'n', type: 'integer')
+      |     |     |
+      |     |     +-- Declarations
+      |     |     |     |
+      |     |     |     \-- VarDecl(name: 'idx', type: 'integer')
+      |     |     |
+      |     |     \-- Block
+      |     |           |
+      |     |           +-- For(var: 'idx', direction: 'to')
+      |     |           |     |
+      |     |           |     +-- Num(1)
+      |     |           |     |
+      |     |           |     +-- Var('n')
+      |     |           |     |
+      |     |           |     \-- Block
+      |     |           |           |
+      |     |           |           +-- ProcedureCall(name: 'write', args: [ArrayAccess('arr', index=Var('idx'))])
+      |     |           |           |
+      |     |           |           \-- If
+      |     |           |                 |
+      |     |           |                 +-- BinOp(op: '<')
+      |     |           |                 |     |
+      |     |           |                 |     +-- Var('idx')
+      |     |           |                 |     |
+      |     |           |                 |     \-- Var('n')
+      |     |           |                 |
+      |     |           |                 \-- ProcedureCall(name: 'write', args: [Char('' '')])
+      |     |           |
+      |     |           \-- ProcedureCall(name: 'writeln', args: [])
+      |     |
+      |     \-- ProcedureDecl(name: 'InitArray')
+      |           |
+      |           +-- Param(name: 'n', type: 'integer')
+      |           |
+      |           +-- Declarations
+      |           |     |
+      |           |     \-- VarDecl(name: 'idx', type: 'integer')
+      |           |
+      |           \-- Block
+      |                 |
+      |                 \-- For(var: 'idx', direction: 'to')
+      |                       |
+      |                       +-- Num(1)
+      |                       |
+      |                       +-- Var('n')
+      |                       |
+      |                       \-- Assign(target: ArrayAccess('arr', index=Var('idx')), value: BinOp('*', BinOp('+', BinOp('-', Var('n'), Var('idx')), Num(1)), Num(2)))
+      |
+      \-- Block
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 1: Array Operations ===')])
+            |
+            +-- ProcedureCall(name: 'InitArray', args: [Num(10)])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Array setelah inisialisasi:')])
+            |
+            +-- ProcedureCall(name: 'PrintArray', args: [Num(10)])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 2: Complex Conditionals ===')])
+            |
+            +-- Assign(target: Var('count'), value: Num(0))
+            |
+            +-- Assign(target: Var('total'), value: Num(0))
+            |
+            +-- For(var: 'i', direction: 'to')
+            |     |
+            |     +-- Num(1)
+            |     |
+            |     +-- Num(10)
+            |     |
+            |     \-- Block
+            |           |
+            |           \-- If
+            |                 |
+            |                 +-- FunctionCall(name: 'IsPrime', args: [ArrayAccess('arr', index=Var('i'))])
+            |                 |
+            |                 +-- Block
+            |                 |     |
+            |                 |     +-- ProcedureCall(name: 'writeln', args: [ArrayAccess('arr', index=Var('i')), String(' adalah bilangan prima')])
+            |                 |     |
+            |                 |     +-- Assign(target: Var('count'), value: BinOp('+', Var('count'), Num(1)))
+            |                 |     |
+            |                 |     \-- Assign(target: Var('total'), value: BinOp('+', Var('total'), ArrayAccess('arr', index=Var('i'))))
+            |                 |
+            |                 \-- Block
+            |                       |
+            |                       \-- If
+            |                             |
+            |                             +-- BinOp(op: '=')
+            |                             |     |
+            |                             |     +-- BinOp(op: 'mod')
+            |                             |     |     |
+            |                             |     |     +-- ArrayAccess(name: 'arr')
+            |                             |     |     |     |
+            |                             |     |     |     \-- Var('i')
+            |                             |     |     |
+            |                             |     |     \-- Num(2)
+            |                             |     |
+            |                             |     \-- Num(0)
+            |                             |
+            |                             +-- ProcedureCall(name: 'writeln', args: [ArrayAccess('arr', index=Var('i')), String(' adalah bilangan genap')])
+            |                             |
+            |                             \-- ProcedureCall(name: 'writeln', args: [ArrayAccess('arr', index=Var('i')), String(' adalah bilangan ganjil')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 3: While Loop ===')])
+            |
+            +-- Assign(target: Var('i'), value: Num(1))
+            |
+            +-- Assign(target: Var('sum'), value: Num(0.0))
+            |
+            +-- While
+            |     |
+            |     +-- BinOp(op: 'dan')
+            |     |     |
+            |     |     +-- BinOp(op: '<=')
+            |     |     |     |
+            |     |     |     +-- Var('i')
+            |     |     |     |
+            |     |     |     \-- Num(10)
+            |     |     |
+            |     |     \-- BinOp(op: '<')
+            |     |           |
+            |     |           +-- Var('sum')
+            |     |           |
+            |     |           \-- Num(100.0)
+            |     |
+            |     \-- Block
+            |           |
+            |           +-- Assign(target: Var('sum'), value: BinOp('+', Var('sum'), BinOp('*', Var('i'), Num(1.5))))
+            |           |
+            |           +-- ProcedureCall(name: 'writeln', args: [String('Iterasi '), Var('i'), String(': sum = '), Var('sum')])
+            |           |
+            |           \-- Assign(target: Var('i'), value: BinOp('+', Var('i'), Num(1)))
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 4: Countdown ===')])
+            |
+            +-- For(var: 'i', direction: 'downto')
+            |     |
+            |     +-- Num(10)
+            |     |
+            |     +-- Num(1)
+            |     |
+            |     \-- Block
+            |           |
+            |           \-- If
+            |                 |
+            |                 +-- BinOp(op: '=')
+            |                 |     |
+            |                 |     +-- BinOp(op: 'mod')
+            |                 |     |     |
+            |                 |     |     +-- Var('i')
+            |                 |     |     |
+            |                 |     |     \-- Num(3)
+            |                 |     |
+            |                 |     \-- Num(0)
+            |                 |
+            |                 +-- ProcedureCall(name: 'writeln', args: [String('Fizz')])
+            |                 |
+            |                 \-- If
+            |                       |
+            |                       +-- BinOp(op: '=')
+            |                       |     |
+            |                       |     +-- BinOp(op: 'mod')
+            |                       |     |     |
+            |                       |     |     +-- Var('i')
+            |                       |     |     |
+            |                       |     |     \-- Num(5)
+            |                       |     |
+            |                       |     \-- Num(0)
+            |                       |
+            |                       +-- ProcedureCall(name: 'writeln', args: [String('Buzz')])
+            |                       |
+            |                       \-- ProcedureCall(name: 'writeln', args: [Var('i')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 5: Repeat Until ===')])
+            |
+            +-- Assign(target: Var('k'), value: Num(0))
+            |
+            +-- Repeat
+            |     |
+            |     +-- Assign(target: Var('k'), value: BinOp('+', Var('k'), Num(1)))
+            |     |
+            |     +-- ProcedureCall(name: 'writeln', args: [String('Fibonacci('), Var('k'), String(') = '), FunctionCall('Fibonacci', [Var('k')])])
+            |     |
+            |     \-- BinOp(op: '>=')
+            |           |
+            |           +-- Var('k')
+            |           |
+            |           \-- Num(10)
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 6: Arithmetic ===')])
+            |
+            +-- Assign(target: Var('result'), value: BinOp('/', BinOp('-', BinOp('*', BinOp('+', Num(10.5), Num(20.3)), Num(3.0)), Num(15.0)), Num(2.5)))
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Expression result: '), Var('result')])
+            |
+            +-- Assign(target: Var('i'), value: Num(17))
+            |
+            +-- Assign(target: Var('j'), value: Num(5))
+            |
+            +-- ProcedureCall(name: 'writeln', args: [Var('i'), String(' bagi '), Var('j'), String(' = '), BinOp('bagi', Var('i'), Var('j'))])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [Var('i'), String(' mod '), Var('j'), String(' = '), BinOp('mod', Var('i'), Var('j'))])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [Var('i'), String(' / '), Var('j'), String(' = '), BinOp('/', Var('i'), Var('j'))])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 7: Logical Operations ===')])
+            |
+            +-- Assign(target: Var('valid'), value: BinOp('dan', BinOp('dan', BinOp('>', Var('MAX'), Var('MIN')), BinOp('>', Var('PI'), Num(3.0))), UnaryOp('tidak', BinOp('=', Var('count'), Num(0)))))
+            |
+            +-- If
+            |     |
+            |     +-- Var('valid')
+            |     |
+            |     +-- ProcedureCall(name: 'writeln', args: [String('Semua kondisi terpenuhi')])
+            |     |
+            |     \-- ProcedureCall(name: 'writeln', args: [String('Ada kondisi yang tidak terpenuhi')])
+            |
+            +-- Assign(target: Var('found'), value: BinOp('atau', BinOp('>', Var('i'), Var('j')), BinOp('<', Var('j'), Num(0))))
+            |
+            +-- Assign(target: Var('isDone'), value: BinOp('dan', UnaryOp('tidak', Var('found')), Var('valid')))
+            |
+            +-- If
+            |     |
+            |     +-- BinOp(op: 'dan')
+            |     |     |
+            |     |     +-- BinOp(op: '>=')
+            |     |     |     |
+            |     |     |     +-- Var('i')
+            |     |     |     |
+            |     |     |     \-- Num(10)
+            |     |     |
+            |     |     \-- BinOp(op: '<=')
+            |     |           |
+            |     |           +-- Var('j')
+            |     |           |
+            |     |           \-- Num(10)
+            |     |
+            |     +-- ProcedureCall(name: 'writeln', args: [String('i >= 10 dan j <= 10')])
+            |     |
+            |     \-- If
+            |           |
+            |           +-- BinOp(op: '<>')
+            |           |     |
+            |           |     +-- Var('i')
+            |           |     |
+            |           |     \-- Var('j')
+            |           |
+            |           \-- ProcedureCall(name: 'writeln', args: [String('i tidak sama dengan j')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 8: String Operations ===')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [Var('PESAN')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Panjang pesan: 10 karakter')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 9: Sorting ===')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Sebelum sorting:')])
+            |
+            +-- ProcedureCall(name: 'PrintArray', args: [Num(10)])
+            |
+            +-- ProcedureCall(name: 'BubbleSort', args: [Num(10)])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Setelah sorting:')])
+            |
+            +-- ProcedureCall(name: 'PrintArray', args: [Num(10)])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 10: Function Calls ===')])
+            |
+            +-- Assign(target: Var('i'), value: FunctionCall('Max', [Num(15), Num(20)]))
+            |
+            +-- Assign(target: Var('j'), value: FunctionCall('Min', [Num(15), Num(20)]))
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Max(15, 20) = '), Var('i')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Min(15, 20) = '), Var('j')])
+            |
+            +-- Assign(target: Var('k'), value: FunctionCall('Max', [FunctionCall('Fibonacci', [Num(5)]), FunctionCall('Fibonacci', [Num(6)])]))
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Max(Fib(5), Fib(6)) = '), Var('k')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 11: Real Arrays ===')])
+            |
+            +-- For(var: 'i', direction: 'to')
+            |     |
+            |     +-- Num(0)
+            |     |
+            |     +-- Num(10)
+            |     |
+            |     \-- Assign(target: ArrayAccess('scores', index=Var('i')), value: BinOp('*', Var('i'), Num(1.5)))
+            |
+            +-- Assign(target: Var('sum'), value: Num(0.0))
+            |
+            +-- For(var: 'i', direction: 'to')
+            |     |
+            |     +-- Num(0)
+            |     |
+            |     +-- Num(10)
+            |     |
+            |     \-- Assign(target: Var('sum'), value: BinOp('+', Var('sum'), ArrayAccess('scores', index=Var('i'))))
+            |
+            +-- Assign(target: Var('avg'), value: BinOp('/', Var('sum'), Num(11.0)))
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Rata-rata scores: '), Var('avg')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 12: Edge Cases ===')])
+            |
+            +-- If
+            |     |
+            |     +-- BinOp(op: '>')
+            |     |     |
+            |     |     +-- Var('count')
+            |     |     |
+            |     |     \-- Num(0)
+            |     |
+            |     +-- Block
+            |     |     |
+            |     |     +-- Assign(target: Var('avg'), value: BinOp('bagi', Var('total'), Var('count')))
+            |     |     |
+            |     |     +-- ProcedureCall(name: 'writeln', args: [String('Rata-rata bilangan prima: '), Var('avg')])
+            |     |     |
+            |     |     +-- Assign(target: Var('result'), value: BinOp('/', Var('total'), Var('count')))
+            |     |     |
+            |     |     \-- ProcedureCall(name: 'writeln', args: [String('Hasil pembagian real: '), Var('result')])
+            |     |
+            |     \-- ProcedureCall(name: 'writeln', args: [String('Tidak ada bilangan prima ditemukan')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 13: Nested Loops ===')])
+            |
+            +-- Assign(target: Var('total'), value: Num(0))
+            |
+            +-- For(var: 'i', direction: 'to')
+            |     |
+            |     +-- Num(1)
+            |     |
+            |     +-- Num(5)
+            |     |
+            |     \-- For(var: 'j', direction: 'to')
+            |           |
+            |           +-- Num(1)
+            |           |
+            |           +-- Num(5)
+            |           |
+            |           \-- Assign(target: Var('total'), value: BinOp('+', Var('total'), BinOp('*', Var('i'), Var('j'))))
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('Total dari nested loops: '), Var('total')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 14: Deep Nesting ===')])
+            |
+            +-- For(var: 'i', direction: 'to')
+            |     |
+            |     +-- Num(1)
+            |     |
+            |     +-- Num(3)
+            |     |
+            |     \-- Block
+            |           |
+            |           \-- If
+            |                 |
+            |                 +-- BinOp(op: '=')
+            |                 |     |
+            |                 |     +-- BinOp(op: 'mod')
+            |                 |     |     |
+            |                 |     |     +-- Var('i')
+            |                 |     |     |
+            |                 |     |     \-- Num(2)
+            |                 |     |
+            |                 |     \-- Num(0)
+            |                 |
+            |                 +-- Block
+            |                 |     |
+            |                 |     \-- For(var: 'j', direction: 'to')
+            |                 |           |
+            |                 |           +-- Num(1)
+            |                 |           |
+            |                 |           +-- Num(3)
+            |                 |           |
+            |                 |           \-- Block
+            |                 |                 |
+            |                 |                 \-- If
+            |                 |                       |
+            |                 |                       +-- BinOp(op: '>')
+            |                 |                       |     |
+            |                 |                       |     +-- Var('j')
+            |                 |                       |     |
+            |                 |                       |     \-- Num(1)
+            |                 |                       |
+            |                 |                       +-- ProcedureCall(name: 'writeln', args: [String('i='), Var('i'), String(', j='), Var('j')])
+            |                 |                       |
+            |                 |                       \-- ProcedureCall(name: 'writeln', args: [String('Skip')])
+            |                 |
+            |                 \-- ProcedureCall(name: 'writeln', args: [String('i adalah ganjil: '), Var('i')])
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('=== Test 15: Operator Precedence ===')])
+            |
+            +-- Assign(target: Var('i'), value: BinOp('-', BinOp('+', Num(10), BinOp('*', Num(20), Num(3))), Num(5)))
+            |
+            +-- ProcedureCall(name: 'writeln', args: [String('10 + 20 * 3 - 5 = '), Var('i')])
+            |
+            +-- Assign(target: Var('valid'), value: BinOp('atau', BinOp('dan', BinOp('>', Num(5), Num(3)), BinOp('<', Num(10), Num(20))), BinOp('=', Num(15), Num(15))))
+            |
+            +-- If
+            |     |
+            |     +-- Var('valid')
+            |     |
+            |     \-- ProcedureCall(name: 'writeln', args: [String('Complex boolean expression is true')])
+            |
+            \-- ProcedureCall(name: 'writeln', args: [String('=== Program Selesai ===')])
+
+================================================================================
+DECORATED AST (with semantic attributes)
+================================================================================
+
+└─ ProgramNode(name: 'TestBrutal')
+   ├─ Declarations
+   │  ├─ ConstDecl('MAX') → tab_index:33, type:integer, lev:0
+   │  ├─ ConstDecl('MIN') → tab_index:34, type:integer, lev:0
+   │  ├─ ConstDecl('PI') → tab_index:35, type:real, lev:0
+   │  ├─ ConstDecl('PESAN') → tab_index:36, type:string, lev:0
+   │  ├─ ConstDecl('NEWLINE') → tab_index:37, type:string, lev:0
+   │  ├─ VarDecl('i', type: 'integer') → tab_index:38, type:integer, lev:0
+   │  ├─ VarDecl('j', type: 'integer') → tab_index:39, type:integer, lev:0
+   │  ├─ VarDecl('k', type: 'integer') → tab_index:40, type:integer, lev:0
+   │  ├─ VarDecl('count', type: 'integer') → tab_index:41, type:integer, lev:0
+   │  ├─ VarDecl('total', type: 'integer') → tab_index:42, type:integer, lev:0
+   │  ├─ VarDecl('avg', type: 'real') → tab_index:43, type:real, lev:0
+   │  ├─ VarDecl('sum', type: 'real') → tab_index:44, type:real, lev:0
+   │  ├─ VarDecl('result', type: 'real') → tab_index:45, type:real, lev:0
+   │  ├─ VarDecl('arr', type: 'array of integer') → tab_index:46, type:array, lev:0
+   │  ├─ VarDecl('data', type: 'array of integer') → tab_index:47, type:array, lev:0
+   │  ├─ VarDecl('sorted', type: 'array of integer') → tab_index:48, type:array, lev:0
+   │  ├─ VarDecl('scores', type: 'array of real') → tab_index:49, type:array, lev:0
+   │  ├─ VarDecl('huruf', type: 'array of char') → tab_index:50, type:array, lev:0
+   │  ├─ VarDecl('found', type: 'boolean') → tab_index:51, type:boolean, lev:0
+   │  ├─ VarDecl('valid', type: 'boolean') → tab_index:52, type:boolean, lev:0
+   │  ├─ VarDecl('isDone', type: 'boolean') → tab_index:53, type:boolean, lev:0
+   │  ├─ VarDecl('ch', type: 'char') → tab_index:54, type:char, lev:0
+   │  ├─ FunctionDecl('Fibonacci') → tab_index:55, type:integer, lev:0
+   │  │  ├─ Param('n') → tab_index:56, type:integer, lev:1
+   │  │  ├─ Declarations
+   │  │  │  ├─ VarDecl('a', type: 'integer') → tab_index:57, type:integer, lev:1
+   │  │  │  ├─ VarDecl('b', type: 'integer') → tab_index:58, type:integer, lev:1
+   │  │  │  ├─ VarDecl('temp', type: 'integer') → tab_index:59, type:integer, lev:1
+   │  │  │  └─ VarDecl('idx', type: 'integer') → tab_index:60, type:integer, lev:1
+   │  │  └─ Block
+   │  │     └─ If
+   │  │        ├─ BinOp '<=' → type:boolean, lev:1
+   │  │        │  ├─ 'n' → tab_index:56, type:integer, lev:1
+   │  │        │  └─ 1 → type:integer, lev:1
+   │  │        ├─ Assign('Fibonacci' := n) → type:integer
+   │  │        └─ Block
+   │  │           ├─ Assign('a' := 0) → type:integer
+   │  │           ├─ Assign('b' := 1) → type:integer
+   │  │           ├─ For('idx' to)
+   │  │           │  ├─ 2 → type:integer, lev:1
+   │  │           │  ├─ 'n' → tab_index:56, type:integer, lev:1
+   │  │           │  └─ Block
+   │  │           │     ├─ Assign('temp' := a+b) → type:integer
+   │  │           │     ├─ Assign('a' := b) → type:integer
+   │  │           │     └─ Assign('b' := temp) → type:integer
+   │  │           └─ Assign('Fibonacci' := b) → type:integer
+   │  ├─ FunctionDecl('IsPrime') → tab_index:61, type:boolean, lev:0
+   │  │  ├─ Param('num') → tab_index:62, type:integer, lev:1
+   │  │  ├─ Declarations
+   │  │  │  ├─ VarDecl('idx', type: 'integer') → tab_index:63, type:integer, lev:1
+   │  │  │  └─ VarDecl('isPrime', type: 'boolean') → tab_index:64, type:boolean, lev:1
+   │  │  └─ Block
+   │  │     ├─ Assign('isPrime' := true) → type:boolean
+   │  │     ├─ If
+   │  │     │  ├─ BinOp '<=' → type:boolean, lev:1
+   │  │     │  │  ├─ 'num' → tab_index:62, type:integer, lev:1
+   │  │     │  │  └─ 1 → type:integer, lev:1
+   │  │     │  ├─ Assign('isPrime' := false) → type:boolean
+   │  │     │  └─ Block
+   │  │     │     ├─ Assign('idx' := 2) → type:integer
+   │  │     │     └─ While
+   │  │     │        ├─ BinOp 'dan' → type:boolean, lev:1
+   │  │     │        │  ├─ BinOp '<=' → type:boolean, lev:1
+   │  │     │        │  │  ├─ BinOp '*' → type:integer, lev:1
+   │  │     │        │  │  │  ├─ 'idx' → tab_index:63, type:integer, lev:1
+   │  │     │        │  │  │  └─ 'idx' → tab_index:63, type:integer, lev:1
+   │  │     │        │  │  └─ 'num' → tab_index:62, type:integer, lev:1
+   │  │     │        │  └─ 'isPrime' → tab_index:64, type:boolean, lev:1
+   │  │     │        └─ Block
+   │  │     │           ├─ If
+   │  │     │           │  ├─ BinOp '=' → type:boolean, lev:1
+   │  │     │           │  │  ├─ BinOp 'mod' → type:integer, lev:1
+   │  │     │           │  │  │  ├─ 'num' → tab_index:62, type:integer, lev:1
+   │  │     │           │  │  │  └─ 'idx' → tab_index:63, type:integer, lev:1
+   │  │     │           │  │  └─ 0 → type:integer, lev:1
+   │  │     │           │  └─ Assign('isPrime' := false) → type:boolean
+   │  │     │           └─ Assign('idx' := idx+1) → type:integer
+   │  │     └─ Assign('IsPrime' := isPrime) → type:boolean
+   │  ├─ FunctionDecl('Max') → tab_index:65, type:integer, lev:0
+   │  │  ├─ Param(['a', 'b']) → tab_index:66, type:integer, lev:1
+   │  │  └─ Block
+   │  │     └─ If
+   │  │        ├─ BinOp '>' → type:boolean, lev:1
+   │  │        │  ├─ 'a' → tab_index:66, type:integer, lev:1
+   │  │        │  └─ 'b' → tab_index:67, type:integer, lev:1
+   │  │        ├─ Assign('Max' := a) → type:integer
+   │  │        └─ Assign('Max' := b) → type:integer
+   │  ├─ FunctionDecl('Min') → tab_index:68, type:integer, lev:0
+   │  │  ├─ Param(['a', 'b']) → tab_index:69, type:integer, lev:1
+   │  │  └─ Block
+   │  │     └─ If
+   │  │        ├─ BinOp '<' → type:boolean, lev:1
+   │  │        │  ├─ 'a' → tab_index:69, type:integer, lev:1
+   │  │        │  └─ 'b' → tab_index:70, type:integer, lev:1
+   │  │        ├─ Assign('Min' := a) → type:integer
+   │  │        └─ Assign('Min' := b) → type:integer
+   │  ├─ ProcedureDecl('BubbleSort') → tab_index:71, type:void, lev:0
+   │  │  ├─ Param('n') → tab_index:72, type:integer, lev:1
+   │  │  ├─ Declarations
+   │  │  │  ├─ VarDecl('idx', type: 'integer') → tab_index:73, type:integer, lev:1
+   │  │  │  ├─ VarDecl('jdx', type: 'integer') → tab_index:74, type:integer, lev:1
+   │  │  │  ├─ VarDecl('temp', type: 'integer') → tab_index:75, type:integer, lev:1
+   │  │  │  └─ VarDecl('swapped', type: 'boolean') → tab_index:76, type:boolean, lev:1
+   │  │  └─ Block
+   │  │     └─ For('idx' to)
+   │  │        ├─ 1 → type:integer, lev:1
+   │  │        ├─ BinOp '-' → type:integer, lev:1
+   │  │        │  ├─ 'n' → tab_index:72, type:integer, lev:1
+   │  │        │  └─ 1 → type:integer, lev:1
+   │  │        └─ Block
+   │  │           ├─ Assign('swapped' := false) → type:boolean
+   │  │           ├─ For('jdx' to)
+   │  │           │  ├─ 1 → type:integer, lev:1
+   │  │           │  ├─ BinOp '-' → type:integer, lev:1
+   │  │           │  │  ├─ 'n' → tab_index:72, type:integer, lev:1
+   │  │           │  │  └─ 'idx' → tab_index:73, type:integer, lev:1
+   │  │           │  └─ Block
+   │  │           │     └─ If
+   │  │           │        ├─ BinOp '>' → type:boolean, lev:1
+   │  │           │        │  ├─ 'arr[...]' → tab_index:46, type:integer, lev:0
+   │  │           │        │  │  └─ 'jdx' → tab_index:74, type:integer, lev:1
+   │  │           │        │  └─ 'arr[...]' → tab_index:46, type:integer, lev:0
+   │  │           │        │     └─ BinOp '+' → type:integer, lev:1
+   │  │           │        │        ├─ 'jdx' → tab_index:74, type:integer, lev:1
+   │  │           │        │        └─ 1 → type:integer, lev:1
+   │  │           │        └─ Block
+   │  │           │           ├─ Assign('temp' := arr[...]) → type:integer
+   │  │           │           ├─ Assign('arr[jdx]' := arr[...]) → type:integer
+   │  │           │           ├─ Assign('arr[jdx+1]' := temp) → type:integer
+   │  │           │           └─ Assign('swapped' := true) → type:boolean
+   │  │           └─ If
+   │  │              ├─ UnaryOp 'tidak' → type:boolean, lev:1
+   │  │              │  └─ 'swapped' → tab_index:76, type:boolean, lev:1
+   │  │              └─ Assign('idx' := n) → type:integer
+   │  ├─ ProcedureDecl('PrintArray') → tab_index:77, type:void, lev:0
+   │  │  ├─ Param('n') → tab_index:78, type:integer, lev:1
+   │  │  ├─ Declarations
+   │  │  │  └─ VarDecl('idx', type: 'integer') → tab_index:79, type:integer, lev:1
+   │  │  └─ Block
+   │  │     ├─ For('idx' to)
+   │  │     │  ├─ 1 → type:integer, lev:1
+   │  │     │  ├─ 'n' → tab_index:78, type:integer, lev:1
+   │  │     │  └─ Block
+   │  │     │     ├─ write(...) → predefined
+   │  │     │     └─ If
+   │  │     │        ├─ BinOp '<' → type:boolean, lev:1
+   │  │     │        │  ├─ 'idx' → tab_index:79, type:integer, lev:1
+   │  │     │        │  └─ 'n' → tab_index:78, type:integer, lev:1
+   │  │     │        └─ write(...) → predefined
+   │  │     └─ writeln(...) → predefined
+   │  └─ ProcedureDecl('InitArray') → tab_index:80, type:void, lev:0
+   │     ├─ Param('n') → tab_index:81, type:integer, lev:1
+   │     ├─ Declarations
+   │     │  └─ VarDecl('idx', type: 'integer') → tab_index:82, type:integer, lev:1
+   │     └─ Block
+   │        └─ For('idx' to)
+   │           ├─ 1 → type:integer, lev:1
+   │           ├─ 'n' → tab_index:81, type:integer, lev:1
+   │           └─ Assign('arr[idx]' := n-idx+1*2) → type:integer
+   └─ Block
+      ├─ writeln(...) → predefined
+      ├─ InitArray(...) → tab_index:80, type:void, lev:0
+      ├─ writeln(...) → predefined
+      ├─ PrintArray(...) → tab_index:77, type:void, lev:0
+      ├─ writeln(...) → predefined
+      ├─ Assign('count' := 0) → type:integer
+      ├─ Assign('total' := 0) → type:integer
+      ├─ For('i' to)
+      │  ├─ 1 → type:integer, lev:0
+      │  ├─ 10 → type:integer, lev:0
+      │  └─ Block
+      │     └─ If
+      │        ├─ IsPrime(...) → tab_index:61, type:boolean, lev:0
+      │        ├─ Block
+      │        │  ├─ writeln(...) → predefined
+      │        │  ├─ Assign('count' := count+1) → type:integer
+      │        │  └─ Assign('total' := total+arr[...]) → type:integer
+      │        └─ Block
+      │           └─ If
+      │              ├─ BinOp '=' → type:boolean, lev:0
+      │              │  ├─ BinOp 'mod' → type:integer, lev:0
+      │              │  │  ├─ 'arr[...]' → tab_index:46, type:integer, lev:0
+      │              │  │  │  └─ 'i' → tab_index:38, type:integer, lev:0
+      │              │  │  └─ 2 → type:integer, lev:0
+      │              │  └─ 0 → type:integer, lev:0
+      │              ├─ writeln(...) → predefined
+      │              └─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ Assign('i' := 1) → type:integer
+      ├─ Assign('sum' := 0.0) → type:real
+      ├─ While
+      │  ├─ BinOp 'dan' → type:boolean, lev:0
+      │  │  ├─ BinOp '<=' → type:boolean, lev:0
+      │  │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
+      │  │  │  └─ 10 → type:integer, lev:0
+      │  │  └─ BinOp '<' → type:boolean, lev:0
+      │  │     ├─ 'sum' → tab_index:44, type:real, lev:0
+      │  │     └─ 100.0 → type:real, lev:0
+      │  └─ Block
+      │     ├─ Assign('sum' := sum+i*1.5) → type:real
+      │     ├─ writeln(...) → predefined
+      │     └─ Assign('i' := i+1) → type:integer
+      ├─ writeln(...) → predefined
+      ├─ For('i' downto)
+      │  ├─ 10 → type:integer, lev:0
+      │  ├─ 1 → type:integer, lev:0
+      │  └─ Block
+      │     └─ If
+      │        ├─ BinOp '=' → type:boolean, lev:0
+      │        │  ├─ BinOp 'mod' → type:integer, lev:0
+      │        │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
+      │        │  │  └─ 3 → type:integer, lev:0
+      │        │  └─ 0 → type:integer, lev:0
+      │        ├─ writeln(...) → predefined
+      │        └─ If
+      │           ├─ BinOp '=' → type:boolean, lev:0
+      │           │  ├─ BinOp 'mod' → type:integer, lev:0
+      │           │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
+      │           │  │  └─ 5 → type:integer, lev:0
+      │           │  └─ 0 → type:integer, lev:0
+      │           ├─ writeln(...) → predefined
+      │           └─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ Assign('k' := 0) → type:integer
+      ├─ Repeat
+      │  ├─ Assign('k' := k+1) → type:integer
+      │  ├─ writeln(...) → predefined
+      │  └─ BinOp '>=' → type:boolean, lev:0
+      │     ├─ 'k' → tab_index:40, type:integer, lev:0
+      │     └─ 10 → type:integer, lev:0
+      ├─ writeln(...) → predefined
+      ├─ Assign('result' := 10.5+20.3*3.0-15.0/2.5) → type:real
+      ├─ writeln(...) → predefined
+      ├─ Assign('i' := 17) → type:integer
+      ├─ Assign('j' := 5) → type:integer
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ Assign('valid' := MAX>MINdanPI>3.0dantidak(...)) → type:boolean
+      ├─ If
+      │  ├─ 'valid' → tab_index:52, type:boolean, lev:0
+      │  ├─ writeln(...) → predefined
+      │  └─ writeln(...) → predefined
+      ├─ Assign('found' := i>jatauj<0) → type:boolean
+      ├─ Assign('isDone' := tidak(...)danvalid) → type:boolean
+      ├─ If
+      │  ├─ BinOp 'dan' → type:boolean, lev:0
+      │  │  ├─ BinOp '>=' → type:boolean, lev:0
+      │  │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
+      │  │  │  └─ 10 → type:integer, lev:0
+      │  │  └─ BinOp '<=' → type:boolean, lev:0
+      │  │     ├─ 'j' → tab_index:39, type:integer, lev:0
+      │  │     └─ 10 → type:integer, lev:0
+      │  ├─ writeln(...) → predefined
+      │  └─ If
+      │     ├─ BinOp '<>' → type:boolean, lev:0
+      │     │  ├─ 'i' → tab_index:38, type:integer, lev:0
+      │     │  └─ 'j' → tab_index:39, type:integer, lev:0
+      │     └─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ PrintArray(...) → tab_index:77, type:void, lev:0
+      ├─ BubbleSort(...) → tab_index:71, type:void, lev:0
+      ├─ writeln(...) → predefined
+      ├─ PrintArray(...) → tab_index:77, type:void, lev:0
+      ├─ writeln(...) → predefined
+      ├─ Assign('i' := Max(...)) → type:integer
+      ├─ Assign('j' := Min(...)) → type:integer
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ Assign('k' := Max(...)) → type:integer
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ For('i' to)
+      │  ├─ 0 → type:integer, lev:0
+      │  ├─ 10 → type:integer, lev:0
+      │  └─ Assign('scores[i]' := i*1.5) → type:real
+      ├─ Assign('sum' := 0.0) → type:real
+      ├─ For('i' to)
+      │  ├─ 0 → type:integer, lev:0
+      │  ├─ 10 → type:integer, lev:0
+      │  └─ Assign('sum' := sum+scores[...]) → type:real
+      ├─ Assign('avg' := sum/11.0) → type:real
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ If
+      │  ├─ BinOp '>' → type:boolean, lev:0
+      │  │  ├─ 'count' → tab_index:41, type:integer, lev:0
+      │  │  └─ 0 → type:integer, lev:0
+      │  ├─ Block
+      │  │  ├─ Assign('avg' := totalbagicount) → type:real
+      │  │  ├─ writeln(...) → predefined
+      │  │  ├─ Assign('result' := total/count) → type:real
+      │  │  └─ writeln(...) → predefined
+      │  └─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ Assign('total' := 0) → type:integer
+      ├─ For('i' to)
+      │  ├─ 1 → type:integer, lev:0
+      │  ├─ 5 → type:integer, lev:0
+      │  └─ For('j' to)
+      │     ├─ 1 → type:integer, lev:0
+      │     ├─ 5 → type:integer, lev:0
+      │     └─ Assign('total' := total+i*j) → type:integer
+      ├─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ For('i' to)
+      │  ├─ 1 → type:integer, lev:0
+      │  ├─ 3 → type:integer, lev:0
+      │  └─ Block
+      │     └─ If
+      │        ├─ BinOp '=' → type:boolean, lev:0
+      │        │  ├─ BinOp 'mod' → type:integer, lev:0
+      │        │  │  ├─ 'i' → tab_index:38, type:integer, lev:0
+      │        │  │  └─ 2 → type:integer, lev:0
+      │        │  └─ 0 → type:integer, lev:0
+      │        ├─ Block
+      │        │  └─ For('j' to)
+      │        │     ├─ 1 → type:integer, lev:0
+      │        │     ├─ 3 → type:integer, lev:0
+      │        │     └─ Block
+      │        │        └─ If
+      │        │           ├─ BinOp '>' → type:boolean, lev:0
+      │        │           │  ├─ 'j' → tab_index:39, type:integer, lev:0
+      │        │           │  └─ 1 → type:integer, lev:0
+      │        │           ├─ writeln(...) → predefined
+      │        │           └─ writeln(...) → predefined
+      │        └─ writeln(...) → predefined
+      ├─ writeln(...) → predefined
+      ├─ Assign('i' := 10+20*3-5) → type:integer
+      ├─ writeln(...) → predefined
+      ├─ Assign('valid' := 5>3dan10<20atau15=15) → type:boolean
+      ├─ If
+      │  ├─ 'valid' → tab_index:52, type:boolean, lev:0
+      │  └─ writeln(...) → predefined
+      └─ writeln(...) → predefined
+
+================================================================================
+END OF SEMANTIC ANALYSIS
+================================================================================

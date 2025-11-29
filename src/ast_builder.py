@@ -1,35 +1,35 @@
-# AST Builder/Transformer untuk Pascal-S Compiler
-# Mengkonversi Parse Tree (dari parser.py) menjadi Abstract Syntax Tree
+# ast builder/transformer untuk pascal-s compiler
+# konversi parse tree (dari parser.py) jadi abstract syntax tree
 #
-# Parse Tree sangat detail dan mencakup semua token syntax
-# AST lebih simpel dan fokus pada struktur semantic program
+# parse tree sangat detail dan mencakup semua token syntax
+# ast lebih simpel dan fokus pada struktur semantic program
 
 from ast_nodes import *
 from typing import Dict, List, Any, Optional
 
 class ASTBuilder:
     """
-    Transformer class yang mengkonversi parse tree menjadi AST.
+    transformer class yang konversi parse tree jadi ast
     
-    Cara kerja:
-    1. Traverse parse tree secara recursive
-    2. Extract informasi semantic yang penting
-    3. Buang detail syntax yang tidak diperlukan (semicolons, keywords, dll)
-    4. Return AST nodes yang terstruktur
+    cara kerja:
+    1. traverse parse tree secara recursive
+    2. extract informasi semantic yang penting
+    3. buang detail syntax yang tidak diperlukan (semicolons, keywords, dll)
+    4. return ast nodes yang terstruktur
     """
     
     def __init__(self):
-        self.errors = []  # untuk collect semantic errors
+        self.errors = []  # buat collect semantic errors
     
     def build(self, parse_tree: Dict) -> ProgramNode:
         """
-        Main entry point untuk transform parse tree ke AST.
+        main entry point untuk transform parse tree ke ast
         
-        Args:
-            parse_tree: Output dari parser.parse() (dictionary structure)
+        args:
+            parse_tree: output dari parser.parse() (dictionary structure)
         
-        Returns:
-            ProgramNode: Root node dari AST
+        returns:
+            programnode: root node dari ast
         """
         if parse_tree["type"] != "<program>":
             raise ValueError("Expected <program> as root node")
@@ -41,7 +41,7 @@ class ASTBuilder:
     # ========================================================================
     
     def transform_program(self, node: Dict) -> ProgramNode:
-        """Transform <program> node"""
+        """transform program node"""
         # <program> ::= <program-header> <declaration-part> <compound-statement> .
         children = node["children"]
         
@@ -85,12 +85,10 @@ class ASTBuilder:
             subprogram_decls=subprogram_decls
         )
     
-    # ========================================================================
-    # DECLARATION TRANSFORMERS
-    # ========================================================================
+    # transformers untuk deklarasi
     
     def transform_const_declaration(self, node: Dict) -> List[ConstDeclNode]:
-        """Transform <const-declaration> node, bisa multiple constants"""
+        """transform const declaration node, bisa multiple constants"""
         # konstanta ID = VALUE ; ID = VALUE ; ...
         const_nodes = []
         children = node["children"]
@@ -123,7 +121,7 @@ class ASTBuilder:
         return const_nodes
     
     def transform_type_declaration(self, node: Dict) -> List[TypeDeclNode]:
-        """Transform <type-declaration> node, bisa multiple types"""
+        """transform type declaration node, bisa multiple types"""
         # tipe ID = TYPE ; ID = TYPE ; ...
         type_nodes = []
         children = node["children"]
@@ -140,7 +138,7 @@ class ASTBuilder:
         return type_nodes
     
     def transform_var_declaration(self, node: Dict) -> List[VarDeclNode]:
-        """Transform <var-declaration> node, bisa multiple variable groups"""
+        """transform var declaration node, bisa multiple variable groups"""
         # variabel ID1, ID2 : TYPE ; ID3 : TYPE ; ...
         var_nodes = []
         children = node["children"]
@@ -159,7 +157,7 @@ class ASTBuilder:
         return var_nodes
     
     def transform_identifier_list(self, node: Dict) -> List[str]:
-        """Transform <identifier-list> node"""
+        """transform identifier list node"""
         # ID , ID , ID
         identifiers = []
         for child in node["children"]:
@@ -168,7 +166,7 @@ class ASTBuilder:
         return identifiers
     
     def transform_procedure_declaration(self, node: Dict) -> ProcedureDeclNode:
-        """Transform <procedure-declaration> node"""
+        """transform procedure declaration node"""
         # prosedur ID (params) ; <block> ;
         children = node["children"]
         
@@ -189,7 +187,7 @@ class ASTBuilder:
         return ProcedureDeclNode(name=name, params=params, declarations=declarations, body=body)
     
     def transform_function_declaration(self, node: Dict) -> FunctionDeclNode:
-        """Transform <function-declaration> node"""
+        """transform function declaration node"""
         # fungsi ID (params) : TYPE ; <block> ;
         children = node["children"]
         
@@ -215,7 +213,7 @@ class ASTBuilder:
                                declarations=declarations, body=body)
     
     def transform_formal_parameter_list(self, node: Dict) -> List[ParamNode]:
-        """Transform <formal-parameter-list> node"""
+        """transform formal parameter list node"""
         # ( <parameter-group> ; <parameter-group> ; ... )
         params = []
         children = node["children"]
@@ -230,12 +228,10 @@ class ASTBuilder:
         
         return params
     
-    # ========================================================================
-    # TYPE TRANSFORMERS
-    # ========================================================================
+    # transformers untuk tipe
     
     def transform_type(self, node: Dict) -> TypeSpecNode:
-        """Transform <type> node"""
+        """transform type node"""
         child = node["children"][0]
         
         if isinstance(child, dict):
@@ -257,7 +253,7 @@ class ASTBuilder:
         raise ValueError(f"Unknown type structure: {node}")
     
     def transform_array_type(self, node: Dict) -> ArrayTypeNode:
-        """Transform <array-type> node"""
+        """transform array type node"""
         # larik [ <range> ] dari <type>
         children = node["children"]
         # Skip 'larik' and '['
@@ -268,7 +264,7 @@ class ASTBuilder:
         return ArrayTypeNode(index_range=range_node, element_type=element_type)
     
     def transform_range(self, node: Dict) -> RangeNode:
-        """Transform <range> node"""
+        """transform range node"""
         # <expression> .. <expression>
         children = node["children"]
         start = self.transform_expression(children[0])
@@ -276,12 +272,10 @@ class ASTBuilder:
         
         return RangeNode(start=start, end=end)
     
-    # ========================================================================
-    # STATEMENT TRANSFORMERS
-    # ========================================================================
+    # transformers untuk statement
     
     def transform_compound_statement(self, node: Dict) -> CompoundStatementNode:
-        """Transform <compound-statement> node"""
+        """transform compound statement node"""
         # mulai <statement-list> selesai
         statement_list = node["children"][1]
         statements = self.transform_statement_list(statement_list)
@@ -289,7 +283,7 @@ class ASTBuilder:
         return CompoundStatementNode(statements=statements)
     
     def transform_statement_list(self, node: Dict) -> List[StatementNode]:
-        """Transform <statement-list> node"""
+        """transform statement list node"""
         statements = []
         
         for child in node["children"]:
@@ -304,7 +298,7 @@ class ASTBuilder:
         return statements
     
     def transform_statement(self, node: Dict) -> StatementNode:
-        """Transform <statement> node (dispatcher untuk berbagai jenis statement)"""
+        """transform statement node (dispatcher untuk berbagai jenis statement)"""
         node_type = node.get("type", "")
         
         if node_type == "<compound-statement>":
@@ -327,7 +321,7 @@ class ASTBuilder:
             raise ValueError(f"Unknown statement type: {node_type}")
     
     def transform_assignment_statement(self, node: Dict) -> AssignmentNode:
-        """Transform <assignment-statement> node"""
+        """transform assignment statement node"""
         # ID := <expression> atau ID[<expression>] := <expression>
         children = node["children"]
         
@@ -347,7 +341,7 @@ class ASTBuilder:
         return AssignmentNode(target=target, value=value)
     
     def transform_if_statement(self, node: Dict) -> IfStatementNode:
-        """Transform <if-statement> node"""
+        """transform if statement node"""
         # jika <expression> maka <statement> [selain-itu <statement>]
         children = node["children"]
         
@@ -362,7 +356,7 @@ class ASTBuilder:
         return IfStatementNode(condition=condition, then_stmt=then_stmt, else_stmt=else_stmt)
     
     def transform_while_statement(self, node: Dict) -> WhileStatementNode:
-        """Transform <while-statement> node"""
+        """transform while statement node"""
         # selama <expression> lakukan <statement>
         children = node["children"]
         
@@ -372,7 +366,7 @@ class ASTBuilder:
         return WhileStatementNode(condition=condition, body=body)
     
     def transform_for_statement(self, node: Dict) -> ForStatementNode:
-        """Transform <for-statement> node"""
+        """transform for statement node"""
         # untuk ID := <expression> ke/turun-ke <expression> lakukan <statement>
         children = node["children"]
         
@@ -392,7 +386,7 @@ class ASTBuilder:
                               body=body, is_downto=is_downto)
     
     def transform_repeat_statement(self, node: Dict) -> RepeatStatementNode:
-        """Transform <repeat-statement> node"""
+        """transform repeat statement node"""
         # ulangi <statement-list> sampai <expression>
         children = node["children"]
         
@@ -403,7 +397,7 @@ class ASTBuilder:
         return RepeatStatementNode(body=statement_list, condition=condition)
     
     def transform_procedure_call(self, node: Dict) -> ProcedureCallNode:
-        """Transform <procedure/function-call> node (as statement)"""
+        """transform procedure call node (as statement)"""
         # ID ( [<parameter-list>] )
         children = node["children"]
         
@@ -417,7 +411,7 @@ class ASTBuilder:
         return ProcedureCallNode(name=name, args=args)
     
     def transform_parameter_list(self, node: Dict) -> List[ExpressionNode]:
-        """Transform <parameter-list> node (actual parameters)"""
+        """transform parameter list node (actual parameters)"""
         # <expression> , <expression> , ...
         params = []
         
@@ -427,12 +421,10 @@ class ASTBuilder:
         
         return params
     
-    # ========================================================================
-    # EXPRESSION TRANSFORMERS
-    # ========================================================================
+    # transformers untuk expression
     
     def transform_expression(self, node: Dict) -> ExpressionNode:
-        """Transform <expression> node"""
+        """transform expression node"""
         # <simple-expression> [<relational-op> <simple-expression>]
         children = node["children"]
         
@@ -448,7 +440,7 @@ class ASTBuilder:
         return left
     
     def transform_simple_expression(self, node: Dict) -> ExpressionNode:
-        """Transform <simple-expression> node"""
+        """transform simple expression node"""
         # [+/-] <term> {[+/-/atau] <term>}
         children = node["children"]
         idx = 0
@@ -480,7 +472,7 @@ class ASTBuilder:
         return result
     
     def transform_term(self, node: Dict) -> ExpressionNode:
-        """Transform <term> node"""
+        """transform term node"""
         # <factor> {[*/ /bagi/mod/dan] <factor>}
         children = node["children"]
         
@@ -503,7 +495,7 @@ class ASTBuilder:
         return result
     
     def transform_factor(self, node: Dict) -> ExpressionNode:
-        """Transform <factor> node"""
+        """transform factor node"""
         children = node["children"]
         child = children[0]
         
@@ -549,7 +541,7 @@ class ASTBuilder:
         raise ValueError(f"Unknown factor structure: {node}")
     
     def transform_function_call(self, node: Dict) -> FunctionCallNode:
-        """Transform <function-call> node (in expression)"""
+        """transform function call node (in expression)"""
         # ID ( [<parameter-list>] )
         children = node["children"]
         
@@ -562,22 +554,20 @@ class ASTBuilder:
         
         return FunctionCallNode(name=name, args=args)
     
-    # ========================================================================
-    # HELPER METHODS
-    # ========================================================================
+    # helper methods
     
     def extract_identifier(self, token) -> str:
-        """Extract identifier name from token"""
+        """extract identifier name dari token"""
         if hasattr(token, 'value'):
             return token.value
         raise ValueError(f"Expected identifier token, got: {token}")
     
     def parse_number(self, value: str) -> Union[int, float]:
-        """Parse number string to int or float"""
+        """parse number string ke int atau float"""
         try:
             if '.' in value:
                 return float(value)
             else:
                 return int(value)
         except ValueError:
-            return value  # Return as string if parsing fails
+            return value  # return as string kalo parsing fails
