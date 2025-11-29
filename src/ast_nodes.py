@@ -1,36 +1,32 @@
 from typing import List, Optional, Union, Any
 
-# ============================================================================
-# BASE NODE CLASS
-# ============================================================================
+# base node class buat semua ast nodes
 
 class ASTNode:
     """
-    Base class untuk semua AST nodes.
+    base class untuk semua ast nodes
     
-    Decoration Attributes (for Semantic Analysis):
-    - tab_index: Reference to symbol table (tab) entry index
-    - computed_type: DataType computed during semantic analysis
-    - scope_level: Lexical scope level where this node resides
+    atribut dekorasi untuk analisis semantik:
+    - tab_index: referensi ke index entry di symbol table
+    - computed_type: tipe data hasil komputasi dari semantic analysis
+    - scope_level: level scope leksikal dari node ini
     """
     def __init__(self, line: Optional[int] = None, column: Optional[int] = None):
         self.line = line
         self.column = column
-        # Decoration attributes for semantic analysis
-        self.tab_index: Optional[int] = None      # Reference to tab entry
-        self.computed_type: Optional[Any] = None  # DataType from symbol_table
-        self.scope_level: Optional[int] = None    # Lexical level
+        # atribut dekorasi untuk semantic analysis
+        self.tab_index: Optional[int] = None      # referensi ke tab entry
+        self.computed_type: Optional[Any] = None  # tipe data dari symbol_table
+        self.scope_level: Optional[int] = None    # level leksikal
     
     def __repr__(self):
         return f"{self.__class__.__name__}()"
 
 
-# ============================================================================
-# PROGRAM STRUCTURE NODES
-# ============================================================================
+# nodes untuk struktur program
 
 class ProgramNode(ASTNode):
-    """Node untuk program utama Pascal-S"""
+    """node untuk program utama pascal-s"""
     def __init__(self, name: str, declarations: 'DeclarationPartNode', 
                  body: 'CompoundStatementNode', line: Optional[int] = None):
         super().__init__(line)
@@ -43,7 +39,7 @@ class ProgramNode(ASTNode):
 
 
 class DeclarationPartNode(ASTNode):
-    """Node untuk bagian deklarasi (konstanta, tipe, variabel, subprogram)"""
+    """node untuk bagian deklarasi (konstanta, tipe, variabel, subprogram)"""
     def __init__(self, const_decls: List['ConstDeclNode'] = None,
                  type_decls: List['TypeDeclNode'] = None,
                  var_decls: List['VarDeclNode'] = None,
@@ -59,12 +55,10 @@ class DeclarationPartNode(ASTNode):
         return f"DeclarationPartNode(consts={len(self.const_decls)}, types={len(self.type_decls)}, vars={len(self.var_decls)}, subprograms={len(self.subprogram_decls)})"
 
 
-# ============================================================================
-# DECLARATION NODES
-# ============================================================================
+# nodes untuk deklarasi
 
 class ConstDeclNode(ASTNode):
-    """Node untuk deklarasi konstanta"""
+    """node untuk deklarasi konstanta"""
     def __init__(self, name: str, value: Any, line: Optional[int] = None):
         super().__init__(line)
         self.name = name
@@ -75,7 +69,7 @@ class ConstDeclNode(ASTNode):
 
 
 class TypeDeclNode(ASTNode):
-    """Node untuk deklarasi tipe custom"""
+    """node untuk deklarasi tipe custom"""
     def __init__(self, name: str, type_spec: 'TypeSpecNode', line: Optional[int] = None):
         super().__init__(line)
         self.name = name
@@ -86,7 +80,7 @@ class TypeDeclNode(ASTNode):
 
 
 class VarDeclNode(ASTNode):
-    """Node untuk deklarasi variabel"""
+    """node untuk deklarasi variabel"""
     def __init__(self, names: List[str], type_spec: 'TypeSpecNode', line: Optional[int] = None):
         super().__init__(line)
         self.names = names  # bisa multiple variables (x, y, z: integer)
@@ -97,7 +91,7 @@ class VarDeclNode(ASTNode):
 
 
 class ProcedureDeclNode(ASTNode):
-    """Node untuk deklarasi prosedur"""
+    """node untuk deklarasi prosedur"""
     def __init__(self, name: str, params: List['ParamNode'] = None,
                  declarations: 'DeclarationPartNode' = None,
                  body: 'CompoundStatementNode' = None,
@@ -113,7 +107,7 @@ class ProcedureDeclNode(ASTNode):
 
 
 class FunctionDeclNode(ASTNode):
-    """Node untuk deklarasi fungsi"""
+    """node untuk deklarasi fungsi"""
     def __init__(self, name: str, params: List['ParamNode'] = None,
                  return_type: 'TypeSpecNode' = None,
                  declarations: 'DeclarationPartNode' = None,
@@ -131,7 +125,7 @@ class FunctionDeclNode(ASTNode):
 
 
 class ParamNode(ASTNode):
-    """Node untuk parameter formal di prosedur/fungsi"""
+    """node untuk parameter formal di prosedur/fungsi"""
     def __init__(self, names: List[str], type_spec: 'TypeSpecNode', line: Optional[int] = None):
         super().__init__(line)
         self.names = names
@@ -141,17 +135,15 @@ class ParamNode(ASTNode):
         return f"ParamNode(names={self.names}, type={self.type_spec})"
 
 
-# ============================================================================
-# TYPE NODES
-# ============================================================================
+# nodes untuk tipe data
 
 class TypeSpecNode(ASTNode):
-    """Base class untuk type specifications"""
+    """base class untuk type specifications"""
     pass
 
 
 class PrimitiveTypeNode(TypeSpecNode):
-    """Node untuk tipe primitif (integer, real, boolean, char, string)"""
+    """node untuk tipe primitif (integer, real, boolean, char, string)"""
     def __init__(self, type_name: str, line: Optional[int] = None):
         super().__init__(line)
         self.type_name = type_name  # 'integer', 'real', 'boolean', 'char', 'string'
@@ -161,7 +153,7 @@ class PrimitiveTypeNode(TypeSpecNode):
 
 
 class ArrayTypeNode(TypeSpecNode):
-    """Node untuk tipe array"""
+    """node untuk tipe array"""
     def __init__(self, index_range: 'RangeNode', element_type: TypeSpecNode, line: Optional[int] = None):
         super().__init__(line)
         self.index_range = index_range
@@ -172,7 +164,7 @@ class ArrayTypeNode(TypeSpecNode):
 
 
 class CustomTypeNode(TypeSpecNode):
-    """Node untuk custom type (user-defined)"""
+    """node untuk custom type (user-defined)"""
     def __init__(self, type_name: str, line: Optional[int] = None):
         super().__init__(line)
         self.type_name = type_name
@@ -182,7 +174,7 @@ class CustomTypeNode(TypeSpecNode):
 
 
 class RangeTypeNode(TypeSpecNode):
-    """Node untuk range type (misal: 1..10)"""
+    """node untuk range type (misal: 1..10)"""
     def __init__(self, range_spec: 'RangeNode', line: Optional[int] = None):
         super().__init__(line)
         self.range_spec = range_spec
@@ -192,7 +184,7 @@ class RangeTypeNode(TypeSpecNode):
 
 
 class RangeNode(ASTNode):
-    """Node untuk range specification (start..end)"""
+    """node untuk range specification (start..end)"""
     def __init__(self, start: 'ExpressionNode', end: 'ExpressionNode', line: Optional[int] = None):
         super().__init__(line)
         self.start = start
@@ -202,17 +194,15 @@ class RangeNode(ASTNode):
         return f"RangeNode(start={self.start}, end={self.end})"
 
 
-# ============================================================================
-# STATEMENT NODES
-# ============================================================================
+# nodes untuk statement
 
 class StatementNode(ASTNode):
-    """Base class untuk semua statement nodes"""
+    """base class untuk semua statement nodes"""
     pass
 
 
 class CompoundStatementNode(StatementNode):
-    """Node untuk compound statement (mulai...selesai)"""
+    """node untuk compound statement (mulai...selesai)"""
     def __init__(self, statements: List[StatementNode], line: Optional[int] = None):
         super().__init__(line)
         self.statements = statements
@@ -222,7 +212,7 @@ class CompoundStatementNode(StatementNode):
 
 
 class AssignmentNode(StatementNode):
-    """Node untuk assignment statement (x := expr atau arr[i] := expr)"""
+    """node untuk assignment statement (x := expr atau arr[i] := expr)"""
     def __init__(self, target: Union['VarNode', 'ArrayAccessNode'], 
                  value: 'ExpressionNode', line: Optional[int] = None):
         super().__init__(line)
@@ -234,7 +224,7 @@ class AssignmentNode(StatementNode):
 
 
 class IfStatementNode(StatementNode):
-    """Node untuk if statement"""
+    """node untuk if statement"""
     def __init__(self, condition: 'ExpressionNode', then_stmt: StatementNode,
                  else_stmt: Optional[StatementNode] = None, line: Optional[int] = None):
         super().__init__(line)
@@ -247,7 +237,7 @@ class IfStatementNode(StatementNode):
 
 
 class WhileStatementNode(StatementNode):
-    """Node untuk while loop"""
+    """node untuk while loop"""
     def __init__(self, condition: 'ExpressionNode', body: StatementNode, line: Optional[int] = None):
         super().__init__(line)
         self.condition = condition
@@ -258,7 +248,7 @@ class WhileStatementNode(StatementNode):
 
 
 class ForStatementNode(StatementNode):
-    """Node untuk for loop"""
+    """node untuk for loop"""
     def __init__(self, var_name: str, start: 'ExpressionNode', 
                  end: 'ExpressionNode', body: StatementNode,
                  is_downto: bool = False, line: Optional[int] = None):
@@ -275,7 +265,7 @@ class ForStatementNode(StatementNode):
 
 
 class RepeatStatementNode(StatementNode):
-    """Node untuk repeat-until loop"""
+    """node untuk repeat-until loop"""
     def __init__(self, body: List[StatementNode], condition: 'ExpressionNode', line: Optional[int] = None):
         super().__init__(line)
         self.body = body
@@ -286,7 +276,7 @@ class RepeatStatementNode(StatementNode):
 
 
 class ProcedureCallNode(StatementNode):
-    """Node untuk procedure call"""
+    """node untuk procedure call"""
     def __init__(self, name: str, args: List['ExpressionNode'] = None, line: Optional[int] = None):
         super().__init__(line)
         self.name = name
@@ -297,22 +287,20 @@ class ProcedureCallNode(StatementNode):
 
 
 class EmptyStatementNode(StatementNode):
-    """Node untuk empty statement"""
+    """node untuk empty statement"""
     def __repr__(self):
         return "EmptyStatementNode()"
 
 
-# ============================================================================
-# EXPRESSION NODES
-# ============================================================================
+# nodes untuk expression
 
 class ExpressionNode(ASTNode):
-    """Base class untuk semua expression nodes"""
+    """base class untuk semua expression nodes"""
     pass
 
 
 class BinOpNode(ExpressionNode):
-    """Node untuk binary operation (x + y, x > y, x dan y, etc)"""
+    """node untuk binary operation (x + y, x > y, x dan y, dll)"""
     def __init__(self, operator: str, left: ExpressionNode, right: ExpressionNode, line: Optional[int] = None):
         super().__init__(line)
         self.operator = operator  # '+', '-', '*', '/', '=', '<>', '<', '>', 'dan', 'atau', dll
@@ -324,7 +312,7 @@ class BinOpNode(ExpressionNode):
 
 
 class UnaryOpNode(ExpressionNode):
-    """Node untuk unary operation (+x, -x, tidak x)"""
+    """node untuk unary operation (+x, -x, tidak x)"""
     def __init__(self, operator: str, operand: ExpressionNode, line: Optional[int] = None):
         super().__init__(line)
         self.operator = operator  # '+', '-', 'tidak'
@@ -335,7 +323,7 @@ class UnaryOpNode(ExpressionNode):
 
 
 class VarNode(ExpressionNode):
-    """Node untuk variable reference"""
+    """node untuk variable reference"""
     def __init__(self, name: str, line: Optional[int] = None):
         super().__init__(line)
         self.name = name
@@ -345,7 +333,7 @@ class VarNode(ExpressionNode):
 
 
 class ArrayAccessNode(ExpressionNode):
-    """Node untuk array element access (arr[i])"""
+    """node untuk array element access (arr[i])"""
     def __init__(self, array_name: str, index: ExpressionNode, line: Optional[int] = None):
         super().__init__(line)
         self.array_name = array_name
@@ -356,7 +344,7 @@ class ArrayAccessNode(ExpressionNode):
 
 
 class FunctionCallNode(ExpressionNode):
-    """Node untuk function call dalam expression"""
+    """node untuk function call dalam expression"""
     def __init__(self, name: str, args: List[ExpressionNode] = None, line: Optional[int] = None):
         super().__init__(line)
         self.name = name
@@ -367,7 +355,7 @@ class FunctionCallNode(ExpressionNode):
 
 
 class NumberLiteralNode(ExpressionNode):
-    """Node untuk number literal"""
+    """node untuk number literal"""
     def __init__(self, value: Union[int, float], line: Optional[int] = None):
         super().__init__(line)
         self.value = value
@@ -377,7 +365,7 @@ class NumberLiteralNode(ExpressionNode):
 
 
 class CharLiteralNode(ExpressionNode):
-    """Node untuk char literal"""
+    """node untuk char literal"""
     def __init__(self, value: str, line: Optional[int] = None):
         super().__init__(line)
         self.value = value
@@ -387,7 +375,7 @@ class CharLiteralNode(ExpressionNode):
 
 
 class StringLiteralNode(ExpressionNode):
-    """Node untuk string literal"""
+    """node untuk string literal"""
     def __init__(self, value: str, line: Optional[int] = None):
         super().__init__(line)
         self.value = value
@@ -397,7 +385,7 @@ class StringLiteralNode(ExpressionNode):
 
 
 class BooleanLiteralNode(ExpressionNode):
-    """Node untuk boolean literal (true/false)"""
+    """node untuk boolean literal (true/false)"""
     def __init__(self, value: bool, line: Optional[int] = None):
         super().__init__(line)
         self.value = value

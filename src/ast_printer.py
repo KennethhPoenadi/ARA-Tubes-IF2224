@@ -4,8 +4,8 @@ from typing import Any, List
 
 def _get_arrow_annotation(node: ASTNode) -> str:
     """
-    Get arrow annotation for a node showing tab_index, type, and lev.
-    Returns formatted string like "→ tab_index:30, type:integer, lev:0" if decorations exist.
+    get arrow annotation untuk node showing tab_index, type, dan lev
+    return formatted string seperti '→ tab_index:30, type:integer, lev:0' kalo ada decorations
     """
     parts = []
     
@@ -39,7 +39,7 @@ def _get_arrow_annotation(node: ASTNode) -> str:
 
 
 def _get_block_annotation(node: ASTNode) -> str:
-    """Get annotation for block nodes"""
+    """get annotation untuk block nodes"""
     parts = []
     if hasattr(node, 'block_index') and node.block_index is not None:
         parts.append(f"block_index:{node.block_index}")
@@ -52,12 +52,12 @@ def _get_block_annotation(node: ASTNode) -> str:
 
 # Alias for backward compatibility
 def _get_decoration_str(node: ASTNode) -> str:
-    """Backward compatibility - now returns arrow annotation"""
+    """backward compatibility - sekarang return arrow annotation"""
     return _get_arrow_annotation(node)
 
 
 def _get_simple_node_str(node: ASTNode) -> str:
-    """Get simple string representation without multi-line formatting"""
+    """get simple string representation tanpa multi-line formatting"""
     decoration = _get_decoration_str(node)
     
     if isinstance(node, VarNode):
@@ -76,8 +76,8 @@ def _get_simple_node_str(node: ASTNode) -> str:
 
 def _format_multiline_expr(node: ASTNode, base_indent: str) -> List[str]:
     """
-    Format a complex expression node with multi-line output.
-    Returns list of lines.
+    format complex expression node dengan multi-line output
+    return list of lines
     """
     decoration = _get_decoration_str(node)
     lines = []
@@ -182,7 +182,7 @@ def _format_multiline_expr(node: ASTNode, base_indent: str) -> List[str]:
 
 
 def _is_complex_expr(node: ASTNode) -> bool:
-    """Check if an expression needs multi-line formatting"""
+    """cek apakah expression butuh multi-line formatting"""
     if isinstance(node, (BinOpNode, UnaryOpNode)):
         return True
     if isinstance(node, (FunctionCallNode, ArrayAccessNode)) and hasattr(node, 'args') and node.args:
@@ -193,7 +193,7 @@ def _is_complex_expr(node: ASTNode) -> bool:
 
 
 def _has_declarations(decl_node: DeclarationPartNode) -> bool:
-    """Check if a DeclarationPartNode has any actual declarations"""
+    """cek apakah declarationpartnode punya actual declarations"""
     if not isinstance(decl_node, DeclarationPartNode):
         return False
     return bool(decl_node.const_decls or decl_node.type_decls or 
@@ -202,8 +202,8 @@ def _has_declarations(decl_node: DeclarationPartNode) -> bool:
 
 def get_node_info_multiline(node: ASTNode, base_prefix: str, is_last: bool) -> List[str]:
     """
-    Get multi-line node info for complex nodes.
-    Returns list of strings (lines) to print.
+    get multi-line node info untuk complex nodes
+    return list of strings (lines) untuk print
     """
     decoration = _get_decoration_str(node)
     
@@ -273,14 +273,14 @@ def get_node_info_multiline(node: ASTNode, base_prefix: str, is_last: bool) -> L
 
 def print_ast(node: ASTNode, indent: str = "", is_last: bool = True, is_root: bool = False):
     """
-    Print AST dengan format tree yang rapi menggunakan ASCII art.
-    Original AST format without semantic decorations.
+    print ast dengan format tree yang rapi pake ascii art
+    original ast format tanpa semantic decorations
     
-    Args:
-        node: AST node yang akan di-print
-        indent: String untuk indentation
-        is_last: Apakah node ini adalah child terakhir
-        is_root: Apakah node ini adalah root
+    args:
+        node: ast node yang akan di-print
+        indent: string untuk indentation
+        is_last: apakah node ini adalah child terakhir
+        is_root: apakah node ini adalah root
     """
     if node is None:
         return
@@ -312,17 +312,17 @@ def print_ast(node: ASTNode, indent: str = "", is_last: bool = True, is_root: bo
 
 def ast_to_string(node: ASTNode, indent: str = "", is_last: bool = True, is_root: bool = False) -> str:
     """
-    Convert AST ke string representation (untuk output ke file).
-    Original AST format without semantic decorations.
+    convert ast ke string representation (untuk output ke file)
+    original ast format tanpa semantic decorations
     
-    Args:
-        node: AST node yang akan dikonversi
-        indent: String untuk indentation
-        is_last: Apakah node ini adalah child terakhir
-        is_root: Apakah node ini adalah root
+    args:
+        node: ast node yang akan dikonversi
+        indent: string untuk indentation
+        is_last: apakah node ini adalah child terakhir
+        is_root: apakah node ini adalah root
     
-    Returns:
-        String representation dari AST
+    returns:
+        string representation dari ast
     """
     if node is None:
         return ""
@@ -358,9 +358,9 @@ def ast_to_string(node: ASTNode, indent: str = "", is_last: bool = True, is_root
 
 def get_node_info(node: ASTNode) -> str:
     """
-    Dapatkan string representasi yang informatif dari AST node.
-    Original format without semantic decorations.
-    Format: NodeType(attr: value, ...)
+    dapatkan string representasi yang informatif dari ast node
+    original format tanpa semantic decorations
+    format: nodetype(attr: value, ...)
     """
     if isinstance(node, ProgramNode):
         return f"ProgramNode(name: '{node.name}')"
@@ -479,7 +479,7 @@ def get_node_info(node: ASTNode) -> str:
 
 
 def get_inline_expr_str(node: ASTNode) -> str:
-    """Get a compact inline string representation of a node (original format)"""
+    """get compact inline string representation dari node (original format)"""
     if isinstance(node, VarNode):
         return f"Var('{node.name}')"
     elif isinstance(node, NumberLiteralNode):
@@ -508,7 +508,7 @@ def get_inline_expr_str(node: ASTNode) -> str:
 
 
 def _get_value_summary(node: ASTNode) -> str:
-    """Get a short summary of a value expression"""
+    """get short summary dari value expression"""
     if isinstance(node, NumberLiteralNode):
         return str(node.value)
     elif isinstance(node, VarNode):
@@ -534,7 +534,7 @@ def _get_value_summary(node: ASTNode) -> str:
 
 
 def get_inline_node_str(node: ASTNode) -> str:
-    """Get a compact inline string representation of a node (with arrow annotations)"""
+    """get compact inline string representation dari node (dengan arrow annotations)"""
     annotation = _get_arrow_annotation(node)
     
     if isinstance(node, VarNode):
@@ -565,7 +565,7 @@ def get_inline_node_str(node: ASTNode) -> str:
 
 
 def get_type_string(type_spec: 'TypeSpecNode') -> str:
-    """Get a string representation of a type"""
+    """get string representation dari type"""
     if isinstance(type_spec, PrimitiveTypeNode):
         return type_spec.type_name
     elif isinstance(type_spec, ArrayTypeNode):
@@ -579,14 +579,12 @@ def get_type_string(type_spec: 'TypeSpecNode') -> str:
         return "unknown"
 
 
-# ============================================================================
-# DECORATED AST FUNCTIONS - With semantic annotations (→ tab_index, type, lev)
-# ============================================================================
+# decorated ast functions - dengan semantic annotations (→ tab_index, type, lev)
 
 def print_decorated_ast(node: ASTNode, indent: str = "", is_last: bool = True, is_root: bool = False):
     """
-    Print Decorated AST dengan format tree menggunakan Unicode characters.
-    Includes semantic annotations (tab_index, type, lev).
+    print decorated ast dengan format tree pake unicode characters
+    termasuk semantic annotations (tab_index, type, lev)
     """
     if node is None:
         return
@@ -613,8 +611,8 @@ def print_decorated_ast(node: ASTNode, indent: str = "", is_last: bool = True, i
 
 def decorated_ast_to_string(node: ASTNode, indent: str = "", is_last: bool = True, is_root: bool = False) -> str:
     """
-    Convert Decorated AST ke string representation.
-    Uses Unicode tree characters (├─, └─, │) and includes semantic annotations.
+    convert decorated ast ke string representation
+    pake unicode tree characters (├─, └─, │) dan include semantic annotations
     """
     if node is None:
         return ""
@@ -645,8 +643,8 @@ def decorated_ast_to_string(node: ASTNode, indent: str = "", is_last: bool = Tru
 
 def get_decorated_node_info(node: ASTNode) -> str:
     """
-    Get string representation of AST node with semantic annotations.
-    Format: NodeType(info) → tab_index:X, type:Y, lev:Z
+    get string representation dari ast node dengan semantic annotations
+    format: nodetype(info) → tab_index:x, type:y, lev:z
     """
     annotation = _get_arrow_annotation(node)
     
@@ -767,8 +765,8 @@ def get_decorated_node_info(node: ASTNode) -> str:
 
 def get_node_children(node: ASTNode) -> list:
     """
-    Dapatkan list of children dari AST node.
-    Return list berisi child nodes untuk traversal.
+    dapatkan list of children dari ast node
+    return list berisi child nodes untuk traversal
     """
     children = []
     
@@ -888,8 +886,8 @@ def get_node_children(node: ASTNode) -> list:
 
 def print_ast_compact(node: ASTNode, indent: int = 0):
     """
-    Print AST dalam format compact (lebih simple, tanpa ASCII art).
-    Berguna untuk debugging cepat.
+    print ast dalam format compact (lebih simple, tanpa ascii art)
+    berguna untuk debugging cepat
     """
     if node is None:
         return

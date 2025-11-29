@@ -1,32 +1,32 @@
 #!/usr/bin/env python3
 """
-Semantic Analyzer for Pascal-S Compiler
+semantic analyzer untuk pascal-s compiler
 
-This module implements the SemanticVisitor class that traverses the AST
-and performs semantic analysis including:
-- Symbol table management
-- Type checking
-- Scope management
-- Declaration verification
-- Expression type inference
+module ini implementasi class semanticvisitor yang traverse ast
+dan lakukan semantic analysis termasuk:
+- symbol table management
+- type checking
+- scope management
+- declaration verification
+- expression type inference
 
-Compatible with ast_nodes.py and symbol_table.py
+kompatibel dengan ast_nodes.py dan symbol_table.py
 """
 
 from typing import Optional, List, Any, Union
 import sys
 import os
 
-# Add current directory to path for imports
+# add current directory ke path untuk imports
 sys.path.insert(0, os.path.dirname(__file__))
 
-# Import symbol table components
+# import symbol table components
 from symbol_table import (
     SymbolTable, SymbolTableEntry, ObjectType, DataType,
     data_type_from_ast
 )
 
-# Import all AST node classes
+# import all ast node classes
 from ast_nodes import (
     ASTNode, ProgramNode, DeclarationPartNode,
     ConstDeclNode, TypeDeclNode, VarDeclNode,
@@ -42,7 +42,7 @@ from ast_nodes import (
 
 
 class SemanticError(Exception):
-    """Exception for semantic errors during analysis"""
+    """exception untuk semantic errors saat analysis"""
     def __init__(self, message: str, line: Optional[int] = None, column: Optional[int] = None):
         self.message = message
         self.line = line
@@ -57,16 +57,16 @@ class SemanticError(Exception):
 
 class SemanticVisitor:
     """
-    AST visitor for semantic analysis.
+    ast visitor untuk semantic analysis
     
-    Traverses the AST and performs:
-    - Symbol table population
-    - Type checking
-    - Scope management
-    - Semantic validation
+    traverse ast dan lakukan:
+    - symbol table population
+    - type checking
+    - scope management
+    - semantic validation
     
-    Usage:
-        visitor = SemanticVisitor()
+    usage:
+        visitor = semanticvisitor()
         visitor.visit(ast)
         errors = visitor.errors
         symbol_table = visitor.symbol_table
@@ -76,13 +76,13 @@ class SemanticVisitor:
         self.symbol_table = SymbolTable()
         self.errors: List[SemanticError] = []
         self.warnings: List[str] = []
-        self.current_function: Optional[str] = None  # Track current function for return type checking
+        self.current_function: Optional[str] = None  # track current function buat return type checking
         self.current_function_return_type: Optional[DataType] = None
     
     def visit(self, node: ASTNode) -> Optional[DataType]:
         """
-        Main visit dispatcher - routes to appropriate visit_* method.
-        Returns the type of the node (for expressions) or None.
+        main visit dispatcher - route ke appropriate visit_* method
+        return tipe dari node (untuk expressions) atau none
         """
         if node is None:
             return None
@@ -96,7 +96,7 @@ class SemanticVisitor:
         return visitor_method(node)
     
     def generic_visit(self, node: ASTNode) -> None:
-        """Default visitor for unhandled nodes - visits children if available"""
+        """default visitor untuk unhandled nodes - visit children kalo ada"""
         # Try to visit any child nodes
         for attr_name in dir(node):
             if attr_name.startswith('_'):
@@ -110,24 +110,22 @@ class SemanticVisitor:
                         self.visit(item)
     
     def add_error(self, message: str, node: Optional[ASTNode] = None):
-        """Add a semantic error"""
+        """add semantic error"""
         line = getattr(node, 'line', None) if node else None
         column = getattr(node, 'column', None) if node else None
         error = SemanticError(message, line, column)
         self.errors.append(error)
     
     def add_warning(self, message: str, node: Optional[ASTNode] = None):
-        """Add a warning"""
+        """add warning"""
         line = getattr(node, 'line', None) if node else None
         location = f" at line {line}" if line else ""
         self.warnings.append(f"Warning{location}: {message}")
     
-    # ========================================================================
-    # PROGRAM STRUCTURE VISITORS
-    # ========================================================================
+    # visitors untuk struktur program
     
     def visit_ProgramNode(self, node: ProgramNode) -> None:
-        """Visit program node - entry point for analysis"""
+        """visit program node - entry point untuk analysis"""
         # Enter program name into symbol table
         self.symbol_table.enter_program(node.name)  # Program identifier
         
@@ -140,7 +138,7 @@ class SemanticVisitor:
             self.visit(node.body)
     
     def visit_DeclarationPartNode(self, node: DeclarationPartNode) -> None:
-        """Visit declaration part - process all declarations"""
+        """visit declaration part - process semua declarations"""
         # Process constants first (they can be used in type definitions)
         for const_decl in node.const_decls:
             self.visit(const_decl)
@@ -157,12 +155,10 @@ class SemanticVisitor:
         for subprog_decl in node.subprogram_decls:
             self.visit(subprog_decl)
     
-    # ========================================================================
-    # DECLARATION VISITORS
-    # ========================================================================
+    # visitors untuk deklarasi
     
     def visit_ConstDeclNode(self, node: ConstDeclNode) -> None:
-        """Visit constant declaration - add to symbol table"""
+        """visit constant declaration - add ke symbol table"""
         # Check for duplicate declaration
         existing = self.symbol_table.lookup_in_current_scope(node.name)
         if existing:
@@ -191,7 +187,7 @@ class SemanticVisitor:
         node.scope_level = self.symbol_table.current_level
     
     def visit_TypeDeclNode(self, node: TypeDeclNode) -> None:
-        """Visit type declaration - add custom type to symbol table"""
+        """visit type declaration - add custom type ke symbol table"""
         # Check for duplicate declaration
         existing = self.symbol_table.lookup_in_current_scope(node.name)
         if existing:
@@ -214,7 +210,7 @@ class SemanticVisitor:
         node.scope_level = self.symbol_table.current_level
     
     def visit_VarDeclNode(self, node: VarDeclNode) -> None:
-        """Visit variable declaration - add variables to symbol table"""
+        """visit variable declaration - add variables ke symbol table"""
         # Get the data type
         data_type = data_type_from_ast(node.type_spec)
 
@@ -257,7 +253,7 @@ class SemanticVisitor:
         node.scope_level = self.symbol_table.current_level
     
     def visit_ProcedureDeclNode(self, node: ProcedureDeclNode) -> None:
-        """Visit procedure declaration"""
+        """visit procedure declaration"""
         # Check for duplicate declaration
         existing = self.symbol_table.lookup_in_current_scope(node.name)
         if existing:
@@ -288,7 +284,7 @@ class SemanticVisitor:
         self.symbol_table.exit_scope()
     
     def visit_FunctionDeclNode(self, node: FunctionDeclNode) -> None:
-        """Visit function declaration"""
+        """visit function declaration"""
         # Check for duplicate declaration
         existing = self.symbol_table.lookup_in_current_scope(node.name)
         if existing:
@@ -332,7 +328,7 @@ class SemanticVisitor:
         self.symbol_table.exit_scope()
     
     def visit_ParamNode(self, node: ParamNode) -> None:
-        """Visit parameter node - add parameters to symbol table"""
+        """visit parameter node - add parameters ke symbol table"""
         param_type = data_type_from_ast(node.type_spec)
 
         tab_indices = []
@@ -353,12 +349,10 @@ class SemanticVisitor:
         node.computed_type = param_type
         node.scope_level = self.symbol_table.current_level
     
-    # ========================================================================
-    # TYPE VISITORS
-    # ========================================================================
+    # visitors untuk tipe
     
     def visit_PrimitiveTypeNode(self, node: PrimitiveTypeNode) -> DataType:
-        """Visit primitive type node"""
+        """visit primitive type node"""
         type_map = {
             "integer": DataType.INTEGER,
             "real": DataType.REAL,
@@ -369,11 +363,11 @@ class SemanticVisitor:
         return type_map.get(node.type_name.lower(), DataType.INTEGER)
     
     def visit_ArrayTypeNode(self, node: ArrayTypeNode) -> DataType:
-        """Visit array type node"""
+        """visit array type node"""
         return DataType.ARRAY
     
     def visit_CustomTypeNode(self, node: CustomTypeNode) -> DataType:
-        """Visit custom type node - check if type exists"""
+        """visit custom type node - cek apakah type ada"""
         type_entry = self.symbol_table.lookup(node.type_name)
         if not type_entry or type_entry.obj != ObjectType.TYPE:
             self.add_error(f"Unknown type '{node.type_name}'", node)
@@ -381,11 +375,11 @@ class SemanticVisitor:
         return type_entry.type
     
     def visit_RangeTypeNode(self, node: RangeTypeNode) -> DataType:
-        """Visit range type node"""
+        """visit range type node"""
         return DataType.INTEGER  # Ranges are typically integer
     
     def visit_RangeNode(self, node: RangeNode) -> DataType:
-        """Visit range node"""
+        """visit range node"""
         # Visit start and end expressions
         start_type = self.visit(node.start)
         end_type = self.visit(node.end)
@@ -396,23 +390,22 @@ class SemanticVisitor:
         
         return DataType.INTEGER
     
-    # ========================================================================
-    # STATEMENT VISITORS
-    # ========================================================================
+    # visitors untuk statement
     
     def visit_CompoundStatementNode(self, node: CompoundStatementNode) -> None:
-        """Visit compound statement (block) - just visit statements without creating new scope.
+        """
+        visit compound statement (block) - visit statements tanpa create new scope
         
-        Note: In Pascal, compound statements (begin..end) do NOT create new scopes.
-        Only procedures and functions create new scopes. Variable declarations
-        are handled at the declaration level, not within compound statements.
+        catatan: di pascal, compound statements (mulai..selesai) tidak create new scopes
+        hanya procedures dan functions yang create new scopes. variable declarations
+        dihandle di declaration level, bukan dalam compound statements
         """
         # Visit all statements in the block (no scope change)
         for stmt in node.statements:
             self.visit(stmt)
     
     def visit_AssignmentNode(self, node: AssignmentNode) -> None:
-        """Visit assignment statement - check types match"""
+        """visit assignment statement - cek types match"""
         # Get target type
         target_type = self.visit(node.target)
         
@@ -436,7 +429,7 @@ class SemanticVisitor:
         node.computed_type = target_type
     
     def visit_IfStatementNode(self, node: IfStatementNode) -> None:
-        """Visit if statement - check condition is boolean"""
+        """visit if statement - cek condition adalah boolean"""
         # Check condition type
         condition_type = self.visit(node.condition)
         if condition_type and condition_type != DataType.BOOLEAN:
@@ -450,7 +443,7 @@ class SemanticVisitor:
             self.visit(node.else_stmt)
     
     def visit_WhileStatementNode(self, node: WhileStatementNode) -> None:
-        """Visit while statement - check condition is boolean"""
+        """visit while statement - cek condition adalah boolean"""
         # Check condition type
         condition_type = self.visit(node.condition)
         if condition_type and condition_type != DataType.BOOLEAN:
@@ -460,7 +453,7 @@ class SemanticVisitor:
         self.visit(node.body)
     
     def visit_ForStatementNode(self, node: ForStatementNode) -> None:
-        """Visit for statement - check loop variable and bounds"""
+        """visit for statement - cek loop variable dan bounds"""
         # Check loop variable exists and is integer
         var_entry = self.symbol_table.lookup(node.var_name)
         if not var_entry:
@@ -482,7 +475,7 @@ class SemanticVisitor:
         self.visit(node.body)
     
     def visit_RepeatStatementNode(self, node: RepeatStatementNode) -> None:
-        """Visit repeat statement - check condition is boolean"""
+        """visit repeat statement - cek condition adalah boolean"""
         # Visit loop body (list of statements)
         for stmt in node.body:
             self.visit(stmt)
@@ -493,7 +486,7 @@ class SemanticVisitor:
             self.add_error("Repeat-until condition must be a boolean expression", node)
     
     def visit_ProcedureCallNode(self, node: ProcedureCallNode) -> None:
-        """Visit procedure call - check procedure exists and arguments match"""
+        """visit procedure call - cek procedure ada dan arguments match"""
         # Look up procedure
         proc_entry, tab_index = self.symbol_table.lookup_with_index(node.name)
         
@@ -526,15 +519,13 @@ class SemanticVisitor:
         node.scope_level = proc_entry.lev
     
     def visit_EmptyStatementNode(self, node: EmptyStatementNode) -> None:
-        """Visit empty statement - nothing to do"""
+        """visit empty statement - nothing to do"""
         pass
     
-    # ========================================================================
-    # EXPRESSION VISITORS
-    # ========================================================================
+    # visitors untuk expression
     
     def visit_BinOpNode(self, node: BinOpNode) -> DataType:
-        """Visit binary operation - compute result type"""
+        """visit binary operation - compute result type"""
         left_type = self.visit(node.left)
         right_type = self.visit(node.right)
         
@@ -548,7 +539,7 @@ class SemanticVisitor:
         return result_type
     
     def visit_UnaryOpNode(self, node: UnaryOpNode) -> DataType:
-        """Visit unary operation - compute result type"""
+        """visit unary operation - compute result type"""
         operand_type = self.visit(node.operand)
         
         if operand_type is None:
@@ -579,7 +570,7 @@ class SemanticVisitor:
         return operand_type
     
     def visit_VarNode(self, node: VarNode) -> DataType:
-        """Visit variable reference - look up in symbol table"""
+        """visit variable reference - look up di symbol table"""
         # Handle boolean literals (true, false) as special built-in constants
         if node.name.lower() in ['true', 'false']:
             node.tab_index = -1  # No symbol table entry (built-in)
@@ -607,7 +598,7 @@ class SemanticVisitor:
         return entry.type
     
     def visit_ArrayAccessNode(self, node: ArrayAccessNode) -> DataType:
-        """Visit array access - check array exists and index type"""
+        """visit array access - cek array ada dan index type"""
         entry, tab_index = self.symbol_table.lookup_with_index(node.array_name)
         
         if not entry:
@@ -638,7 +629,7 @@ class SemanticVisitor:
         return element_type
     
     def visit_FunctionCallNode(self, node: FunctionCallNode) -> DataType:
-        """Visit function call - check function exists and return type"""
+        """visit function call - cek function ada dan return type"""
         entry, tab_index = self.symbol_table.lookup_with_index(node.name)
         
         if not entry:
@@ -661,7 +652,7 @@ class SemanticVisitor:
         return entry.type
     
     def visit_NumberLiteralNode(self, node: NumberLiteralNode) -> DataType:
-        """Visit number literal - return integer or real"""
+        """visit number literal - return integer atau real"""
         if isinstance(node.value, float):
             node.computed_type = DataType.REAL
         else:
@@ -670,29 +661,27 @@ class SemanticVisitor:
         return node.computed_type
     
     def visit_CharLiteralNode(self, node: CharLiteralNode) -> DataType:
-        """Visit char literal"""
+        """visit char literal"""
         node.computed_type = DataType.CHAR
         node.scope_level = self.symbol_table.current_level
         return DataType.CHAR
     
     def visit_StringLiteralNode(self, node: StringLiteralNode) -> DataType:
-        """Visit string literal"""
+        """visit string literal"""
         node.computed_type = DataType.STRING
         node.scope_level = self.symbol_table.current_level
         return DataType.STRING
     
     def visit_BooleanLiteralNode(self, node: BooleanLiteralNode) -> DataType:
-        """Visit boolean literal"""
+        """visit boolean literal"""
         node.computed_type = DataType.BOOLEAN
         node.scope_level = self.symbol_table.current_level
         return DataType.BOOLEAN
     
-    # ========================================================================
-    # HELPER METHODS
-    # ========================================================================
+    # helper methods
     
     def _process_array_type(self, array_type: ArrayTypeNode) -> int:
-        """Process array type and return array table reference"""
+        """process array type dan return array table reference"""
         # Visit range to get bounds
         self.visit(array_type.index_range)
         
@@ -712,7 +701,7 @@ class SemanticVisitor:
     
     def _compute_binop_type(self, operator: str, left_type: DataType, 
                            right_type: DataType, node: ASTNode) -> Optional[DataType]:
-        """Compute the result type of a binary operation"""
+        """compute result type dari binary operation"""
         op = operator.lower()
         
         # Arithmetic operators: +, -, *, /, div, mod
@@ -761,7 +750,7 @@ class SemanticVisitor:
         return None
     
     def _types_compatible(self, type1: DataType, type2: DataType) -> bool:
-        """Check if two types are compatible for assignment/comparison"""
+        """cek apakah dua types compatible untuk assignment/comparison"""
         if type1 == type2:
             return True
         
@@ -776,33 +765,33 @@ class SemanticVisitor:
         return False
     
     def has_errors(self) -> bool:
-        """Check if any errors were found during analysis"""
+        """cek apakah ada errors yang ditemukan saat analysis"""
         return len(self.errors) > 0
     
     def print_errors(self):
-        """Print all semantic errors"""
+        """print semua semantic errors"""
         for error in self.errors:
             print(f"ERROR: {error.message}")
     
     def print_warnings(self):
-        """Print all warnings"""
+        """print semua warnings"""
         for warning in self.warnings:
             print(warning)
     
     def print_symbol_table(self, table_name: str = "all"):
-        """Print the symbol table for debugging"""
+        """print symbol table untuk debugging"""
         self.symbol_table.print_table(table_name)
 
 
 def analyze(ast: ASTNode) -> SemanticVisitor:
     """
-    Perform semantic analysis on an AST.
+    lakukan semantic analysis pada ast
     
-    Args:
-        ast: The root node of the AST
+    args:
+        ast: root node dari ast
         
-    Returns:
-        SemanticVisitor instance with results
+    returns:
+        semanticvisitor instance dengan hasil analysis
     """
     visitor = SemanticVisitor()
     visitor.visit(ast)
