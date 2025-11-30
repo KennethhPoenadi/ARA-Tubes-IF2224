@@ -1,5 +1,69 @@
-python src/LexerCommentHandle.py rules\dfa_rules_commenthandle.json test\milestone-1\input\<file.pas> > test\milestone-1\output\<file.txt>
+===============================================================================
+CARA MENJALANKAN COMPILER PASCAL-S
+===============================================================================
 
-ex:
-python src/LexerCommentHandle.py rules\dfa_rules_commenthandle.json test\milestone-1\input\input-halo.pas > test\milestone-1\output\output-halo.txt
-python src/Lexer_final.py rules\dfa_rules_final.json test\milestone-1\input\input-identifier-error.pas > test\milestone-1\output\output-errIdentifier.txt
+MILESTONE 1 & 2 - Lexer dan Parser:
+-----------------------------------
+COMMAND:
+python3 src/compiler.py <file_input>
+
+FILE INPUT:
+- File Pascal (.pas)
+- File Token (.txt)
+
+CONTOH:
+python3 src/compiler.py test/milestone-2/input/test1.pas
+
+OUTPUT:
+- Parse tree ditampilkan di terminal
+- File output di folder yang sama dengan format: output<nama_file>.txt
+
+===============================================================================
+
+MILESTONE 3 - Semantic Analysis:
+--------------------------------
+COMMAND:
+python3 src/ast_printer.py <file_input.pas>
+
+CONTOH:
+python3 src/ast_printer.py test/milestone-3/input/test1.pas
+
+OUTPUT:
+- Symbol table (tab, btab, atab) ditampilkan di terminal
+- Decorated AST dengan anotasi (tab_index, type, lev)
+- File output tersimpan di: test/milestone-3/output/output_<nama_file>.txt
+
+ISI OUTPUT:
+1. Symbol Table (tab):
+   - idx, id, obj, typ, ref, nrm, lev, adr, link
+   - Reserved words (idx 0-31)
+   - User identifiers (idx 32+)
+
+2. Block Table (btab):
+   - idx, last, lpar, psze, vsze
+
+3. Array Table (atab):
+   - idx, xtyp, etyp, eref, low, high, elsz, size
+   - (kosong jika tidak ada array)
+
+4. Decorated AST:
+   - Setiap node memiliki anotasi:
+     → tab_index:<idx>, type:<type>, lev:<scope_level>
+
+5. Semantic Errors (jika ada):
+   - Daftar error yang ditemukan saat semantic analysis
+
+===============================================================================
+
+CONTOH LENGKAP:
+===============================================================================
+
+Milestone 1 & 2:
+python3 src/compiler.py test/milestone-2/input/test1.pas
+
+Milestone 3:
+python3 src/ast_printer.py test/milestone-3/input/test1.pas
+python3 src/ast_printer.py test/milestone-3/input/test2.pas
+python3 src/ast_printer.py test/milestone-3/input/test_brutal.pas
+
+===============================================================================
