@@ -41,6 +41,40 @@ Parser menganalisis urutan token dan membangun Parse Tree menggunakan algoritma 
   - Expressions dengan operator precedence (relational, arithmetic, logical)
   - Procedure/function calls dengan parameter list
 
+### Milestone 3: Semantic Analysis
+Semantic Analyzer memverifikasi makna (semantics) dari parse tree yang sudah dihasilkan, membangun AST (Abstract Syntax Tree), dan melakukan type checking serta scope management.
+
+**Fitur:**
+- **AST (Abstract Syntax Tree) Generation:** Mengkonversi parse tree menjadi AST yang lebih ringkas menggunakan Syntax-Directed Translation
+- **Symbol Table Management:**
+  - `tab` (identifier table): Menyimpan variabel, konstanta, prosedur, fungsi, dan tipe
+  - `btab` (block table): Menyimpan informasi block/scope (procedure, function)
+  - `atab` (array table): Menyimpan informasi array (bounds, element type, size)
+  - Reserved words handling (32 reserved words untuk Bahasa Indonesia)
+- **Type Checking:**
+  - Primitive types: integer, real, boolean, char, string
+  - Array types dengan bounds checking
+  - Custom types (user-defined types)
+  - Type compatibility checking
+  - Implicit conversion (integer ↔ real, char ↔ string)
+  - Operator type validation (arithmetic, logical, comparison)
+- **Scope Management:**
+  - Lexical scoping dengan display stack
+  - Nested scope support untuk procedure/function
+  - Variable visibility checking
+  - Duplicate declaration detection
+- **Semantic Validation:**
+  - Undeclared identifier detection
+  - Type mismatch detection (assignment, operations, function calls)
+  - Control flow validation (condition must be boolean)
+  - Loop variable validation (must be integer for FOR loop)
+- **Decorated AST:**
+  - Setiap node memiliki anotasi: `tab_index`, `computed_type`, `scope_level`
+  - Referensi ke symbol table untuk code generation
+- **Error Reporting:**
+  - Semantic error messages dengan line/column info
+  - Warning messages untuk suspicious code
+
 ## Requirements
 
 - Python 3.8 atau lebih baru
@@ -58,11 +92,11 @@ Parser menganalisis urutan token dan membangun Parse Tree menggunakan algoritma 
 
 2. Tidak ada dependency tambahan yang perlu diinstall (menggunakan Python standard library)
 
-### Penggunaan Compiler (Milestone 2)
+### Penggunaan Compiler (Milestone 1 & 2)
 
 **Format:**
 ```bash
-Jalankan dari root folder:
+Jalankan dari root folder
 
 python3 src/compiler.py <input_file>
 ```
@@ -75,6 +109,8 @@ python3 src/compiler.py <input_file>
 
 1. Compile dari source code Pascal-S:
    ```bash
+   Jalankan dari root folder
+
    python3 src/compiler.py test/milestone-2/input/test1.pas
    ```
 
@@ -98,16 +134,97 @@ Parse Tree ditampilkan di terminal dengan format ASCII art. Contoh:
 
 Output juga disimpan ke file di `test/milestone-2/output/output<nama_file>.txt`
 
+### Penggunaan Semantic Analyzer (Milestone 3)
+
+**Format:**
+```bash
+python3 src/ast_printer.py <source_file.pas>
+```
+
+**Contoh penggunaan:**
+
+1. Analyze file Pascal-S dengan semantic checking:
+   ```bash
+   python3 src/ast_printer.py test/milestone-3/input/test1.pas
+   ```
+
+2. Test dengan berbagai test case:
+   ```bash
+   python3 src/ast_printer.py test/milestone-3/input/test2.pas
+   python3 src/ast_printer.py test/milestone-3/input/test_brutal.pas
+   ```
+
+**Output:**
+Program akan menampilkan di terminal:
+- ✓ Status tokenization, parsing, AST building, dan semantic analysis
+- AST (Abstract Syntax Tree) tanpa anotasi
+- Decorated AST dengan anotasi semantic
+
+Output lengkap disimpan ke `test/milestone-3/output/output_<nama_file>.txt` berisi:
+
+1. **Symbol Table (tab):**
+   ```
+   idx  id                  obj         typ   ref   nrm  lev  adr  link
+   ---------------------------------------------------------------------
+   0-31 (reserved words)
+   32   Hello               program     0     -1    1    0    0    -1
+   33   a                   variable    1     -1    1    0    0    32
+   34   b                   variable    1     -1    1    0    1    33
+   ```
+
+2. **Block Table (btab):**
+   ```
+   idx  last   lpar   psze   vsze
+   ---------------------------------
+   0    34     -1     0      2
+   ```
+
+3. **Array Table (atab):**
+   ```
+   atab: (kosong karena tidak ada array)
+   ```
+   Atau jika ada array:
+   ```
+   idx  xtyp  etyp  eref   low   high   elsz   size
+   -------------------------------------------------
+   0    1     1     -1     1     10     1      10
+   ```
+
+4. **Decorated AST:**
+   ```
+   ProgramNode(name: 'Hello')
+    ├─ Declarations
+    │  ├─ VarDecl('a', type: 'integer') → tab_index:33, type:integer, lev:0
+    │  └─ VarDecl('b', type: 'integer') → tab_index:34, type:integer, lev:0
+    └─ Block
+       ├─ Assign('a' := 5) → type:integer
+       ├─ Assign('b' := a+10) → type:integer
+       └─ writeln(...) → predefined
+   ```
+
+5. **Semantic Errors (jika ada):**
+   ```
+   SEMANTIC ERRORS:
+     - Semantic Error at line 5: Undeclared variable 'x'
+     - Semantic Error at line 7: Type mismatch in assignment
+   ```
+
 ### Penggunaan Lexer Saja (Milestone 1)
 
 Jika ingin menjalankan lexer secara terpisah:
 
+Jalankan dari root folder
+
 ```bash
+Jalankan dari root folder
+
 python3 src/Lexer_final.py rules/dfa_rules_final.json <source_file.pas>
 ```
 
 Contoh:
 ```bash
+Jalankan dari root folder
+
 python3 src/Lexer_final.py rules/dfa_rules_final.json test/milestone-1/input/input1.pas
 ```
 
@@ -118,10 +235,15 @@ Output berupa list of tokens dalam format `TYPE(value)`
 ```
 Tubes/
 ├── src/
-│   ├── compiler.py         # Main compiler program (integrates lexer + parser)
+│   ├── compiler.py         # Main compiler (Milestone 1 & 2: lexer + parser)
 │   ├── lexer.py            # Lexer module dengan Indonesian keywords
 │   ├── parser.py           # Parser dengan Recursive Descent (31 fungsi)
 │   ├── tree_printer.py     # Parse tree printer dengan ASCII art
+│   ├── ast_printer.py      # AST printer + Semantic analyzer runner (Milestone 3)
+│   ├── ast_builder.py      # AST builder - convert parse tree → AST
+│   ├── ast_nodes.py        # AST node class definitions
+│   ├── semantic_analyzer.py # Semantic visitor - type & scope checking
+│   ├── symbol_table.py     # Symbol table (tab, btab, atab)
 │   ├── Lexer_final.py      # Standalone lexer (Milestone 1)
 │   └── tokenizer.py        # Token parser untuk .txt files
 ├── rules/
@@ -130,11 +252,17 @@ Tubes/
 │   ├── milestone-1/
 │   │   ├── input/          # Test source files (.pas)
 │   │   └── output/         # Hasil tokenisasi
-│   └── milestone-2/
-│       ├── input/          # Test files (.pas dan .txt)
-│       └── output/         # Parse tree results
-└── doc/
-    └── Laporan-2-AutoRejectAtas.pdf  # Laporan Milestone 2
+│   ├── milestone-2/
+│   │   ├── input/          # Test files (.pas dan .txt)
+│   │   └── output/         # Parse tree results
+│   └── milestone-3/
+│       ├── input/          # Test files untuk semantic analysis
+│       └── output/         # AST + Symbol table results
+├── doc/
+│   ├── Laporan-1-AutoRejectAtas.pdf  # Laporan Milestone 1
+│   ├── Laporan-2-AutoRejectAtas.pdf  # Laporan Milestone 2
+│   └── Laporan-3-AutoRejectAtas.pdf  # Laporan Milestone 3
+└── running.txt             # Cara menjalankan compiler
 ```
 
 ## Contoh Program Pascal-S
@@ -194,11 +322,14 @@ Program telah diuji dengan berbagai test case:
 
 ### Milestone 3 - Semantic Analyzer Tests
 Program telah diuji dengan berbagai test case semantic:
-- **test_1_valid.pas** - Valid program dengan berbagai deklarasi dan statement
-- **test_2_types.pas** - Type checking untuk berbagai tipe data
-- **test_3_scope.pas** - Scope checking untuk nested procedures/functions
-- **test_4_undeclared.pas** - Error detection untuk undeclared variables (14 errors)
-- **test_5_complex.pas** - Complex program dengan kombinasi semua fitur
+- **test1.pas** - Program sederhana dengan assignment dan arithmetic operations
+- **test2.pas** - Fungsi faktorial dengan for loop dan type checking
+- **test3.pas** - Array operations dengan for dan while loop
+- **test4.pas** - Conditional statements (if-then-else)
+- **test5.pas** - Program kompleks dengan konstanta, tipe custom, prosedur, fungsi, array, dan control structures
+- **test_brutal.pas** - Comprehensive test dengan nested procedures, scoping, dan kombinasi semua fitur
+- **test_semantic_error.pas** - Error detection untuk undeclared variables dan type mismatch
+- **test_comments.pas** - Testing comment handling dengan semantic analysis
 
 ## Pembagian Tugas
 
@@ -225,13 +356,6 @@ Program telah diuji dengan berbagai test case semantic:
 | Kenneth Poenadi         | 13523040 | Symbol Table, AST Nodes, Laporan |
 | M. Zahran Ramadhan      | 13523104 | Type Checking, Error Handling, Test Case |
 | Bob Kunanda             | 13523086 | Scope Checking, AST Printer, Laporan |
-
-## Referensi
-
-1. "PASCAL-S: A Subset and its implementation" - http://pascal.hansotten.com/uploads/pascals/PASCAL-S%20A%20subset%20and%20its%20Implementation%20012.pdf
-2. N. Wirth, "The Programming Language Pascal (Revised Report)", ETH Zurich, 1973
-3. "Recursive Descent Parser" - GeeksforGeeks
-4. "Let's Build A Simple Interpreter. Part 7: Abstract Syntax Trees" - Ruslan Spivak
 
 ## License
 
